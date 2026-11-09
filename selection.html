@@ -38,43 +38,72 @@
 <body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
    <!-- ХЕДЕР (ЗБЕРЕЖЕНО ПОЧАТКОВИЙ ДИЗАЙН ТА КОЛЬОРИ) -->
-    <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3" style="background-color: #1E3A8A !important;">
-        <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
-            
-            <!-- ЛОГОТИП ТА НАЗВА -->
-            <a href="../index.html" style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;" aria-label="Головна AgroNext">
-                <img id="logo" 
-                    src="../assets/icons/logo.png" 
-                    alt="AgroNext Logo" 
-                    class="h-12 w-auto object-contain flex-shrink-0"
-                    onerror="if (!this.getAttribute('data-tried-root')) { this.setAttribute('data-tried-root', 'true'); this.src='assets/icons/logo.png'; } else { this.onerror=null; this.src='https://placehold.co/120x48/1E3A8A/FFFFFF?text=AgroNext'; }">
-                <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1 !important; white-space: nowrap !important;">AgroNext</span>
-            </a>
 
-            <!-- НАВІГАЦІЯ -->
-            <nav class="main-navigation hidden md:flex items-center gap-5">
-                <ul class="nav-list flex gap-5 text-xs font-medium" style="color: #ffffff !important;">
-                    <li><a href="../catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
-                    <li><a href="../selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
-                    <li><a href="../compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
-                    <li><a href="../calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
-                    <li><a href="../about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
-                </ul>
-            </nav>
+<!-- ХЕДЕР AGRO NEXT -->
+<header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
+        style="background-color: #1E3A8A !important;">
 
-            <!-- ПОШУК -->
-            <div class="header-search hidden sm:block">
-                <form class="search-form" role="search" action="../catalog.html" method="GET">
-                    <input type="search" name="q" placeholder="Пошук..." class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none" style="color: #1E3A8A !important; background-color: #ffffff !important;">
-                </form>
-            </div>
+    <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
 
-            <!-- МОБІЛЬНА КНОПКА -->
-            <button type="button" class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors" aria-label="Відкрити меню">
-                <svg class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+        <!-- Логотип і перехід на головну -->
+        <a href="index.html"
+           style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;"
+           aria-label="Головна AgroNext">
+
+            <img id="logo"
+                 src="assets/icons/logo.png"
+                 alt="AgroNext Logo"
+                 class="h-12 w-auto object-contain flex-shrink-0">
+
+            <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; white-space: nowrap !important;">
+                AgroNext
+            </span>
+        </a>
+
+        <!-- Навігація -->
+        <nav class="main-navigation hidden md:flex items-center gap-5">
+            <ul class="nav-list flex gap-5 text-xs font-medium"
+                style="color: #ffffff !important;">
+
+                <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
+
+                <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
+
+                <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
+
+                <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
+
+                <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
+
+            </ul>
+        </nav>
+
+        <!-- Пошук -->
+        <div class="header-search hidden sm:block">
+            <form class="search-form" role="search" action="catalog.html" method="GET">
+                <input type="search"
+                       name="q"
+                       placeholder="Пошук..."
+                       class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none"
+                       style="color: #1E3A8A !important; background-color: #ffffff !important;">
+            </form>
         </div>
-    </header>
+
+        <!-- Мобільна кнопка меню -->
+        <button type="button"
+                class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors"
+                aria-label="Відкрити меню">
+            <svg class="w-6 h-6 block" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+    </div>
+</header>
+
 
     <main class="max-w-[1140px] mx-auto px-5 py-8 w-full flex-grow">
         <div class="text-xs text-slate-400 mb-3 flex gap-1">
