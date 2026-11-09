@@ -429,19 +429,54 @@
             </div>
         </section>
 
-        <!-- Форма лідогенерації -->
+       <!-- Форма лідогенерації -->
         <section class="lead-generation-section py-16 bg-slate-50/70 border-t border-slate-200" id="lead">
             <div class="section-container max-w-[1140px] mx-auto px-5">
-                <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-agronext-navy">
+                <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
                     <div class="lead-text">
                         <h2 class="text-2xl font-bold font-heading text-agronext-navy">Почніть сьогодні</h2>
                         <p class="text-slate-500 text-sm mt-2 leading-relaxed">Поговоріть з експертом AgroNext, щоб підібрати потрібну техніку під ваш агрокалендар та вигідно оформити компенсацію.</p>
                     </div>
-                    <form action="about.html#consultation" method="GET" class="lead-form-stacked flex flex-col gap-3">
-                        <input type="text" name="name" placeholder="Ваше ім'я" required class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                        <input type="email" name="email" placeholder="Електронна пошта" required class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                        <input type="tel" name="phone" placeholder="Номер телефону" required class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                        <button type="submit" class="btn btn-outline-full w-full py-2.5 px-4 bg-agronext-navy text-white font-btn font-semibold text-xs rounded hover:bg-agronext-navy-hover transition-all shadow-md" style="color: #ffffff !important;">
+                    
+                    <form id="feedbackForm" class="lead-form-stacked flex flex-col gap-3" novalidate>
+                        <!-- Ім'я -->
+                        <div>
+                            <label for="username" class="block text-xs font-semibold text-agronext-navy mb-1">Ваше ім'я *</label>
+                            <input type="text" id="username" name="username" placeholder="Іван Петренко" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
+                            <p id="nameError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-xs font-semibold text-agronext-navy mb-1">Електронна пошта *</label>
+                            <input type="email" id="email" name="email" placeholder="example@mail.com" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
+                            <p id="emailError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                        </div>
+
+                        <!-- Телефон -->
+                        <div>
+                            <label for="phone" class="block text-xs font-semibold text-agronext-navy mb-1">Номер телефону *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+380501234567" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
+                            <p id="phoneError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                        </div>
+
+                        <!-- Повідомлення -->
+                        <div>
+                            <label for="message" class="block text-xs font-semibold text-agronext-navy mb-1">Повідомлення *</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Опишіть ваше запитання..." class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all"></textarea>
+                            <p id="messageError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                        </div>
+
+                        <!-- Згода -->
+                        <div>
+                            <label class="flex items-center gap-2 cursor-pointer mt-1">
+                                <input type="checkbox" id="agreement" name="agreement" class="w-4 h-4 text-agronext-navy rounded border-slate-300">
+                                <span class="text-xs text-slate-600">Я погоджуюся з політикою конфіденційності</span>
+                            </label>
+                            <p id="agreementError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-full w-full py-2.5 px-4 bg-agronext-navy text-white font-btn font-semibold text-xs rounded hover:bg-agronext-navy-hover transition-all shadow-md mt-2">
                             Отримати безкоштовну консультацію
                         </button>
                     </form>
@@ -450,6 +485,19 @@
         </section>
 
     </main>
+
+    <!-- МОДАЛЬНЕ ВІКНО УСПІХУ -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
+        <div class="bg-white p-6 md:p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-100 text-center relative">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">✓</div>
+            <h3 class="text-xl font-bold font-heading text-agronext-navy mb-2">Заявку прийнято!</h3>
+            <p class="text-slate-500 text-sm mb-6">Форма успішно пройшла клієнтську валідацію. Ми зв'яжемося з вами найближчим часом.</p>
+            <button type="button" id="closeModalBtn" class="w-full py-2.5 px-4 bg-agronext-navy text-white text-xs font-semibold rounded-xl hover:bg-agronext-navy-hover transition-all">
+                Закрити
+            </button>
+        </div>
+    </div>
+
 
     <!-- ФУТЕР -->
     <footer class="site-footer bg-agronext-navy text-white pt-10 pb-5" id="about">
@@ -482,5 +530,189 @@
             <p>&copy; 2026 AgroNext. Всі права захищені.</p>
         </div>
     </footer>
+        <!-- ВБУДОВАНИЙ СКРИПТ ВАЛІДАЦІЇ (ПРАЦЮЄ НА 100%) -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('feedbackForm');
+        if (!form) return;
+
+        const nameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const messageInput = document.getElementById('message');
+        const agreementInput = document.getElementById('agreement');
+        const modal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const REGEX_PHONE = /^\+380\d{9}$/; // Суворо +380 і 9 цифр
+
+        function setError(input, errorId, message) {
+            if (!input) return;
+            input.classList.remove('border-slate-200', 'border-emerald-500');
+            input.classList.add('border-red-500');
+            const errorEl = document.getElementById(errorId);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function setSuccess(input, errorId) {
+            if (!input) return;
+            input.classList.remove('border-slate-200', 'border-red-500');
+            input.classList.add('border-emerald-500');
+            const errorEl = document.getElementById(errorId);
+            if (errorEl) errorEl.classList.add('hidden');
+        }
+
+        function validateName() {
+            if (!nameInput) return true;
+            if (nameInput.value.trim().length < 2) {
+                setError(nameInput, 'nameError', "Ім'я має містити щонайменше 2 символи");
+                return false;
+            }
+            setSuccess(nameInput, 'nameError');
+            return true;
+        }
+
+        function validateEmail() {
+            if (!emailInput) return true;
+            if (!REGEX_EMAIL.test(emailInput.value.trim())) {
+                setError(emailInput, 'emailError', "Введіть коректну пошту (наприклад: name@gmail.com)");
+                return false;
+            }
+            setSuccess(emailInput, 'emailError');
+            return true;
+        }
+
+        function validatePhone() {
+            if (!phoneInput) return true;
+            const val = phoneInput.value.trim();
+            if (!REGEX_PHONE.test(val)) {
+                setError(phoneInput, 'phoneError', "Формат номеру має бути суворо +380XXXXXXXXX (12 символів без букв та пробілів)");
+                return false;
+            }
+            setSuccess(phoneInput, 'phoneError');
+            return true;
+        }
+
+        function validateMessage() {
+            if (!messageInput) return true;
+            if (messageInput.value.trim().length < 10) {
+                setError(messageInput, 'messageError', "Повідомлення має бути не менше 10 символів");
+                return false;
+            }
+            setSuccess(messageInput, 'messageError');
+            return true;
+        }
+
+        function validateAgreement() {
+            if (!agreementInput) return true;
+            const errEl = document.getElementById('agreementError');
+            if (!agreementInput.checked) {
+                if (errEl) {
+                    errEl.textContent = "Необхідно підтвердити згоду";
+                    errEl.classList.remove('hidden');
+                }
+                return false;
+            }
+            if (errEl) errEl.classList.add('hidden');
+            return true;
+        }
+
+        // Динамічна перевірка
+        if (nameInput) nameInput.addEventListener('blur', validateName);
+        if (emailInput) emailInput.addEventListener('blur', validateEmail);
+        if (phoneInput) phoneInput.addEventListener('blur', validatePhone);
+        if (messageInput) messageInput.addEventListener('blur', validateMessage);
+        if (agreementInput) agreementInput.addEventListener('change', validateAgreement);
+
+        // БЛОКУВАННЯ ВІДПРАВКИ ТА ВИКЛИК МОДАЛКИ
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Забороняє будь-яке перезавантаження!
+
+            const v1 = validateName();
+            const v2 = validateEmail();
+            const v3 = validatePhone();
+            const v4 = validateMessage();
+            const v5 = validateAgreement();
+
+            if (v1 && v2 && v3 && v4 && v5) {
+                if (modal) modal.classList.remove('hidden');
+                form.reset();
+                [nameInput, emailInput, phoneInput, messageInput].forEach(i => {
+                    if (i) i.classList.remove('border-emerald-500', 'border-red-500');
+                });
+            }
+        });
+
+        if (modal && closeModalBtn) {
+            closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+        }
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('aboutFeedbackForm');
+        if (!form) return;
+
+        const nameInput = document.getElementById('aboutUsername');
+        const phoneInput = document.getElementById('aboutPhone');
+        const agreementInput = document.getElementById('aboutAgreement');
+        const modal = document.getElementById('aboutSuccessModal');
+        const closeModalBtn = document.getElementById('closeAboutModalBtn');
+
+        const REGEX_PHONE = /^\+380\d{9}$/;
+
+        function setError(input, errorId, msg) {
+            input.classList.remove('border-slate-200', 'border-emerald-500');
+            input.classList.add('border-red-500');
+            const err = document.getElementById(errorId);
+            if (err) { err.textContent = msg; err.classList.remove('hidden'); }
+        }
+
+        function setSuccess(input, errorId) {
+            input.classList.remove('border-slate-200', 'border-red-500');
+            input.classList.add('border-emerald-500');
+            const err = document.getElementById(errorId);
+            if (err) err.classList.add('hidden');
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // БЛОКУЄ ПЕРЕЗАНАВАНТАЖЕННЯ!
+
+            let valid = true;
+            if (nameInput.value.trim().length < 2) {
+                setError(nameInput, 'aboutNameError', "Введіть ім'я (мін. 2 символи)");
+                valid = false;
+            } else { setSuccess(nameInput, 'aboutNameError'); }
+
+            if (!REGEX_PHONE.test(phoneInput.value.trim())) {
+                setError(phoneInput, 'aboutPhoneError', "Номер має бути в форматі +380XXXXXXXXX (без букв!)");
+                valid = false;
+            } else { setSuccess(phoneInput, 'aboutPhoneError'); }
+
+            if (!agreementInput.checked) {
+                const err = document.getElementById('aboutAgreementError');
+                if (err) { err.textContent = "Потрібна згода"; err.classList.remove('hidden'); }
+                valid = false;
+            } else {
+                const err = document.getElementById('aboutAgreementError');
+                if (err) err.classList.add('hidden');
+            }
+
+            if (valid) {
+                modal.classList.remove('hidden');
+                form.reset();
+                nameInput.classList.remove('border-emerald-500');
+                phoneInput.classList.remove('border-emerald-500');
+            }
+        });
+
+        if (closeModalBtn) closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+    });
+    </script>
 </body>
 </html>

@@ -259,22 +259,57 @@
             </div>
         </div>
 
-        <!-- Форма CTA -->
-        <div id="consultation" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6 transition-all duration-300 hover:shadow-xl hover:border-agronext-navy">
-            <div>
+        <!-- ВАЛІДОВАНА ФОРМА КОНСУЛЬТАЦІЇ (CTA) -->
+       <!-- ВАЛІДОВАНА ФОРМА КОНСУЛЬТАЦІЇ -->
+        <div id="consultation" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+            <div class="mb-6">
                 <h3 class="font-heading font-bold text-2xl text-agronext-navy mb-2">Залишилися запитання?</h3>
-                <p class="text-xs text-slate-500">Поговоріть з експертами AgroNext, щоб підібрати потрібну техніку під ваш агрокалендар.</p>
+                <p class="text-xs text-slate-500">Поговоріть з експертами AgroNext, щоб підібрати потрібну техніку.</p>
             </div>
-            <form action="about.html" method="GET" class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-                <input type="text" name="name" placeholder="Ваше ім'я" required class="p-2.5 border border-slate-200 rounded-lg text-xs outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                <input type="tel" name="phone" placeholder="Номер телефону" required class="p-2.5 border border-slate-200 rounded-lg text-xs outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                <button type="submit" class="bg-agronext-navy text-white px-6 py-2.5 rounded-lg text-xs font-semibold hover:bg-agronext-navy-hover transition-all duration-300 shadow-md whitespace-nowrap">
-                    Отримати безкоштовну консультацію
-                </button>
+
+            <form id="aboutFeedbackForm" class="flex flex-col gap-4" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="aboutUsername" class="block text-xs font-semibold text-agronext-navy mb-1">Ваше ім'я *</label>
+                        <input type="text" id="aboutUsername" placeholder="Олексій" class="w-full p-2.5 border border-slate-200 rounded-lg text-xs outline-none">
+                        <p id="aboutNameError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                    </div>
+
+                    <div>
+                        <label for="aboutPhone" class="block text-xs font-semibold text-agronext-navy mb-1">Номер телефону *</label>
+                        <input type="tel" id="aboutPhone" placeholder="+380501234567" class="w-full p-2.5 border border-slate-200 rounded-lg text-xs outline-none">
+                        <p id="aboutPhoneError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+                    <div>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="aboutAgreement" class="w-4 h-4 text-agronext-navy rounded border-slate-300">
+                            <span class="text-xs text-slate-600">Я погоджуюся з політикою конфіденційності</span>
+                        </label>
+                        <p id="aboutAgreementError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
+                    </div>
+
+                    <button type="submit" class="bg-agronext-navy text-white px-6 py-2.5 rounded-lg text-xs font-semibold hover:bg-agronext-navy-hover transition-all shadow-md">
+                        Отримати безкоштовну консультацію
+                    </button>
+                </div>
             </form>
         </div>
-    </main>
 
+        <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ABOUT -->
+        <div id="aboutSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+            <div class="bg-white p-6 rounded-2xl max-w-md w-full mx-4 shadow-2xl text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">✓</div>
+                <h3 class="text-xl font-bold font-heading text-agronext-navy mb-2">Заявку прийнято!</h3>
+                <p class="text-slate-500 text-sm mb-6">Дякуємо! Форма успішно пройшла клієнтську валідацію.</p>
+                <button type="button" id="closeAboutModalBtn" class="w-full py-2.5 bg-agronext-navy text-white text-xs font-semibold rounded-xl">
+                    Закрити
+                </button>
+            </div>
+        </div>
+        
     <!-- ФУТЕР -->
     <footer class="site-footer bg-agronext-navy text-white pt-10 pb-5" id="about">
         <div class="footer-container max-w-[1140px] mx-auto px-5 flex justify-between max-md:flex-col max-md:gap-6 max-md:text-center">
@@ -386,5 +421,8 @@
             });
         });
     </script>
+
+    <!-- ПІДКЛЮЧЕННЯ СКРИПТА КЛІЄНТСЬКОЇ ВАЛІДАЦІЇ -->
+    <script src="assets/js/validation.js"></script>
 </body>
 </html>
