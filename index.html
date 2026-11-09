@@ -403,28 +403,7 @@
                     </div>
                 </div>
 
-                <div class="partners-block border-t border-slate-200 pt-8" id="dealers">
-                    <h3 class="text-lg font-bold font-heading text-agronext-navy mb-4">Офіційні партнери</h3>
-                    <div class="partners-cards-grid flex gap-4 flex-wrap">
-                        
-                        <!-- DTZ з маленьким логотипом справа -->
-                        <div class="partner-card flex-1 min-w-[120px] h-[60px] bg-slate-50 border border-slate-200 rounded flex items-center justify-center gap-2 px-3 font-body font-bold text-base text-agronext-navy shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                            <span>DTZ</span>
-                            <img src="assets\icons\dtz-logo.png.png" alt="" class="h-9 max-h-[38px] w-auto object-contain" onerror="if(!this.getAttribute('data-t')){this.setAttribute('data-t','1'); this.src='assets/icons/logo.png';}">
-                         </div>
-
-                        <!-- KENTAVR з маленьким логотипом справа -->
-                        <div class="partner-card flex-1 min-w-[120px] h-[60px] bg-slate-50 border border-slate-200 rounded flex items-center justify-center gap-2 px-3 font-body font-bold text-base text-agronext-navy shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                            <span>KENTAVR</span>
-                            <img src="assets\icons\kentavr-logo.png.png" alt="" class="h-9 max-h-[38px] w-auto object-contain" onerror="if(!this.getAttribute('data-t')){this.setAttribute('data-t','1'); this.src='assets/icons/Z-kentavr.png';}">
-                        </div>
-
-                        <!-- Решта партнерів -->
-                        <div class="partner-card flex-1 min-w-[120px] h-[60px] bg-slate-50 border border-slate-200 rounded flex items-center justify-center font-body font-bold text-base text-agronext-navy shadow-sm transition-all duration-300 hover:border-agronext-navy">HANWO</div>
-                        <div class="partner-card flex-1 min-w-[120px] h-[60px] bg-slate-50 border border-slate-200 rounded flex items-center justify-center font-body font-bold text-base text-agronext-navy shadow-sm transition-all duration-300 hover:border-agronext-navy">HORST</div>
-                        <div class="partner-card flex-1 min-w-[120px] h-[60px] bg-slate-50 border border-slate-200 rounded flex items-center justify-center font-body font-bold text-base text-agronext-navy shadow-sm transition-all duration-300 hover:border-agronext-navy">JMT</div>
-                    
-                    </div>
+                
                 </div>
             </div>
         </section>
@@ -476,9 +455,13 @@
                             <p id="agreementError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-full w-full py-2.5 px-4 bg-agronext-navy text-white font-btn font-semibold text-xs rounded hover:bg-agronext-navy-hover transition-all shadow-md mt-2">
-                            Отримати безкоштовну консультацію
-                        </button>
+                        
+<button type="submit"
+        class="bg-agronext-navy text-white px-6 py-2.5 rounded-lg text-xs font-semibold hover:bg-agronext-navy-hover transition-all shadow-md"
+        style="color: #ffffff !important;">
+    Отримати безкоштовну консультацію
+</button>
+
                     </form>
                 </div>
             </div>
@@ -500,219 +483,113 @@
 
 
     <!-- ФУТЕР -->
-    <footer class="site-footer bg-agronext-navy text-white pt-10 pb-5" id="about">
-        <div class="footer-container max-w-[1140px] mx-auto px-5 flex justify-between max-md:flex-col max-md:gap-6 max-md:text-center">
-            <div class="footer-left max-md:flex max-md:flex-col max-md:items-center">
-                <a href="index.html" class="logo" aria-label="Головна AgroNext">
-                    <span class="logo-text font-heading font-bold text-2xl tracking-tight text-white">AgroNext</span>
+    
+<!-- ФУТЕР AGRO NEXT -->
+<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+    <div class="max-w-[1140px] mx-auto px-5">
+
+        <div class="flex flex-col md:flex-row justify-between
+                    items-start gap-10 pb-8">
+
+            <!-- Логотип та опис -->
+            <div class="w-full md:max-w-[340px]">
+                <a href="index.html"
+                   class="inline-flex items-center gap-3 mb-4">
+                    <img src="assets/icons/logo.png"
+                         alt="Логотип AgroNext"
+                         class="w-12 h-12 object-contain">
+
+                    <span class="text-white text-xl font-bold"
+                          style="color: #ffffff !important;">
+                        AgroNext
+                    </span>
                 </a>
-                <p class="footer-desc text-slate-300 text-xs max-w-[280px] mt-3">Онлайн-платформа для вибору агротехніки та перевірки державної компенсації.</p>
+
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Онлайн-платформа для підбору
+                    сільськогосподарської техніки,
+                    перевірки сумісності обладнання
+                    та розрахунку державної компенсації.
+                </p>
             </div>
-            <div class="footer-right flex gap-12 max-md:flex-col max-md:gap-5 max-md:items-center">
-                <div class="footer-column">
-                    <h4 class="text-sm font-bold font-heading text-white mb-3">Компанія</h4>
-                    <ul class="space-y-1.5">
-                        <li><a href="about.html" class="text-slate-300 text-xs hover:text-white transition-colors">Про нас</a></li>
-                        <li><a href="#lead" class="text-slate-300 text-xs hover:text-white transition-colors">Центр підтримки</a></li>
+
+            <!-- Навігація -->
+            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Компанія
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="about.html"
+                               class="hover:text-white hover:underline">
+                                Про нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html#lead"
+                               class="hover:text-white hover:underline">
+                                Центр підтримки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="catalog.html"
+                               class="hover:text-white hover:underline">
+                                Каталог техніки
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h4 class="text-sm font-bold font-heading text-white mb-3">Ми в соцмережах</h4>
-                    <ul class="space-y-1.5">
-                        <li><a href="https://instagram.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">Instagram</a></li>
-                        <li><a href="https://tiktok.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">TikTok</a></li>
-                        <li><a href="https://facebook.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">Facebook</a></li>
+
+                <!-- Соціальні мережі -->
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Ми в соцмережах
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="https://instagram.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://tiktok.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                TikTok
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://facebook.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Facebook
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom max-w-[1140px] mx-auto mt-8 pt-4 border-t border-white/15 text-center text-slate-300 text-xs">
-            <p>&copy; 2026 AgroNext. Всі права захищені.</p>
+
+        <!-- Нижній рядок -->
+        <div class="border-t border-white/20 pt-5 text-center">
+            <p class="text-slate-300 text-xs">
+                © 2026 AgroNext. Всі права захищені.
+            </p>
         </div>
-    </footer>
-        <!-- ВБУДОВАНИЙ СКРИПТ ВАЛІДАЦІЇ (ПРАЦЮЄ НА 100%) -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('feedbackForm');
-        if (!form) return;
 
-        const nameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const phoneInput = document.getElementById('phone');
-        const messageInput = document.getElementById('message');
-        const agreementInput = document.getElementById('agreement');
-        const modal = document.getElementById('successModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
+    </div>
+</footer>
 
-        const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const REGEX_PHONE = /^\+380\d{9}$/; // Суворо +380 і 9 цифр
-
-        function setError(input, errorId, message) {
-            if (!input) return;
-            input.classList.remove('border-slate-200', 'border-emerald-500');
-            input.classList.add('border-red-500');
-            const errorEl = document.getElementById(errorId);
-            if (errorEl) {
-                errorEl.textContent = message;
-                errorEl.classList.remove('hidden');
-            }
-        }
-
-        function setSuccess(input, errorId) {
-            if (!input) return;
-            input.classList.remove('border-slate-200', 'border-red-500');
-            input.classList.add('border-emerald-500');
-            const errorEl = document.getElementById(errorId);
-            if (errorEl) errorEl.classList.add('hidden');
-        }
-
-        function validateName() {
-            if (!nameInput) return true;
-            if (nameInput.value.trim().length < 2) {
-                setError(nameInput, 'nameError', "Ім'я має містити щонайменше 2 символи");
-                return false;
-            }
-            setSuccess(nameInput, 'nameError');
-            return true;
-        }
-
-        function validateEmail() {
-            if (!emailInput) return true;
-            if (!REGEX_EMAIL.test(emailInput.value.trim())) {
-                setError(emailInput, 'emailError', "Введіть коректну пошту (наприклад: name@gmail.com)");
-                return false;
-            }
-            setSuccess(emailInput, 'emailError');
-            return true;
-        }
-
-        function validatePhone() {
-            if (!phoneInput) return true;
-            const val = phoneInput.value.trim();
-            if (!REGEX_PHONE.test(val)) {
-                setError(phoneInput, 'phoneError', "Формат номеру має бути суворо +380XXXXXXXXX (12 символів без букв та пробілів)");
-                return false;
-            }
-            setSuccess(phoneInput, 'phoneError');
-            return true;
-        }
-
-        function validateMessage() {
-            if (!messageInput) return true;
-            if (messageInput.value.trim().length < 10) {
-                setError(messageInput, 'messageError', "Повідомлення має бути не менше 10 символів");
-                return false;
-            }
-            setSuccess(messageInput, 'messageError');
-            return true;
-        }
-
-        function validateAgreement() {
-            if (!agreementInput) return true;
-            const errEl = document.getElementById('agreementError');
-            if (!agreementInput.checked) {
-                if (errEl) {
-                    errEl.textContent = "Необхідно підтвердити згоду";
-                    errEl.classList.remove('hidden');
-                }
-                return false;
-            }
-            if (errEl) errEl.classList.add('hidden');
-            return true;
-        }
-
-        // Динамічна перевірка
-        if (nameInput) nameInput.addEventListener('blur', validateName);
-        if (emailInput) emailInput.addEventListener('blur', validateEmail);
-        if (phoneInput) phoneInput.addEventListener('blur', validatePhone);
-        if (messageInput) messageInput.addEventListener('blur', validateMessage);
-        if (agreementInput) agreementInput.addEventListener('change', validateAgreement);
-
-        // БЛОКУВАННЯ ВІДПРАВКИ ТА ВИКЛИК МОДАЛКИ
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Забороняє будь-яке перезавантаження!
-
-            const v1 = validateName();
-            const v2 = validateEmail();
-            const v3 = validatePhone();
-            const v4 = validateMessage();
-            const v5 = validateAgreement();
-
-            if (v1 && v2 && v3 && v4 && v5) {
-                if (modal) modal.classList.remove('hidden');
-                form.reset();
-                [nameInput, emailInput, phoneInput, messageInput].forEach(i => {
-                    if (i) i.classList.remove('border-emerald-500', 'border-red-500');
-                });
-            }
-        });
-
-        if (modal && closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
-        }
-    });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('aboutFeedbackForm');
-        if (!form) return;
-
-        const nameInput = document.getElementById('aboutUsername');
-        const phoneInput = document.getElementById('aboutPhone');
-        const agreementInput = document.getElementById('aboutAgreement');
-        const modal = document.getElementById('aboutSuccessModal');
-        const closeModalBtn = document.getElementById('closeAboutModalBtn');
-
-        const REGEX_PHONE = /^\+380\d{9}$/;
-
-        function setError(input, errorId, msg) {
-            input.classList.remove('border-slate-200', 'border-emerald-500');
-            input.classList.add('border-red-500');
-            const err = document.getElementById(errorId);
-            if (err) { err.textContent = msg; err.classList.remove('hidden'); }
-        }
-
-        function setSuccess(input, errorId) {
-            input.classList.remove('border-slate-200', 'border-red-500');
-            input.classList.add('border-emerald-500');
-            const err = document.getElementById(errorId);
-            if (err) err.classList.add('hidden');
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // БЛОКУЄ ПЕРЕЗАНАВАНТАЖЕННЯ!
-
-            let valid = true;
-            if (nameInput.value.trim().length < 2) {
-                setError(nameInput, 'aboutNameError', "Введіть ім'я (мін. 2 символи)");
-                valid = false;
-            } else { setSuccess(nameInput, 'aboutNameError'); }
-
-            if (!REGEX_PHONE.test(phoneInput.value.trim())) {
-                setError(phoneInput, 'aboutPhoneError', "Номер має бути в форматі +380XXXXXXXXX (без букв!)");
-                valid = false;
-            } else { setSuccess(phoneInput, 'aboutPhoneError'); }
-
-            if (!agreementInput.checked) {
-                const err = document.getElementById('aboutAgreementError');
-                if (err) { err.textContent = "Потрібна згода"; err.classList.remove('hidden'); }
-                valid = false;
-            } else {
-                const err = document.getElementById('aboutAgreementError');
-                if (err) err.classList.add('hidden');
-            }
-
-            if (valid) {
-                modal.classList.remove('hidden');
-                form.reset();
-                nameInput.classList.remove('border-emerald-500');
-                phoneInput.classList.remove('border-emerald-500');
-            }
-        });
-
-        if (closeModalBtn) closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-    });
-    </script>
+<!-- Підключення валідації форм -->
+<script src="assets/js/validation.js" defer></script>
+    
 </body>
 </html>

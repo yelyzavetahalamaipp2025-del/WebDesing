@@ -206,35 +206,109 @@
     </main>
 
     <!-- ПОВНИЙ 3-КОЛОНКОВИЙ ФУТЕР -->
-    <footer class="site-footer bg-agronext-navy text-white pt-10 pb-5" id="about">
-        <div class="footer-container max-w-[1140px] mx-auto px-5 flex justify-between max-md:flex-col max-md:gap-6 max-md:text-center">
-            <div class="footer-left max-md:flex max-md:flex-col max-md:items-center">
-                <a href="index.html" class="logo" aria-label="Головна AgroNext">
-                    <span class="logo-text font-heading font-bold text-2xl tracking-tight text-white">AgroNext</span>
+    
+<!-- ФУТЕР AGRO NEXT -->
+<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+    <div class="max-w-[1140px] mx-auto px-5">
+
+        <div class="flex flex-col md:flex-row justify-between
+                    items-start gap-10 pb-8">
+
+            <!-- Логотип та опис -->
+            <div class="w-full md:max-w-[340px]">
+                <a href="index.html"
+                   class="inline-flex items-center gap-3 mb-4">
+                    <img src="assets/icons/logo.png"
+                         alt="Логотип AgroNext"
+                         class="w-12 h-12 object-contain">
+
+                    <span class="text-white text-xl font-bold"
+                          style="color: #ffffff !important;">
+                        AgroNext
+                    </span>
                 </a>
-                <p class="footer-desc text-slate-300 text-xs max-w-[280px] mt-3">Онлайн-платформа для вибору агротехніки та перевірки державної компенсації.</p>
+
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Онлайн-платформа для підбору
+                    сільськогосподарської техніки,
+                    перевірки сумісності обладнання
+                    та розрахунку державної компенсації.
+                </p>
             </div>
-            <div class="footer-right flex gap-12 max-md:flex-col max-md:gap-5 max-md:items-center">
-                <div class="footer-column">
-                    <h4 class="text-sm font-bold font-heading text-white mb-3">Компанія</h4>
-                    <ul class="space-y-1.5">
-                        <li><a href="about.html" class="text-slate-300 text-xs hover:text-white transition-colors">Про нас</a></li>
-                        <li><a href="index.html#lead" class="text-slate-300 text-xs hover:text-white transition-colors">Центр підтримки</a></li>
+
+            <!-- Навігація -->
+            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Компанія
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="about.html"
+                               class="hover:text-white hover:underline">
+                                Про нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html#lead"
+                               class="hover:text-white hover:underline">
+                                Центр підтримки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="catalog.html"
+                               class="hover:text-white hover:underline">
+                                Каталог техніки
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h4 class="text-sm font-bold font-heading text-white mb-3">Ми в соцмережах</h4>
-                    <ul class="space-y-1.5">
-                        <li><a href="https://instagram.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">Instagram</a></li>
-                        <li><a href="https://tiktok.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">TikTok</a></li>
-                        <li><a href="https://facebook.com" target="_blank" class="text-slate-300 text-xs hover:text-white transition-colors">Facebook</a></li>
+
+                <!-- Соціальні мережі -->
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Ми в соцмережах
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="https://instagram.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://tiktok.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                TikTok
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://facebook.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Facebook
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom max-w-[1140px] mx-auto mt-8 pt-4 border-t border-white/15 text-center text-slate-300 text-xs">
-            <p>&copy; 2026 AgroNext. Всі права захищені.</p>
+
+        <!-- Нижній рядок -->
+        <div class="border-t border-white/20 pt-5 text-center">
+            <p class="text-slate-300 text-xs">
+                © 2026 AgroNext. Всі права захищені.
+            </p>
         </div>
-    </footer>
+
+    </div>
+</footer>
 </body>
 </html>
