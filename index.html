@@ -1,595 +1,964 @@
+
 <!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroNext — Зважений підхід до оновлення вашого агропарку</title>
-    <meta name="description" content="AgroNext — інформаційний сайт про сільськогосподарську техніку, каталог продукції та інструменти для її вибору.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    
-    <!-- CDN-скрипт Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Файл власних стилів -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Налаштування бренд-палітри AgroNext для Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'agronext-navy': '#1E3A8A',
-                        'agronext-navy-hover': '#172554',
-                        'agronext-navy-pressed': '#151D3B',
-                        'agronext-navy-active': '#293885',
-                        'agronext-orange': '#D97706',
-                        'agronext-bg-light': '#F8FAFC',
-                    },
-                    fontFamily: {
-                        heading: ["'Space Grotesk'", 'sans-serif'],
-                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
-                        btn: ["'Inter'", 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        /* Застосування Space Grotesk та синього кольору для всіх заголовків */
-        h1, h2, h3, h4, h5, h6, .font-heading {
-            font-family: 'Space Grotesk', sans-serif !important;
-            color: #1E3A8A !important;
-        }
-        .text-white, .logo-text, .site-header * {
-            color: #FFFFFF;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroNext — Зважений підхід до оновлення вашого агропарку</title>
+  <meta name="description" content="AgroNext — інформаційний сайт про сільськогосподарську техніку, каталог продукції та інструменти для її вибору.">
 
-        /* Стилі для інтерактивних кнопок підбору */
-        .step-btn {
-            background-color: #ffffff !important;
-            color: #1E3A8A !important;
-            border-color: #E2E8F0 !important;
-        }
-        .step-btn:hover {
-            border-color: #1E3A8A !important;
-        }
-        .step-btn.active {
-            background-color: #1E3A8A !important;
-            color: #ffffff !important;
-            border-color: #1E3A8A !important;
-        }
+  <!-- Шрифти -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-        /* 3D Переворот карток товарів */
-        .flip-card { 
-            perspective: 1000px; 
+  <!-- Tailwind та власні стилі -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Лабораторна №10: Swiper і Fancybox -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'agronext-navy': '#1E3A8A',
+            'agronext-navy-hover': '#172554',
+            'agronext-navy-pressed': '#151D3B',
+            'agronext-navy-active': '#293885',
+            'agronext-orange': '#D97706',
+            'agronext-bg-light': '#F8FAFC'
+          },
+          fontFamily: {
+            heading: ["'Space Grotesk'", 'sans-serif'],
+            body: ["'Plus Jakarta Sans'", 'sans-serif'],
+            btn: ["'Inter'", 'sans-serif']
+          }
         }
-        .flip-card-inner { 
-            position: relative; 
-            width: 100%; 
-            height: 100%; 
-            transition: transform 0.7s; 
-            transform-style: preserve-3d; 
-        }
-        .flip-card:hover .flip-card-inner { 
-            transform: rotateY(180deg); 
-        }
-        .flip-card-front, .flip-card-back { 
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            top: 0;
-            left: 0;
-            -webkit-backface-visibility: hidden; 
-            backface-visibility: hidden; 
-            border-radius: 0.75rem; 
-        }
-        .flip-card-back { 
-            transform: rotateY(180deg); 
-        }
-    </style>
+      }
+    };
+  </script>
+
+  <style>
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: 'Space Grotesk', sans-serif !important;
+      color: #1E3A8A !important;
+    }
+
+    .site-header * {
+      color: #ffffff;
+    }
+
+    .step-btn {
+      background: white !important;
+      color: #1E3A8A !important;
+      border-color: #E2E8F0 !important;
+    }
+
+    .step-btn.active {
+      background: #1E3A8A !important;
+      color: white !important;
+      border-color: #1E3A8A !important;
+    }
+
+    /* 3D-картки товарів */
+    .flip-card {
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner,
+    .flip-card:focus-within .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Слайдер рекомендованих товарів */
+    .recommended-swiper {
+      width: 100%;
+      overflow: hidden;
+      padding: 12px 38px 55px;
+    }
+
+    .recommended-swiper .swiper-slide {
+      height: auto;
+      box-sizing: border-box;
+    }
+
+    .recommended-swiper .flip-card {
+      height: 430px;
+    }
+
+    .recommended-swiper .swiper-button-next,
+    .recommended-swiper .swiper-button-prev {
+      color: #1E3A8A;
+      width: 28px;
+      height: 40px;
+    }
+
+    .recommended-swiper .swiper-button-next::after,
+    .recommended-swiper .swiper-button-prev::after {
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .recommended-swiper .swiper-pagination-bullet-active {
+      background: #1E3A8A;
+    }
+
+    /* Фото однакового розміру */
+    .recommended-swiper .product-image-link {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
+    }
+
+    .recommended-swiper .product-image-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Кнопка відкриття Fancybox */
+    .product-photo-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 8px;
+      margin-top: 12px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 6px;
+      color: white !important;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .product-photo-button:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    @media (max-width: 640px) {
+      .recommended-swiper {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flip-card-inner {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body class="font-body bg-white text-agronext-navy antialiased">
 
-    <!-- ХЕДЕР -->
-    <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3" style="background-color: #1E3A8A !important;">
-        <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
-            
-            <!-- ЛОГОТИП ТА НАЗВА -->
-            <a href="index.html" style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;" aria-label="Головна AgroNext">
-                <img id="logo" 
-                    src="assets/icons/logo.png" 
-                    alt="AgroNext Logo" 
-                    class="h-12 w-auto object-contain flex-shrink-0"
-                    onerror="if (!this.getAttribute('data-tried-root')) { this.setAttribute('data-tried-root', 'true'); this.src='../assets/icons/logo.png'; } else { this.onerror=null; this.src='https://placehold.co/120x48/1E3A8A/FFFFFF?text=AgroNext'; }">
-                <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1 !important; white-space: nowrap !important;">AgroNext</span>
-            </a>
+  <!-- ХЕДЕР -->
+  <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
+          style="background-color:#1E3A8A !important;">
 
-            <!-- НАВІГАЦІЯ -->
-            <nav class="main-navigation hidden md:flex items-center gap-5">
-                <ul class="nav-list flex gap-5 text-xs font-medium" style="color: #ffffff !important;">
-                    <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
-                    <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
-                    <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
-                    <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
-                    <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
-                </ul>
-            </nav>
+    <div class="header-container max-w-[1140px] mx-auto px-5 flex items-center justify-between">
 
-            <!-- ПОШУК -->
-            <div class="header-search hidden sm:block">
-                <form class="search-form" role="search" action="catalog.html" method="GET">
-                    <input type="search" name="q" placeholder="Пошук..." class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none" style="color: #1E3A8A !important; background-color: #ffffff !important;">
-                </form>
-            </div>
+      <a href="index.html" class="flex items-center gap-3" aria-label="Головна AgroNext">
+        <img src="assets/icons/logo.png"
+             alt="Логотип AgroNext"
+             class="h-12 w-auto object-contain">
 
-            <!-- МОБІЛЬНА КНОПКА -->
-            <button type="button" class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors" aria-label="Відкрити меню">
-                <svg class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-    </header>
+        <span class="font-semibold text-base"
+              style="color:white !important;">
+          AgroNext
+        </span>
+      </a>
 
-    <main class="main-content" style="padding-top: 0 !important; margin-top: 0 !important;">
-        <section class="hero-section w-full flex justify-center bg-slate-100 overflow-hidden" style="margin-top: 0 !important;" aria-labelledby="hero-heading">           <div class="hero-wrapper-fixed relative w-full h-[804px] mx-auto flex-shrink-0 max-lg:h-auto max-lg:flex max-lg:flex-col">
-                <video id="video" class="hero-video w-full h-full object-cover block max-lg:h-[280px]" autoplay muted loop playsinline aria-label="Відео трактора">
-                    <source src="assets/video_hs.mp4" type="video/mp4">
-                </video>
-                <div class="hero-overlay-text absolute top-[320px] left-[150px] max-w-[480px] z-10 max-lg:relative max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:max-w-full max-lg:text-center">
-                    <h1 id="hero-heading" class="font-heading text-4xl max-lg:text-2xl font-bold leading-tight mb-4 text-agronext-navy">
-                        Зважений підхід до оновлення вашого агропарку
-                    </h1>
-                    <p class="font-body text-base max-lg:text-sm text-agronext-navy mb-7 leading-snug font-medium">
-                        Підбирайте агротехніку з урахуванням сумісності, держкомпенсації та сервісу
-                    </p>
-                    <a href="catalog.html" class="btn btn-hero-outline inline-block px-10 py-2.5 border border-agronext-navy text-agronext-navy font-btn font-semibold text-sm rounded bg-white hover:bg-agronext-navy hover:text-white transition-all text-center">Каталог</a>
-                </div>
-            </div>
-        </section>
+      <nav class="main-navigation hidden md:flex items-center gap-5">
+        <ul class="nav-list flex gap-5 text-xs font-medium">
+          <li><a href="catalog.html" style="color:white !important;">Каталог</a></li>
+          <li><a href="selection.html" style="color:white !important;">Підбір техніки</a></li>
+          <li><a href="compatibility.html" style="color:white !important;">Сумісність</a></li>
+          <li><a href="calculator.html" style="color:white !important;">Компенсація 25–40%</a></li>
+          <li><a href="about.html" style="color:white !important;">Про компанію</a></li>
+        </ul>
+      </nav>
 
-        <!-- Розумний підбір техніки -->
-        <section id="selection" class="smart-selection-section py-14">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                <div class="section-title-with-icon flex items-center gap-3.5 mb-1">
-                    <img src="assets/icons/settings.svg" alt="" class="section-title-icon-huge w-[54px] h-[54px] object-contain flex-shrink-0 icon-deep-blue">
-                    <h2 class="text-2xl font-bold font-heading text-agronext-navy">Розумний підбір техніки</h2>
-                </div>
-                <p class="section-subtitle font-body text-sm text-slate-500 mt-1 mb-7">
-                    Вкажіть параметри вашого господарства для розрахунку потреб вашого господарства
-                </p>
+      <div class="header-search hidden sm:block">
+        <form action="catalog.html" method="GET" role="search">
+          <input type="search"
+                 name="q"
+                 placeholder="Пошук..."
+                 class="px-3 py-1 rounded text-xs w-[180px]"
+                 style="color:#1E3A8A !important;background:white !important;">
+        </form>
+      </div>
 
-                <div class="selection-steps-grid grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <!-- Крок 1 -->
-                    <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="step-header flex items-center gap-3 mb-3">
-                            <span class="step-number font-btn w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
-                            <h3 class="text-lg font-bold font-heading text-agronext-navy">Площа землі</h3>
-                        </div>
-                        <p class="step-label font-body text-xs text-slate-500 mb-3">Оберіть площу вашої ділянки:</p>
-                        <div class="pill-options flex gap-2 flex-wrap">
-                            <button type="button" class="step-btn active px-3.5 py-1.5 border rounded text-xs font-medium transition-all">10-50 га</button>
-                            <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs font-medium transition-all">50-100 га</button>
-                            <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs font-medium transition-all">100+ га</button>
-                        </div>
-                    </div>
-
-                    <!-- Крок 2 -->
-                    <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="step-header flex items-center gap-3 mb-3">
-                            <span class="step-number font-btn w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
-                            <h3 class="text-lg font-bold font-heading text-agronext-navy">Тип завдання</h3>
-                        </div>
-                        <p class="step-label font-body text-xs text-slate-500 mb-3">Оберіть основні завдання:</p>
-                        <div class="pill-options flex gap-2 flex-wrap">
-                            <button type="button" class="step-btn active px-3.5 py-1.5 border rounded text-xs font-medium transition-all">Оранка</button>
-                            <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs font-medium transition-all">Збирання врожаю</button>
-                            <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs font-medium transition-all">Посівні роботи</button>
-                        </div>
-                    </div>
-
-                    <!-- Крок 3 -->
-                    <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="step-header flex items-center gap-3 mb-3">
-                            <span class="step-number font-btn w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">3</span>
-                            <h3 class="text-lg font-bold font-heading text-agronext-navy">Бюджет</h3>
-                        </div>
-                        <p class="step-label font-body text-xs text-slate-500 mb-3">Вкажіть орієнтовний бюджет:</p>
-                        <div class="budget-inputs flex gap-2.5">
-                            <input type="text" placeholder="Від 0" class="budget-input font-body w-full px-3 py-2 border border-slate-200 rounded text-xs text-agronext-navy focus:outline-none focus:border-agronext-navy">
-                            <input type="text" placeholder="До 0" class="budget-input font-body w-full px-3 py-2 border border-slate-200 rounded text-xs text-agronext-navy focus:outline-none focus:border-agronext-navy">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="selection-action-wrapper mt-7 text-center">
-                    <a href="selection.html" class="inline-block btn btn-outline-full selection-btn max-w-[340px] w-full py-2.5 px-4 bg-white border border-agronext-navy text-agronext-navy font-btn font-semibold text-xs rounded hover:bg-agronext-navy hover:text-white transition-all text-center">
-                        Підібрати оптимальну техніку
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Інтерактивні інструменти -->
-        <section id="tools" class="interactive-tools-section pb-14">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                <h2 class="text-2xl font-bold font-heading text-agronext-navy mb-5">Інтерактивні інструменти</h2>
-
-                <div class="tools-two-columns grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Картка 1: Перевірка сумісності -->
-                    <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="tool-header flex gap-3 mb-4">
-                            <img src="assets/icons/shield-check.svg" alt="" class="card-tool-icon w-9 h-9 object-contain icon-deep-blue">
-                            <div>
-                                <h3 class="text-lg font-bold font-heading text-agronext-navy">Перевірка сумісності</h3>
-                                <p class="text-xs text-slate-500">Перевірте сумісність наявного технічного парку</p>
-                            </div>
-                        </div>
-                        <div class="tool-form flex flex-col gap-3">
-                            <select class="form-select font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none">
-                                <option>Оберіть модель трактора</option>
-                            </select>
-                            <select class="form-select font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none">
-                                <option>Оберіть причіпне обладнання</option>
-                            </select>
-                            <a href="compatibility.html" class="block text-center btn btn-outline-full w-full py-2.5 px-4 bg-white border border-agronext-navy text-agronext-navy font-btn font-semibold text-xs rounded hover:bg-agronext-navy hover:text-white transition-all">
-                                Перевірити сумісність
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Картка 2: Калькулятор -->
-                    <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer" id="compensation">
-                        <div class="tool-header flex gap-3 mb-4">
-                            <img src="assets/icons/calculator.svg" alt="" class="card-tool-icon w-9 h-9 object-contain icon-deep-blue">
-                            <div>
-                                <h3 class="text-lg font-bold font-heading text-agronext-navy">Калькулятор держкомпенсації 25–40%</h3>
-                                <p class="text-xs text-slate-500">Розрахуйте орієнтовну суму відшкодування</p>
-                            </div>
-                        </div>
-                        <div class="tool-form flex flex-col gap-3">
-                            <input type="text" placeholder="Ціна техніки (грн)" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none">
-                            <select class="form-select font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none">
-                                <option>Оберіть категорію</option>
-                            </select>
-                            <a href="calculator.html" class="block text-center btn btn-outline-full w-full py-2.5 px-4 bg-white border border-agronext-navy text-agronext-navy font-btn font-semibold text-xs rounded hover:bg-agronext-navy hover:text-white transition-all">
-                                Розрахувати
-                            </a>
-                            <div class="calc-result-box bg-agronext-navy text-white p-3 rounded flex justify-between items-center text-sm">
-                                <span>Сума компенсації:</span>
-                                <strong class="font-bold">0,00 ₴</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- СЕКЦІЯ РЕКОМЕНДОВАНИХ ТОВАРІВ -->
-        <section class="catalog-showcase py-10 bg-slate-50/50 border-t border-slate-200" id="catalog">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                
-                <div class="catalog-header flex justify-between items-center mb-6">
-                    <div class="section-title-with-icon flex items-center gap-3">
-                        <img src="assets/icons/tractor.svg" alt="" class="w-6 h-6 object-contain">
-                        <h2 class="text-2xl font-bold font-heading text-agronext-navy">Рекомендовані товари</h2>
-                    </div>
-                    <a href="catalog.html" class="link-more text-xs font-semibold text-agronext-navy hover:underline">Переглянути весь каталог &rarr;</a>
-                </div>
-
-                <!-- 3D Картки товарів -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    
-                    <!-- Товар 1 -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Мотоблок ДТЗ 470БН - GT" class="max-h-full object-contain" onerror="this.src='https://placehold.co/200x140/F1F5F9/1E3A8A?text=Мотоблок';">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Мотоблок ДТЗ 470БН - GT</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">Колеса 4.00-8 | 7.0 к.с.</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">20 045 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 15 034 ₴</p>
-                                    <a href="products/dtz-470bn-gt.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>7,0 к. с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>170F (Бензин)</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Передачі:</span><strong>3 вп / 1 наз</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-470bn-gt.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Товар 2 -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 1304" class="max-h-full object-contain" onerror="this.src='https://placehold.co/200x140/F1F5F9/1E3A8A?text=Трактор+1304';">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 1304</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">130 к.с. | Кондиціонер</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">1 610 080 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 1 207 560 ₴</p>
-                                    <a href="products/dtz-1304.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>130 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF5F-130T Турбо</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>КПП:</span><strong>24+24 Реверс</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-1304.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Товар 3 -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504KKU" class="max-h-full object-contain" onerror="this.src='https://placehold.co/200x140/F1F5F9/1E3A8A?text=Трактор+504';">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 504KKU</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">50 к.с. | Кондиціонер</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">626 400 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 469 800 ₴</p>
-                                    <a href="products/dtz-504kku.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>50 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF4B50T-Z Турбо</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Маса:</span><strong>2160 кг</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-504kku.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Відгуки та Партнери -->
-        <section class="testimonials-section pt-12 pb-14 bg-white border-t border-slate-100">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                <h2 class="text-2xl font-bold font-heading text-agronext-navy mb-5">Нам довіряють</h2>
-                
-                <div class="testimonials-grid grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-                    <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="rating-stars text-amber-500 mb-2">★★★★★</div>
-                        <p class="text-agronext-navy text-sm">«AgroNext допомогли підібрати сівалку під наш трактор і оформити компенсацію на суму 150 000 грн.»</p>
-                        <span class="author-name block mt-3 text-xs text-slate-500 font-medium">Іван К., Власник ОСГ</span>
-                    </div>
-                    <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy cursor-pointer">
-                        <div class="rating-stars text-amber-500 mb-2">★★★★★</div>
-                        <p class="text-agronext-navy text-sm">«Перевірка сумісності підтвердила, що наше обладнання підійде, що дуже зберегло час і гроші. Дякуємо!»</p>
-                        <span class="author-name block mt-3 text-xs text-slate-500 font-medium">Ігор М.</span>
-                    </div>
-                </div>
-
-                
-                </div>
-            </div>
-        </section>
-
-       <!-- Форма лідогенерації -->
-        <section class="lead-generation-section py-16 bg-slate-50/70 border-t border-slate-200" id="lead">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
-                    <div class="lead-text">
-                        <h2 class="text-2xl font-bold font-heading text-agronext-navy">Почніть сьогодні</h2>
-                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">Поговоріть з експертом AgroNext, щоб підібрати потрібну техніку під ваш агрокалендар та вигідно оформити компенсацію.</p>
-                    </div>
-                    
-                    <form id="feedbackForm" class="lead-form-stacked flex flex-col gap-3" novalidate>
-                        <!-- Ім'я -->
-                        <div>
-                            <label for="username" class="block text-xs font-semibold text-agronext-navy mb-1">Ваше ім'я *</label>
-                            <input type="text" id="username" name="username" placeholder="Іван Петренко" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="nameError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-xs font-semibold text-agronext-navy mb-1">Електронна пошта *</label>
-                            <input type="email" id="email" name="email" placeholder="example@mail.com" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="emailError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Телефон -->
-                        <div>
-                            <label for="phone" class="block text-xs font-semibold text-agronext-navy mb-1">Номер телефону *</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+380501234567" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="phoneError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Повідомлення -->
-                        <div>
-                            <label for="message" class="block text-xs font-semibold text-agronext-navy mb-1">Повідомлення *</label>
-                            <textarea id="message" name="message" rows="3" placeholder="Опишіть ваше запитання..." class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all"></textarea>
-                            <p id="messageError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Згода -->
-                        <div>
-                            <label class="flex items-center gap-2 cursor-pointer mt-1">
-                                <input type="checkbox" id="agreement" name="agreement" class="w-4 h-4 text-agronext-navy rounded border-slate-300">
-                                <span class="text-xs text-slate-600">Я погоджуюся з політикою конфіденційності</span>
-                            </label>
-                            <p id="agreementError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        
-<button type="submit"
-        class="bg-agronext-navy text-white px-6 py-2.5 rounded-lg text-xs font-semibold hover:bg-agronext-navy-hover transition-all shadow-md"
-        style="color: #ffffff !important;">
-    Отримати безкоштовну консультацію
-</button>
-
-                    </form>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- МОДАЛЬНЕ ВІКНО УСПІХУ -->
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
-        <div class="bg-white p-6 md:p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-100 text-center relative">
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">✓</div>
-            <h3 class="text-xl font-bold font-heading text-agronext-navy mb-2">Заявку прийнято!</h3>
-            <p class="text-slate-500 text-sm mb-6">Форма успішно пройшла клієнтську валідацію. Ми зв'яжемося з вами найближчим часом.</p>
-            <button type="button" id="closeModalBtn" class="w-full py-2.5 px-4 bg-agronext-navy text-white text-xs font-semibold rounded-xl hover:bg-agronext-navy-hover transition-all">
-                Закрити
-            </button>
-        </div>
+      <button type="button"
+              class="md:hidden text-white p-2 rounded"
+              aria-label="Відкрити меню">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
+  </header>
 
+  <main class="main-content" style="padding-top:0 !important;margin-top:0 !important;">
 
-    <!-- ФУТЕР -->
-    
-<!-- ФУТЕР AGRO NEXT -->
-<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+    <!-- ГОЛОВНИЙ БАНЕР -->
+    <section class="hero-section w-full flex justify-center bg-slate-100 overflow-hidden"
+             aria-labelledby="hero-heading">
+
+      <div class="hero-wrapper-fixed relative w-full h-[804px] mx-auto flex-shrink-0 max-lg:h-auto max-lg:flex max-lg:flex-col">
+
+        <video id="video"
+               class="hero-video w-full h-full object-cover block max-lg:h-[280px]"
+               autoplay muted loop playsinline
+               aria-label="Відео трактора">
+          <source src="assets/video_hs.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-overlay-text absolute top-[320px] left-[150px] max-w-[480px] z-10 max-lg:relative max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:max-w-full max-lg:text-center">
+
+          <h1 id="hero-heading"
+              class="font-heading text-4xl max-lg:text-2xl font-bold leading-tight mb-4">
+            Зважений підхід до оновлення вашого агропарку
+          </h1>
+
+          <p class="font-body text-base max-lg:text-sm mb-7 leading-snug font-medium">
+            Підбирайте агротехніку з урахуванням сумісності,
+            держкомпенсації та сервісу
+          </p>
+
+          <a href="catalog.html"
+             class="btn btn-hero-outline inline-block px-10 py-2.5 border border-agronext-navy font-semibold text-sm rounded bg-white text-center">
+            Каталог
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- РОЗУМНИЙ ПІДБІР -->
+    <section id="selection" class="smart-selection-section py-14">
+      <div class="section-container max-w-[1140px] mx-auto px-5">
+
+        <div class="section-title-with-icon flex items-center gap-3.5 mb-1">
+          <img src="assets/icons/settings.svg"
+               alt=""
+               class="w-[54px] h-[54px] object-contain icon-deep-blue">
+
+          <h2 class="text-2xl font-bold">
+            Розумний підбір техніки
+          </h2>
+        </div>
+
+        <p class="text-sm text-slate-500 mt-1 mb-7">
+          Вкажіть параметри вашого господарства для розрахунку потреб вашого господарства
+        </p>
+
+        <div class="selection-steps-grid grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <!-- Площа -->
+          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm hover:shadow-xl transition-all">
+
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-lg font-bold">Площа землі</h3>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-3">
+              Оберіть площу вашої ділянки:
+            </p>
+
+            <div class="pill-options flex gap-2 flex-wrap">
+              <button type="button" class="step-btn active px-3.5 py-1.5 border rounded text-xs">10-50 га</button>
+              <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs">50-100 га</button>
+              <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs">100+ га</button>
+            </div>
+          </div>
+
+          <!-- Тип завдання -->
+          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm hover:shadow-xl transition-all">
+
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
+              <h3 class="text-lg font-bold">Тип завдання</h3>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-3">
+              Оберіть основні завдання:
+            </p>
+
+            <div class="pill-options flex gap-2 flex-wrap">
+              <button type="button" class="step-btn active px-3.5 py-1.5 border rounded text-xs">Оранка</button>
+              <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs">Збирання врожаю</button>
+              <button type="button" class="step-btn px-3.5 py-1.5 border rounded text-xs">Посівні роботи</button>
+            </div>
+          </div>
+
+          <!-- Бюджет -->
+          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm hover:shadow-xl transition-all">
+
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center font-bold text-xs">3</span>
+              <h3 class="text-lg font-bold">Бюджет</h3>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-3">
+              Вкажіть орієнтовний бюджет:
+            </p>
+
+            <div class="flex gap-2.5">
+              <input type="text" placeholder="Від 0"
+                     class="budget-input w-full px-3 py-2 border border-slate-200 rounded text-xs">
+              <input type="text" placeholder="До 0"
+                     class="budget-input w-full px-3 py-2 border border-slate-200 rounded text-xs">
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-7 text-center">
+          <a href="selection.html"
+             class="inline-block max-w-[340px] w-full py-2.5 px-4 bg-white border border-agronext-navy font-semibold text-xs rounded">
+            Підібрати оптимальну техніку
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ІНТЕРАКТИВНІ ІНСТРУМЕНТИ -->
+    <section id="tools" class="interactive-tools-section pb-14">
+      <div class="section-container max-w-[1140px] mx-auto px-5">
+
+        <h2 class="text-2xl font-bold mb-5">
+          Інтерактивні інструменти
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- Сумісність -->
+          <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
+            <div class="flex gap-3 mb-4">
+              <img src="assets/icons/shield-check.svg"
+                   alt=""
+                   class="w-9 h-9 object-contain icon-deep-blue">
+
+              <div>
+                <h3 class="text-lg font-bold">Перевірка сумісності</h3>
+                <p class="text-xs text-slate-500">
+                  Перевірте сумісність наявного технічного парку
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+                <option>Оберіть модель трактора</option>
+              </select>
+
+              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+                <option>Оберіть причіпне обладнання</option>
+              </select>
+
+              <a href="compatibility.html"
+                 class="block text-center w-full py-2.5 border border-agronext-navy rounded text-xs font-semibold">
+                Перевірити сумісність
+              </a>
+            </div>
+          </div>
+
+          <!-- Компенсація -->
+          <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm"
+               id="compensation">
+
+            <div class="flex gap-3 mb-4">
+              <img src="assets/icons/calculator.svg"
+                   alt=""
+                   class="w-9 h-9 object-contain icon-deep-blue">
+
+              <div>
+                <h3 class="text-lg font-bold">Калькулятор держкомпенсації 25–40%</h3>
+                <p class="text-xs text-slate-500">
+                  Розрахуйте орієнтовну суму відшкодування
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <input type="text"
+                     placeholder="Ціна техніки (грн)"
+                     class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+
+              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+                <option>Оберіть категорію</option>
+              </select>
+
+              <a href="calculator.html"
+                 class="block text-center w-full py-2.5 border border-agronext-navy rounded text-xs font-semibold">
+                Розрахувати
+              </a>
+
+              <div class="bg-agronext-navy text-white p-3 rounded flex justify-between text-sm">
+                <span>Сума компенсації:</span>
+                <strong>0,00 ₴</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- РЕКОМЕНДОВАНІ ТОВАРИ: SWIPER -->
+    <section class="catalog-showcase py-10 bg-slate-50/50 border-t border-slate-200"
+             id="catalog">
+
+      <div class="section-container max-w-[1140px] mx-auto px-5">
+
+        <div class="catalog-header flex justify-between items-center mb-6">
+
+          <div class="flex items-center gap-3">
+            <img src="assets/icons/tractor.svg"
+                 alt=""
+                 class="w-6 h-6 object-contain">
+
+            <h2 class="text-2xl font-bold">
+              Рекомендовані товари
+            </h2>
+          </div>
+
+          <a href="catalog.html"
+             class="text-xs font-semibold hover:underline">
+            Переглянути весь каталог &rarr;
+          </a>
+        </div>
+
+        <div class="swiper recommended-swiper"
+             aria-label="Рекомендовані товари AgroNext">
+
+          <div class="swiper-wrapper" id="recommended-products">
+            <!-- Сюди завантажуються всі 8 товарів -->
+          </div>
+
+          <div class="swiper-pagination recommended-pagination"></div>
+          <div class="swiper-button-prev recommended-prev"></div>
+          <div class="swiper-button-next recommended-next"></div>
+
+        </div>
+
+        <p id="catalog-loading" class="text-center text-xs text-slate-500">
+          Завантаження товарів...
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ВІДГУКИ -->
+    <section class="testimonials-section pt-12 pb-14 bg-white border-t border-slate-100">
+      <div class="max-w-[1140px] mx-auto px-5">
+
+        <h2 class="text-2xl font-bold mb-5">Нам довіряють</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+
+          <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+            <div class="text-amber-500 mb-2">★★★★★</div>
+            <p class="text-sm">
+              «AgroNext допомогли підібрати сівалку під наш трактор і оформити компенсацію на суму 150 000 грн.»
+            </p>
+            <span class="block mt-3 text-xs text-slate-500">
+              Іван К., Власник ОСГ
+            </span>
+          </div>
+
+          <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+            <div class="text-amber-500 mb-2">★★★★★</div>
+            <p class="text-sm">
+              «Перевірка сумісності підтвердила, що наше обладнання підійде, що дуже зберегло час і гроші. Дякуємо!»
+            </p>
+            <span class="block mt-3 text-xs text-slate-500">
+              Ігор М.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ФОРМА -->
+    <section class="lead-generation-section py-16 bg-slate-50/70 border-t border-slate-200"
+             id="lead">
+
+      <div class="max-w-[1140px] mx-auto px-5">
+
+        <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
+
+          <div>
+            <h2 class="text-2xl font-bold">Почніть сьогодні</h2>
+
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+              Поговоріть з експертом AgroNext, щоб підібрати потрібну техніку під ваш агрокалендар та вигідно оформити компенсацію.
+            </p>
+          </div>
+
+          <form id="feedbackForm"
+                class="lead-form-stacked flex flex-col gap-3"
+                novalidate>
+
+            <div>
+              <label for="username" class="block text-xs font-semibold mb-1">
+                Ваше ім'я *
+              </label>
+
+              <input type="text"
+                     id="username"
+                     name="username"
+                     placeholder="Іван Петренко"
+                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+
+              <p id="nameError" class="hidden text-[11px] text-red-500 mt-1"></p>
+            </div>
+
+            <div>
+              <label for="email" class="block text-xs font-semibold mb-1">
+                Електронна пошта *
+              </label>
+
+              <input type="email"
+                     id="email"
+                     name="email"
+                     placeholder="example@mail.com"
+                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+
+              <p id="emailError" class="hidden text-[11px] text-red-500 mt-1"></p>
+            </div>
+
+            <div>
+              <label for="phone" class="block text-xs font-semibold mb-1">
+                Номер телефону *
+              </label>
+
+              <input type="tel"
+                     id="phone"
+                     name="phone"
+                     placeholder="+380501234567"
+                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
+
+              <p id="phoneError" class="hidden text-[11px] text-red-500 mt-1"></p>
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-semibold mb-1">
+                Повідомлення *
+              </label>
+
+              <textarea id="message"
+                        name="message"
+                        rows="3"
+                        placeholder="Опишіть ваше запитання..."
+                        class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50"></textarea>
+
+              <p id="messageError" class="hidden text-[11px] text-red-500 mt-1"></p>
+            </div>
+
+            <div>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="agreement" name="agreement">
+                <span class="text-xs text-slate-600">
+                  Я погоджуюся з політикою конфіденційності
+                </span>
+              </label>
+
+              <p id="agreementError" class="hidden text-[11px] text-red-500 mt-1"></p>
+            </div>
+
+            <button type="submit"
+                    class="bg-agronext-navy px-6 py-2.5 rounded-lg text-xs font-semibold shadow-md"
+                    style="color:white !important;">
+              Отримати безкоштовну консультацію
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- МОДАЛЬНЕ ВІКНО -->
+  <div id="successModal"
+       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
+       role="dialog"
+       aria-modal="true">
+
+    <div class="bg-white p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl text-center">
+
+      <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+        ✓
+      </div>
+
+      <h3 class="text-xl font-bold mb-2">
+        Заявку прийнято!
+      </h3>
+
+      <p class="text-slate-500 text-sm mb-6">
+        Форма успішно пройшла клієнтську валідацію. Ми зв'яжемося з вами найближчим часом.
+      </p>
+
+      <button type="button"
+              id="closeModalBtn"
+              class="w-full py-2.5 bg-agronext-navy rounded-xl text-xs font-semibold"
+              style="color:white !important;">
+        Закрити
+      </button>
+    </div>
+  </div>
+
+  <!-- ФУТЕР -->
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
     <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex flex-col md:flex-row justify-between
-                    items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
-            <!-- Логотип та опис -->
-            <div class="w-full md:max-w-[340px]">
-                <a href="index.html"
-                   class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
-                         alt="Логотип AgroNext"
-                         class="w-12 h-12 object-contain">
+        <div class="w-full md:max-w-[340px]">
+          <a href="index.html" class="inline-flex items-center gap-3 mb-4">
 
-                    <span class="text-white text-xl font-bold"
-                          style="color: #ffffff !important;">
-                        AgroNext
-                    </span>
-                </a>
+            <img src="assets/icons/logo.png"
+                 alt="AgroNext"
+                 class="w-12 h-12 object-contain">
 
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Онлайн-платформа для підбору
-                    сільськогосподарської техніки,
-                    перевірки сумісності обладнання
-                    та розрахунку державної компенсації.
-                </p>
-            </div>
+            <span class="text-xl font-bold"
+                  style="color:white !important;">
+              AgroNext
+            </span>
+          </a>
 
-            <!-- Навігація -->
-            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
-
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Компанія
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="about.html"
-                               class="hover:text-white hover:underline">
-                                Про нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#lead"
-                               class="hover:text-white hover:underline">
-                                Центр підтримки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="catalog.html"
-                               class="hover:text-white hover:underline">
-                                Каталог техніки
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Соціальні мережі -->
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Ми в соцмережах
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="https://instagram.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://tiktok.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                TikTok
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Facebook
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
         </div>
 
-        <!-- Нижній рядок -->
-        <div class="border-t border-white/20 pt-5 text-center">
-            <p class="text-slate-300 text-xs">
-                © 2026 AgroNext. Всі права захищені.
-            </p>
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white !important;">
+              Компанія
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="about.html">Про нас</a></li>
+              <li><a href="index.html#lead">Центр підтримки</a></li>
+              <li><a href="catalog.html">Каталог техніки</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white !important;">
+              Ми в соцмережах
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            </ul>
+          </div>
+
         </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+      </div>
 
     </div>
-</footer>
+  </footer>
 
-<!-- Підключення валідації форм -->
-<script src="assets/js/validation.js" defer></script>
-    
+  <!-- ЛР №9 -->
+  <script src="assets/js/validation.js" defer></script>
+
+  <!-- ЛР №10 -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
+
+  <script>
+    /*
+      Лабораторна №10.
+
+      Swiper: 8 товарів, циклічне перемикання кожні 3 секунди.
+      Fancybox: по одному фото кожного товару, без дублікатів.
+
+      Назви файлів відповідають фактичним назвам
+      у папці assets/images, включно з "(1)".
+    */
+
+    const productPhotos = [
+      'dtz-470bn-gt (1).jpg',
+      'dtz-1304 (1).jpg',
+      'dtz-1204 (1).jpg',
+      'dtz-504kku (1).jpg',
+      'dtz-504bkku (1).jpg',
+      'dtz-504u (1).jpg',
+      'dtz-354u (1).jpg',
+      'dtz-1204-spec (1).jpg'
+    ];
+
+    async function loadRecommendedProducts() {
+      const wrapper = document.getElementById('recommended-products');
+      const status = document.getElementById('catalog-loading');
+
+      try {
+        /* Завантажуємо обидві сторінки каталогу */
+        const pages = [
+          'catalog.html',
+          'catalog-2.html'
+        ];
+
+        const responses = await Promise.all(
+          pages.map(page => fetch(page))
+        );
+
+        if (responses.some(response => !response.ok)) {
+          throw new Error('Не вдалося завантажити каталог');
+        }
+
+        const htmlPages = await Promise.all(
+          responses.map(response => response.text())
+        );
+
+        const parser = new DOMParser();
+
+        let productIndex = 0;
+
+        htmlPages.forEach(html => {
+          const doc = parser.parseFromString(html, 'text/html');
+
+          const cards = doc.querySelectorAll('.flip-card');
+
+          cards.forEach(card => {
+            if (productIndex >= productPhotos.length) {
+              return;
+            }
+
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+
+            const copy = card.cloneNode(true);
+
+            const photo = copy.querySelector('.flip-card-front img');
+            const title = copy.querySelector('.flip-card-front h3');
+            const back = copy.querySelector('.flip-card-back');
+
+            /*
+              Встановлюємо назву саме того JPG,
+              який є у твоїй папці images.
+            */
+            const photoPath =
+              'assets/images/' + productPhotos[productIndex];
+
+            if (photo) {
+              photo.src = photoPath;
+              photo.removeAttribute('onerror');
+              photo.loading = 'lazy';
+
+              /*
+                Одне посилання Fancybox для кожного товару.
+                Тому замість 16 фото буде 8.
+              */
+              const imageLink = document.createElement('a');
+
+              imageLink.href = photoPath;
+              imageLink.className = 'product-image-link';
+
+              imageLink.setAttribute(
+                'data-fancybox',
+                'agronext-products'
+              );
+
+              imageLink.setAttribute(
+                'data-caption',
+                title ? title.textContent.trim() : photo.alt
+              );
+
+              imageLink.setAttribute(
+                'aria-label',
+                'Збільшити фотографію товару'
+              );
+
+              photo.replaceWith(imageLink);
+              imageLink.appendChild(photo);
+
+              /*
+                Кнопка на звороті картки
+                відкриває те саме фото,
+                але не створює другий слайд Fancybox.
+              */
+              if (back) {
+                const photoButton = document.createElement('button');
+
+                photoButton.type = 'button';
+                photoButton.className = 'product-photo-button';
+                photoButton.textContent = 'Збільшити фото';
+
+                photoButton.addEventListener('click', function(event) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  imageLink.click();
+                });
+
+                const detailsLink = back.querySelector('a[href]');
+
+                if (detailsLink) {
+                  detailsLink.before(photoButton);
+                } else {
+                  back.appendChild(photoButton);
+                }
+              }
+            }
+
+            slide.appendChild(copy);
+            wrapper.appendChild(slide);
+
+            productIndex++;
+          });
+        });
+
+        if (productIndex === 0) {
+          throw new Error('Товари не знайдено');
+        }
+
+        status.remove();
+
+        /* Автоматична карусель */
+        const slider = new Swiper('.recommended-swiper', {
+          loop: true,
+
+          speed: 650,
+
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false
+          },
+
+          slidesPerView: 1,
+          spaceBetween: 18,
+
+          navigation: {
+            nextEl: '.recommended-next',
+            prevEl: '.recommended-prev'
+          },
+
+          pagination: {
+            el: '.recommended-pagination',
+            clickable: true,
+            dynamicBullets: true
+          },
+
+          keyboard: {
+            enabled: true,
+            onlyInViewport: true
+          },
+
+          a11y: {
+            enabled: true
+          },
+
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 18
+            },
+
+            1024: {
+              slidesPerView: 2,
+              spaceBetween: 24
+            }
+          }
+        });
+
+        /* Галерея Fancybox */
+        Fancybox.bind('[data-fancybox="agronext-products"]', {
+          groupAll: false,
+
+          Toolbar: {
+            display: {
+              left: ['infobar'],
+              middle: [],
+              right: ['zoomIn', 'zoomOut', 'download', 'close']
+            }
+          },
+
+          on: {
+            init: () => {
+              slider.autoplay.stop();
+            },
+
+            destroy: () => {
+              slider.autoplay.start();
+            }
+          }
+        });
+
+        /*
+          Якщо на пристрої вимкнено анімації,
+          автоматичне гортання теж вимикається.
+        */
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          slider.autoplay.stop();
+        }
+
+        console.log(
+          'AgroNext: завантажено товарів:',
+          productIndex
+        );
+
+      } catch (error) {
+        console.error(error);
+
+        status.textContent =
+          'Не вдалося завантажити товари. Перевірте catalog.html, catalog-2.html та Live Server.';
+      }
+    }
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      loadRecommendedProducts
+    );
+  </script>
+
 </body>
 </html>

@@ -34,6 +34,7 @@
         h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
         .text-white, .logo-text, .site-header * { color: #FFFFFF; }
     </style>
+<style>/* AGRONEXT_LOGO_FIX */ .site-footer img[src*="logo.png"]{width:48px!important;height:48px!important;max-width:48px!important;object-fit:contain!important;flex-shrink:0!important;}</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
 </head>
 
 <body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
@@ -84,7 +85,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
             <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504U" class="max-h-80 object-contain mb-4">
+                <img src="../assets/images/dtz-504u (1).jpg" alt="Трактор ДТЗ 504U" class="max-h-80 object-contain mb-4">
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
@@ -144,7 +145,7 @@
             <div class="w-full md:max-w-[340px]">
                 <a href="index.html"
                    class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
+                    <img src="../assets/icons/logo.png"
                          alt="Логотип AgroNext"
                          class="w-12 h-12 object-contain">
 
@@ -236,5 +237,23 @@
 
     </div>
 </footer>
+<!-- AGRONEXT_PRODUCT_FANCYBOX -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
+<script>
+document.querySelectorAll('main img[src*="assets/images/"]').forEach(function(img) {
+    if (img.closest('a')) return;
+
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute('data-fancybox', 'product-gallery');
+    link.setAttribute('data-caption', img.alt || 'AgroNext');
+    link.style.cursor = 'zoom-in';
+
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+});
+
+Fancybox.bind('[data-fancybox="product-gallery"]', {});
+</script>
 </body>
 </html>

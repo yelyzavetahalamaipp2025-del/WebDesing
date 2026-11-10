@@ -1,441 +1,678 @@
+
 <!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Загальний каталог агротехніки (Сторінка 1) — AgroNext</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Загальний каталог агротехніки — AgroNext</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { 
-                        'agronext-navy': '#1E3A8A', 
-                        'agronext-navy-hover': '#172554',
-                        'agronext-orange': '#D97706',
-                        'agronext-bg-light': '#F8FAFC' 
-                    },
-                    fontFamily: { 
-                        heading: ["'Space Grotesk'", 'sans-serif'], 
-                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
-                        btn: ["'Inter'", 'sans-serif']
-                    }
-                }
-            }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'agronext-navy': '#1E3A8A',
+            'agronext-navy-hover': '#172554',
+            'agronext-orange': '#D97706',
+            'agronext-bg-light': '#F8FAFC'
+          },
+          fontFamily: {
+            heading: ["'Space Grotesk'", 'sans-serif'],
+            body: ["'Plus Jakarta Sans'", 'sans-serif'],
+            btn: ["'Inter'", 'sans-serif']
+          }
         }
-    </script>
-    <style>
-        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
-        .text-white, .logo-text, .site-header * { color: #FFFFFF; }
-        
-        /* 3D-переворот карток */
-        .flip-card { perspective: 1000px; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; }
-        .flip-card-back { transform: rotateY(180deg); }
-    </style>
+      }
+    };
+  </script>
+
+  <style>
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: 'Space Grotesk', sans-serif !important;
+      color: #1E3A8A !important;
+    }
+
+    .site-header * {
+      color: #ffffff;
+    }
+
+    .flip-card {
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner,
+    .flip-card:focus-within .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 12px;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .flip-card-front {
+      overflow: hidden;
+    }
+
+    .flip-card-back h3 {
+      color: white !important;
+    }
+
+    .product-detail-link {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #1E3A8A;
+      border-radius: 5px;
+      color: #1E3A8A;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .product-detail-link:hover {
+      background: #1E3A8A;
+      color: white;
+    }
+
+    .product-back-link {
+      display: block;
+      text-align: center;
+      padding: 9px;
+      background: #D97706;
+      color: white !important;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- ХЕДЕР -->
-    <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3" style="background-color: #1E3A8A !important;">
-        <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
-            
-            <a href="index.html" style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;" aria-label="Головна AgroNext">
-                <img id="logo" 
-                    src="assets/icons/logo.png" 
-                    alt="AgroNext Logo" 
-                    class="h-12 w-auto object-contain flex-shrink-0"
-                    onerror="if (!this.getAttribute('data-tried-root')) { this.setAttribute('data-tried-root', 'true'); this.src='../assets/icons/logo.png'; } else { this.onerror=null; this.src='https://placehold.co/120x48/1E3A8A/FFFFFF?text=AgroNext'; }">
-                <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1 !important; white-space: nowrap !important;">AgroNext</span>
-            </a>
+<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col">
 
-            <nav class="main-navigation hidden md:flex items-center gap-5">
-                <ul class="nav-list flex gap-5 text-xs font-medium" style="color: #ffffff !important;">
-                    <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
-                    <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
-                    <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
-                    <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
-                    <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
-                </ul>
-            </nav>
+  <!-- ХЕДЕР -->
+  <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
+          style="background-color:#1E3A8A !important;">
+    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
 
-            <div class="header-search hidden sm:block">
-                <form class="search-form" role="search" action="catalog.html" method="GET">
-                    <input type="search" name="q" placeholder="Пошук..." class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none" style="color: #1E3A8A !important; background-color: #ffffff !important;">
-                </form>
+      <a href="index.html" class="flex items-center gap-3" aria-label="Головна AgroNext">
+        <img src="assets/icons/logo.png"
+             alt="Логотип AgroNext"
+             class="h-12 w-auto object-contain">
+        <span class="font-semibold text-base"
+              style="color:white !important;">AgroNext</span>
+      </a>
+
+      <nav class="main-navigation hidden md:flex items-center gap-5">
+        <a href="catalog.html" class="text-xs hover:underline">Каталог</a>
+        <a href="selection.html" class="text-xs hover:underline">Підбір техніки</a>
+        <a href="compatibility.html" class="text-xs hover:underline">Сумісність</a>
+        <a href="calculator.html" class="text-xs hover:underline">Компенсація 25–40%</a>
+        <a href="about.html" class="text-xs hover:underline">Про компанію</a>
+      </nav>
+
+      <form class="hidden sm:block" action="catalog.html" method="GET">
+        <input type="search"
+               name="q"
+               placeholder="Пошук..."
+               class="px-3 py-1 rounded text-xs w-[180px]"
+               style="color:#1E3A8A !important;background:white !important;">
+      </form>
+
+      <button type="button" class="md:hidden p-2" aria-label="Відкрити меню">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-[1140px] mx-auto px-5 py-8 pt-24 w-full flex-grow">
+
+    <div class="text-xs text-slate-400 mb-3 flex gap-1">
+      <a href="index.html" class="hover:underline">Головна</a>
+      <span>/</span>
+      <span>Загальний каталог</span>
+    </div>
+
+    <h1 class="font-heading text-3xl font-bold mb-1">
+      Загальний каталог агротехніки
+    </h1>
+
+    <p class="text-xs text-slate-500 mb-8">
+      Уся техніка підряд із можливістю точного фільтрування під ваше господарство
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+      <!-- ФІЛЬТРИ -->
+      <aside class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm h-fit">
+        <h3 class="font-heading font-bold text-sm mb-4 pb-2 border-b">
+          Фільтри техніки
+        </h3>
+
+        <form class="space-y-4 text-xs" action="catalog.html" method="GET">
+
+          <div>
+            <span class="font-bold block mb-2">Категорії</span>
+
+            <label class="flex gap-2 mb-2">
+              <input type="checkbox" checked> Трактори
+            </label>
+
+            <label class="flex gap-2 mb-2">
+              <input type="checkbox" checked> Мотоблоки
+            </label>
+
+            <label class="flex gap-2">
+              <input type="checkbox" checked> Ґрунтообробка
+            </label>
+          </div>
+
+          <div>
+            <span class="font-bold block mb-2">Ціна, ₴</span>
+
+            <div class="flex gap-2">
+              <input type="text" placeholder="Від"
+                     class="w-full p-2 border border-slate-200 rounded text-xs">
+              <input type="text" placeholder="До"
+                     class="w-full p-2 border border-slate-200 rounded text-xs">
             </div>
+          </div>
 
-            <button type="button" class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors" aria-label="Відкрити меню">
-                <svg class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked>
+            З держкомпенсацією (25–40%)
+          </label>
+
+          <button type="submit"
+                  class="w-full bg-agronext-navy py-2.5 rounded-lg font-semibold"
+                  style="color:white !important;">
+            Застосувати фільтри
+          </button>
+        </form>
+      </aside>
+
+      <!-- ТОВАРИ 1–6 -->
+      <section class="lg:col-span-3">
+
+        <div class="flex justify-between items-center mb-4 text-xs">
+          <span class="text-slate-500 font-medium">
+            Відображено 1–6 із 8 позицій
+          </span>
+          <span class="text-slate-500">
+            Сортування: За замовчуванням ▼
+          </span>
         </div>
-    </header>
 
-    <!-- ОСНОВНИЙ КОНТЕНТ -->
-    <main class="max-w-[1140px] mx-auto px-5 py-8 pt-24 w-full flex-grow">
-        <div class="text-xs text-slate-400 mb-3 flex gap-1">
-            <a href="index.html" class="hover:underline hover:text-agronext-navy">Головна</a> <span>/</span> 
-            <span class="text-slate-600 font-medium">Загальний каталог</span>
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
 
-        <h1 class="font-heading text-3xl font-bold text-agronext-navy mb-1">Загальний каталог агротехніки</h1>
-        <p class="text-xs text-slate-500 mb-8">Уся техніка підряд із можливістю точного фільтрування під ваше господарство</p>
+          <!-- ТОВАР 1: Мотоблок ДТЗ 470БН-GT -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            
-            <!-- Сайдбар фільтрів -->
-            <aside class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm h-fit">
-                <h3 class="font-heading font-bold text-sm text-agronext-navy mb-4 pb-2 border-b border-slate-100">Фільтри техніки</h3>
-                <form class="space-y-4 text-xs" action="catalog.html" method="GET">
-                    <div>
-                        <span class="font-bold block mb-2 text-slate-700">Категорії</span>
-                        <div class="space-y-1.5 text-slate-600">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="rounded text-agronext-navy"> Трактори</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="rounded text-agronext-navy"> Мотоблоки</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="rounded text-agronext-navy"> Ґрунтоообробка</label>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="font-bold block mb-2 text-slate-700">Ціна, ₴</span>
-                        <div class="flex gap-2">
-                            <input type="text" placeholder="Від" class="w-full p-2 border border-slate-200 rounded text-xs outline-none focus:border-agronext-navy">
-                            <input type="text" placeholder="До" class="w-full p-2 border border-slate-200 rounded text-xs outline-none focus:border-agronext-navy">
-                        </div>
-                    </div>
-                    <label class="flex items-center gap-2 text-slate-700 font-medium cursor-pointer">
-                        <input type="checkbox" checked class="rounded text-agronext-navy"> З держкомпенсацією (25–40%)
-                    </label>
-                    <button type="submit" class="w-full bg-agronext-navy text-white py-2.5 rounded-lg font-semibold hover:bg-agronext-navy-hover transition-all shadow-md">
-                        Застосувати фільтри
-                    </button>
-                </form>
-            </aside>
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
 
-            <!-- Сітка товарів (1–6) -->
-            <section class="lg:col-span-3">
-                <div class="flex justify-between items-center mb-4 text-xs">
-                    <span class="text-slate-500 font-medium">Відображено 1–6 із 8 позицій</span>
-                    <span class="text-slate-500 font-semibold cursor-pointer">Сортування: За замовчуванням ▼</span>
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-470bn-gt (1).jpg"
+                         alt="Мотоблок ДТЗ 470БН - GT"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Мотоблок ДТЗ 470БН - GT
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    Колеса 4.00-8 | 7.0 к.с.
+                  </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-                    
-                    <!-- Товар 1: Мотоблок ДТЗ 470БН - GT -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Мотоблок ДТЗ 470БН - GT" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Мотоблок ДТЗ 470БН - GT</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">Колеса 4.00-8 | 7.0 к.с.</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">20 045 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 15 034 ₴</p>
-                                    <a href="products/dtz-470bn-gt.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>7,0 к. с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>170F (Бензин)</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Передачі:</span><strong>3 вп / 1 наз</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-470bn-gt.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                  <p class="font-bold text-base mb-0.5">20 045 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 15 034 ₴
+                  </p>
+                  <a href="products/dtz-470bn-gt.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
 
-                    <!-- Товар 2: Трактор ДТЗ 1304 -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 1304" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 1304</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">130 к.с. | Кондиціонер</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">1 610 080 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 1 207 560 ₴</p>
-                                    <a href="products/dtz-1304.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>130 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF5F-130T Турбо</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>КПП:</span><strong>24+24 Реверс</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-1304.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
 
-                    <!-- Товар 3: Трактор ДТЗ 1204 -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 1204" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 1204</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">120 к.с. | Панорама 360°</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">1 531 200 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 1 148 400 ₴</p>
-                                    <a href="products/dtz-1204.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>120 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF5F120-T</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Маса:</span><strong>4850 кг</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-1204.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
 
-                    <!-- Товар 4: Трактор ДТЗ 504KKU -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504KKU" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 504KKU</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">50 к.с. | Кондиціонер</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">626 400 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 469 800 ₴</p>
-                                    <a href="products/dtz-504kku.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>50 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF4B50T-Z Турбо</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Маса:</span><strong>2160 кг</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-504kku.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Товар 5: Трактор ДТЗ 504BKKU -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504BKKU" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 504BKKU</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">50 к.с. | Двигун V38N</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">784 160 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 588 120 ₴</p>
-                                    <a href="products/dtz-504bkku.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>50 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Об'єм двигуна:</span><strong>3768 см³</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Маса:</span><strong>2850 кг</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-504bkku.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Товар 6: Трактор ДТЗ 504U -->
-                    <div class="flip-card h-[430px]">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-agronext-navy">
-                                <div>
-                                    <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">Держкомпенсація 25%</div>
-                                    <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                                        <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504U" class="max-h-full object-contain">
-                                    </div>
-                                    <h3 class="font-heading font-bold text-sm text-agronext-navy">Трактор ДТЗ 504U</h3>
-                                    <p class="text-[0.7rem] text-slate-500 mt-1">50 к.с. | Без кабіни</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base text-agronext-navy mb-0.5">496 480 ₴</p>
-                                    <p class="text-[10px] text-emerald-600 font-semibold mb-2">З компенсацією: 372 360 ₴</p>
-                                    <a href="products/dtz-504u.html" class="block text-center w-full py-2 border border-agronext-navy text-agronext-navy text-xs font-semibold rounded hover:bg-agronext-navy hover:text-white transition-all">Детальніше</a>
-                                </div>
-                            </div>
-                            <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
-                                <div>
-                                    <h3 class="font-heading font-bold text-sm text-white mb-2 pb-1 border-b border-white/20">Характеристики</h3>
-                                    <ul class="text-[0.7rem] space-y-1.5 text-slate-200">
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Потужність:</span><strong>50 к.с.</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Двигун:</span><strong>CF4B50T-Z</strong></li>
-                                        <li class="flex justify-between border-b border-white/10 pb-1"><span>Маса:</span><strong>1990 кг</strong></li>
-                                    </ul>
-                                </div>
-                                <a href="products/dtz-504u.html" class="block text-center w-full py-2 bg-agronext-orange text-white text-xs font-semibold rounded hover:bg-amber-600 transition-all">Детальніше</a>
-                            </div>
-                        </div>
-                    </div>
-
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 7,0 к. с.</li>
+                    <li>Двигун: 170F (Бензин)</li>
+                    <li>Передачі: 3 вп / 1 наз</li>
+                  </ul>
                 </div>
 
-                <!-- Перемикання сторінок (2 сторінки) -->
-                <div class="flex justify-center items-center gap-2 mt-8 text-xs font-semibold">
-                    <span class="w-8 h-8 rounded bg-agronext-navy text-white flex items-center justify-center shadow-md">1</span>
-                    <a href="catalog-2.html" class="w-8 h-8 rounded bg-white border border-slate-200 text-slate-700 hover:bg-agronext-navy hover:text-white transition-all flex items-center justify-center">2</a>
-                    <a href="catalog-2.html" class="px-3 h-8 rounded bg-white border border-slate-200 text-slate-700 hover:bg-agronext-navy hover:text-white transition-all flex items-center justify-center">Вперед &gt;</a>
+                <a href="products/dtz-470bn-gt.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ТОВАР 2: Трактор ДТЗ 1304 -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-1304 (1).jpg"
+                         alt="Трактор ДТЗ 1304"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Трактор ДТЗ 1304
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    130 к.с. | Кондиціонер
+                  </p>
                 </div>
-            </section>
+
+                <div>
+                  <p class="font-bold text-base mb-0.5">1 610 080 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 1 207 560 ₴
+                  </p>
+                  <a href="products/dtz-1304.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
+
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 130 к.с.</li>
+                    <li>Двигун: CF5F-130T Турбо</li>
+                    <li>КПП: 24+24 Реверс</li>
+                  </ul>
+                </div>
+
+                <a href="products/dtz-1304.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ТОВАР 3: Трактор ДТЗ 1204 -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-1204 (1).jpg"
+                         alt="Трактор ДТЗ 1204"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Трактор ДТЗ 1204
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    120 к.с. | Панорама 360°
+                  </p>
+                </div>
+
+                <div>
+                  <p class="font-bold text-base mb-0.5">1 531 200 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 1 148 400 ₴
+                  </p>
+                  <a href="products/dtz-1204.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
+
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 120 к.с.</li>
+                    <li>Двигун: CF5F120-T</li>
+                    <li>Маса: 4850 кг</li>
+                  </ul>
+                </div>
+
+                <a href="products/dtz-1204.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ТОВАР 4: Трактор ДТЗ 504KKU -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-504kku (1).jpg"
+                         alt="Трактор ДТЗ 504KKU"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Трактор ДТЗ 504KKU
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    50 к.с. | Кондиціонер
+                  </p>
+                </div>
+
+                <div>
+                  <p class="font-bold text-base mb-0.5">626 400 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 469 800 ₴
+                  </p>
+                  <a href="products/dtz-504kku.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
+
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 50 к.с.</li>
+                    <li>Двигун: CF4B50T-Z Турбо</li>
+                    <li>Маса: 2160 кг</li>
+                  </ul>
+                </div>
+
+                <a href="products/dtz-504kku.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ТОВАР 5: Трактор ДТЗ 504BKKU -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-504bkku (1).jpg"
+                         alt="Трактор ДТЗ 504BKKU"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Трактор ДТЗ 504BKKU
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    50 к.с. | Двигун V38N
+                  </p>
+                </div>
+
+                <div>
+                  <p class="font-bold text-base mb-0.5">784 160 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 588 120 ₴
+                  </p>
+                  <a href="products/dtz-504bkku.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
+
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 50 к.с.</li>
+                    <li>Об'єм двигуна: 3768 см³</li>
+                    <li>Маса: 2850 кг</li>
+                  </ul>
+                </div>
+
+                <a href="products/dtz-504bkku.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ТОВАР 6: Трактор ДТЗ 504U -->
+          <div class="flip-card h-[430px]">
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+
+                <div>
+                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                    Держкомпенсація 25%
+                  </div>
+
+                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
+                    <img src="assets/images/dtz-504u (1).jpg"
+                         alt="Трактор ДТЗ 504U"
+                         class="product-image">
+                  </div>
+
+                  <h3 class="font-heading font-bold text-sm">
+                    Трактор ДТЗ 504U
+                  </h3>
+
+                  <p class="text-[0.7rem] text-slate-500 mt-1">
+                    50 к.с. | Без кабіни
+                  </p>
+                </div>
+
+                <div>
+                  <p class="font-bold text-base mb-0.5">496 480 ₴</p>
+                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                    З компенсацією: 372 360 ₴
+                  </p>
+                  <a href="products/dtz-504u.html" class="product-detail-link">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+
+                <div>
+                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
+                    Характеристики
+                  </h3>
+
+                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
+                    <li>Потужність: 50 к.с.</li>
+                    <li>Двигун: CF4B50T-Z</li>
+                    <li>Маса: 1990 кг</li>
+                  </ul>
+                </div>
+
+                <a href="products/dtz-504u.html" class="product-back-link">
+                  Детальніше
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-    </main>
 
-    <!-- ПОВНИЙ 3-КОЛОНКОВИЙ ФУТЕР -->
-    
-<!-- ФУТЕР AGRO NEXT -->
-<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+        <!-- ПЕРЕМИКАННЯ СТОРІНОК -->
+        <div class="flex justify-center items-center gap-2 mt-8 text-xs font-semibold">
+
+          <span class="w-8 h-8 rounded bg-agronext-navy text-white flex items-center justify-center">
+            1
+          </span>
+
+          <a href="catalog-2.html"
+             class="w-8 h-8 rounded bg-white border border-slate-200 flex items-center justify-center hover:bg-agronext-navy hover:text-white">
+            2
+          </a>
+
+          <a href="catalog-2.html"
+             class="px-3 h-8 rounded bg-white border border-slate-200 flex items-center justify-center hover:bg-agronext-navy hover:text-white">
+            Вперед &gt;
+          </a>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ФУТЕР -->
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
     <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex flex-col md:flex-row justify-between
-                    items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
-            <!-- Логотип та опис -->
-            <div class="w-full md:max-w-[340px]">
-                <a href="index.html"
-                   class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
-                         alt="Логотип AgroNext"
-                         class="w-12 h-12 object-contain">
+        <div class="w-full md:max-w-[340px]">
+          <a href="index.html" class="inline-flex items-center gap-3 mb-4">
 
-                    <span class="text-white text-xl font-bold"
-                          style="color: #ffffff !important;">
-                        AgroNext
-                    </span>
-                </a>
+            <img src="assets/icons/logo.png"
+                 alt="Логотип AgroNext"
+                 class="w-12 h-12 object-contain">
 
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Онлайн-платформа для підбору
-                    сільськогосподарської техніки,
-                    перевірки сумісності обладнання
-                    та розрахунку державної компенсації.
-                </p>
-            </div>
+            <span class="text-white text-xl font-bold"
+                  style="color:white !important;">
+              AgroNext
+            </span>
+          </a>
 
-            <!-- Навігація -->
-            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
-
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Компанія
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="about.html"
-                               class="hover:text-white hover:underline">
-                                Про нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#lead"
-                               class="hover:text-white hover:underline">
-                                Центр підтримки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="catalog.html"
-                               class="hover:text-white hover:underline">
-                                Каталог техніки
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Соціальні мережі -->
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Ми в соцмережах
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="https://instagram.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://tiktok.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                TikTok
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Facebook
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору
+            сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
         </div>
 
-        <!-- Нижній рядок -->
-        <div class="border-t border-white/20 pt-5 text-center">
-            <p class="text-slate-300 text-xs">
-                © 2026 AgroNext. Всі права захищені.
-            </p>
-        </div>
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
 
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white !important;">Компанія</h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="about.html" class="hover:underline">Про нас</a></li>
+              <li><a href="index.html#lead" class="hover:underline">Центр підтримки</a></li>
+              <li><a href="catalog.html" class="hover:underline">Каталог техніки</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white !important;">Ми в соцмережах</h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+      </div>
     </div>
-</footer>
+  </footer>
 </body>
 </html>

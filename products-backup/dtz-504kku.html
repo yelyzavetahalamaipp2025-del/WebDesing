@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трактор ДТЗ 504KKU — AgroNext</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="../css/style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'agronext-navy': '#1E3A8A',
+                        'agronext-navy-hover': '#172554',
+                        'agronext-orange': '#D97706',
+                        'agronext-bg-light': '#F8FAFC',
+                    },
+                    fontFamily: {
+                        heading: ["'Space Grotesk'", 'sans-serif'],
+                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
+                        btn: ["'Inter'", 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
+        .text-white, .logo-text, .site-header * { color: #FFFFFF; }
+    </style>
+</head>
+
+<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
+
+   <!-- ХЕДЕР (ЗБЕРЕЖЕНО ПОЧАТКОВИЙ ДИЗАЙН ТА КОЛЬОРИ) -->
+    <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3" style="background-color: #1E3A8A !important;">
+        <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
+            
+            <!-- ЛОГОТИП ТА НАЗВА -->
+            <a href="../index.html" style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;" aria-label="Головна AgroNext">
+                <img id="logo" 
+                    src="../assets/icons/logo.png" 
+                    alt="AgroNext Logo" 
+                    class="h-12 w-auto object-contain flex-shrink-0"
+                    onerror="if (!this.getAttribute('data-tried-root')) { this.setAttribute('data-tried-root', 'true'); this.src='assets/icons/logo.png'; } else { this.onerror=null; this.src='https://placehold.co/120x48/1E3A8A/FFFFFF?text=AgroNext'; }">
+                <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1 !important; white-space: nowrap !important;">AgroNext</span>
+            </a>
+
+            <!-- НАВІГАЦІЯ -->
+            <nav class="main-navigation hidden md:flex items-center gap-5">
+                <ul class="nav-list flex gap-5 text-xs font-medium" style="color: #ffffff !important;">
+                    <li><a href="../catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
+                    <li><a href="../selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
+                    <li><a href="../compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
+                    <li><a href="../calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
+                    <li><a href="../about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
+                </ul>
+            </nav>
+
+            <!-- ПОШУК -->
+            <div class="header-search hidden sm:block">
+                <form class="search-form" role="search" action="../catalog.html" method="GET">
+                    <input type="search" name="q" placeholder="Пошук..." class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none" style="color: #1E3A8A !important; background-color: #ffffff !important;">
+                </form>
+            </div>
+
+            <!-- МОБІЛЬНА КНОПКА -->
+            <button type="button" class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors" aria-label="Відкрити меню">
+                <svg class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-[1140px] mx-auto px-5 pt-24 pb-10 w-full flex-grow">
+        <div class="text-xs text-slate-400 mb-3 flex gap-1">
+            <a href="index.html" class="hover:underline">Головна</a> <span>/</span> <a href="catalog.html" class="hover:underline">Каталог</a> <span>/</span> <span class="text-slate-600">Трактор ДТЗ 504KKU</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+                <img src="assets/images/plow.jpg" alt="Трактор ДТЗ 504KKU" class="max-h-80 object-contain mb-4">
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+                <span class="bg-agronext-orange text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-full uppercase">Підлягає держкомпенсації 25%</span>
+                <h1 class="font-heading text-2xl font-bold text-agronext-navy mt-2">Трактор ДТЗ 504KKU (50 к.с.)</h1>
+                
+                <p class="font-heading font-bold text-3xl text-agronext-navy my-4">626 400 ₴</p>
+                <p class="text-xs text-emerald-600 font-semibold mb-6">З урахуванням компенсації: 469 800 ₴ (Економія 156 600 ₴)</p>
+
+                <div class="space-y-3 mb-6">
+                    <a href="about.html#consultation" class="block text-center w-full bg-agronext-navy text-white py-3 rounded-lg font-bold text-xs hover:bg-agronext-navy-hover transition-colors">
+                        Замовити консультацію
+                    </a>
+                    <a href="compatibility.html" class="block text-center w-full border border-agronext-navy text-agronext-navy py-2.5 rounded-lg font-semibold text-xs hover:bg-agronext-navy hover:text-white transition-colors">
+                        Перевірити сумісність з моїм знаряддям
+                    </a>
+                </div>
+
+                <h3 class="font-heading font-bold text-sm text-agronext-navy border-b pb-2 mb-3">Технічні характеристики</h3>
+                <div class="text-xs space-y-2 text-slate-700">
+                    <div class="flex justify-between border-b pb-1"><span>Потужність двигуна:</span><strong>50 к.с. (36,8 кВт)</strong></div>
+                    <div class="flex justify-between border-b pb-1"><span>Модель двигуна:</span><strong>CF4B50T-Z (Турбо)</strong></div>
+                    <div class="flex justify-between border-b pb-1"><span>Робочий об'єм двигуна:</span><strong>2543 см³</strong></div>
+                    <div class="flex justify-between border-b pb-1"><span>Кабіна:</span><strong>З опаленням та кондиціонером</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-agronext-navy">
+            <div class="mb-4">
+                <h2 class="font-heading font-bold text-xl text-agronext-navy">Відеоогляд та демонстрація роботи в полі</h2>
+                <p class="text-xs text-slate-500 mt-1">Оцініть роботу та тягові характеристики Трактора ДТЗ 504KKU у реальних польових умовах</p>
+            </div>
+            
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-100 border border-slate-200 transition-all duration-300 hover:border-agronext-navy">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full border-0"
+                    src="https://www.youtube.com/embed/rWrzdTpUaq8" 
+                    title="Відеоогляд Трактора ДТЗ 504KKU" 
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    
+<!-- ФУТЕР AGRO NEXT -->
+<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+    <div class="max-w-[1140px] mx-auto px-5">
+
+        <div class="flex flex-col md:flex-row justify-between
+                    items-start gap-10 pb-8">
+
+            <!-- Логотип та опис -->
+            <div class="w-full md:max-w-[340px]">
+                <a href="index.html"
+                   class="inline-flex items-center gap-3 mb-4">
+                    <img src="assets/icons/logo.png"
+                         alt="Логотип AgroNext"
+                         class="w-12 h-12 object-contain">
+
+                    <span class="text-white text-xl font-bold"
+                          style="color: #ffffff !important;">
+                        AgroNext
+                    </span>
+                </a>
+
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Онлайн-платформа для підбору
+                    сільськогосподарської техніки,
+                    перевірки сумісності обладнання
+                    та розрахунку державної компенсації.
+                </p>
+            </div>
+
+            <!-- Навігація -->
+            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Компанія
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="about.html"
+                               class="hover:text-white hover:underline">
+                                Про нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html#lead"
+                               class="hover:text-white hover:underline">
+                                Центр підтримки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="catalog.html"
+                               class="hover:text-white hover:underline">
+                                Каталог техніки
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Соціальні мережі -->
+                <div>
+                    <h3 class="font-bold text-base mb-4"
+                        style="color: #ffffff !important;">
+                        Ми в соцмережах
+                    </h3>
+
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>
+                            <a href="https://instagram.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://tiktok.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                TikTok
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://facebook.com"
+                               target="_blank" rel="noopener noreferrer"
+                               class="hover:text-white hover:underline">
+                                Facebook
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижній рядок -->
+        <div class="border-t border-white/20 pt-5 text-center">
+            <p class="text-slate-300 text-xs">
+                © 2026 AgroNext. Всі права захищені.
+            </p>
+        </div>
+
+    </div>
+</footer>
+</body>
+</html>

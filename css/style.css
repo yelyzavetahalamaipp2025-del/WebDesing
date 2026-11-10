@@ -792,3 +792,42 @@ main {
         letter-spacing: -0.01em !important;
     }
 }
+
+
+/* Лабораторна №10 — Swiper */
+.agronext-swiper {
+  max-width: 1150px;
+  padding: 20px 35px 55px;
+}
+
+.agronext-swiper .swiper-slide {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.agronext-swiper .swiper-slide img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.agronext-swiper .swiper-slide h3 {
+  color: #2d408c;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 14px;
+}
+
+.agronext-swiper .swiper-button-next,
+.agronext-swiper .swiper-button-prev {
+  color: #2d408c;
+}
+
+.agronext-swiper .swiper-pagination-bullet-active {
+  background: #2d408c;
+}
