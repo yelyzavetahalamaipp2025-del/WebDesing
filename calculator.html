@@ -1,270 +1,1369 @@
+
 <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор держкомпенсації — AgroNext</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+  <title>Калькулятор держкомпенсації — AgroNext</title>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { 
-                        'agronext-navy': '#1E3A8A', 
-                        'agronext-navy-hover': '#172554',
-                        'agronext-orange': '#D97706',
-                        'agronext-bg-light': '#F8FAFC' 
-                    },
-                    fontFamily: { 
-                        heading: ["'Space Grotesk'", 'sans-serif'], 
-                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
-                        btn: ["'Inter'", 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
-        .text-white, .logo-text, .site-header * { color: #FFFFFF; }
-    </style>
+  <meta name="description"
+        content="Розрахунок орієнтовної компенсації 25% або 40% вартості сільськогосподарської техніки.">
+
+  <!-- Шрифти -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+        rel="stylesheet">
+
+  <!-- Стилі сайту -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+
+    /* ====================================
+       ЗАГАЛЬНИЙ ДИЗАЙН
+       ==================================== */
+
+    body {
+      margin: 0;
+      background: #F8FAFC;
+      color: #1E3A8A;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .calculator-page {
+      padding-top: 110px;
+      padding-bottom: 55px;
+    }
+
+    .calculator-page h1,
+    .calculator-page h2 {
+      color: #1E3A8A !important;
+    }
+
+    /* ====================================
+       ХЕДЕР
+       ==================================== */
+
+    .site-header {
+      background: #1E3A8A !important;
+      z-index: 100 !important;
+    }
+
+    .site-header .main-navigation a {
+      color: white !important;
+      transition: color .2s ease;
+    }
+
+    .site-header .main-navigation a:hover {
+      color: #FBBF24 !important;
+    }
+
+    /* ====================================
+       КАРТКИ
+       ==================================== */
+
+    .calc-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 16px rgba(30,58,138,.06);
+
+      transition:
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
+
+    /* Параметри — синій */
+
+    .parameters-card:hover,
+    .parameters-card:focus-within {
+      border-color: #1E3A8A;
+      box-shadow: 0 8px 25px rgba(30,58,138,.16);
+    }
+
+    /* Результат — помаранчевий */
+
+    .result-card:hover,
+    .result-card:focus-within {
+      border-color: #D97706;
+      box-shadow: 0 8px 25px rgba(217,119,6,.18);
+    }
+
+    /* ====================================
+       ПОЛЯ ФОРМИ
+       ==================================== */
+
+    .calc-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .calc-input {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 12px 14px;
+      border: 1px solid #CBD5E1;
+      border-radius: 9px;
+      background: #F8FAFC;
+      color: #1E3A8A;
+      font-family: inherit;
+      font-size: 13px;
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .calc-input:focus {
+      outline: none;
+      border-color: #1E3A8A;
+      box-shadow: 0 0 0 3px rgba(30,58,138,.12);
+    }
+
+    .calc-input.is-invalid {
+      border-color: #DC2626 !important;
+      background: #FFF7F7;
+    }
+
+    .field-hint {
+      margin-top: 7px;
+      color: #64748B;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* ====================================
+       КНОПКИ
+       ==================================== */
+
+    .calc-button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 9px;
+      background: #1E3A8A;
+      color: white !important;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+
+      transition:
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .calc-button:hover {
+      background: #172554;
+      box-shadow: 0 6px 18px rgba(30,58,138,.2);
+    }
+
+    .official-link {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 9px;
+      background: #D97706;
+      color: white !important;
+      text-decoration: none;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+
+      transition:
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .official-link:hover {
+      background: #B45309;
+      box-shadow: 0 6px 18px rgba(217,119,6,.18);
+    }
+
+    /* ====================================
+       РЕЗУЛЬТАТ
+       ==================================== */
+
+    .result-main {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 13px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .result-number {
+      color: #D97706;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 14px 0;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 13px;
+    }
+
+    .result-row span {
+      color: #64748B;
+    }
+
+    .result-row strong {
+      color: #1E3A8A;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .result-highlight {
+      margin-top: 15px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #EFF6FF;
+      border: 1px solid #DBEAFE;
+    }
+
+    .result-highlight strong {
+      font-size: 17px;
+    }
+
+    .calc-notice {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 11px;
+      line-height: 1.7;
+      color: #475569;
+    }
+
+    /* ====================================
+       ПОМИЛКИ
+       ==================================== */
+
+    .calc-error {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+      border-radius: 9px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .calc-error[hidden] {
+      display: none !important;
+    }
+
+    /* ====================================
+       ВАЖЛИВО ЗНАТИ — ЧЕРВОНИЙ ЕФЕКТ
+       ==================================== */
+
+    .important-card {
+      border: 2px solid #DC2626;
+      border-left: 6px solid #DC2626;
+      background: #FFFDFD;
+
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .important-card h2 {
+      color: #B91C1C !important;
+    }
+
+    .important-card:hover,
+    .important-card:focus-within {
+      transform: translateY(-3px);
+      border-color: #B91C1C;
+
+      box-shadow:
+        0 12px 28px rgba(185,28,28,.20);
+    }
+
+    /* ====================================
+       МОБІЛЬНЕ МЕНЮ
+       ==================================== */
+
+    #mobileNavigation[hidden] {
+      display: none !important;
+    }
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 110;
+      padding: 12px 20px;
+      background: white;
+      box-shadow: 0 12px 25px rgba(0,0,0,.15);
+    }
+
+    #mobileNavigation a {
+      display: block;
+      padding: 12px;
+      color: #1E3A8A !important;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    #mobileNavigation a:hover {
+      background: #EFF6FF;
+    }
+
+    /* ====================================
+       ФУТЕР
+       ==================================== */
+
+    .site-footer h3 {
+      color: white !important;
+    }
+
+    .site-footer a:hover {
+      color: white !important;
+      text-decoration: underline;
+    }
+
+    /* ====================================
+       АДАПТИВНІСТЬ
+       ==================================== */
+
+    @media (min-width: 768px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .calculator-page {
+        padding-top: 95px;
+      }
+
+      .calc-card {
+        padding: 19px;
+      }
+
+      .result-row {
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .calc-card,
+      .important-card {
+        transition: none;
+      }
+
+      .important-card:hover {
+        transform: none;
+      }
+    }
+
+  </style>
 </head>
-<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
-   <!-- ХЕДЕР (ЗБЕРЕЖЕНО ПОЧАТКОВИЙ ДИЗАЙН ТА КОЛЬОРИ) -->
+<body class="min-h-screen flex flex-col">
 
-<!-- ХЕДЕР AGRO NEXT -->
-<header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
-        style="background-color: #1E3A8A !important;">
+  <!-- ====================================
+       ХЕДЕР
+       ==================================== -->
 
-    <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
+  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
 
-        <!-- Логотип і перехід на головну -->
-        <a href="index.html"
-           style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;"
-           aria-label="Головна AgroNext">
+    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
 
-            <img id="logo"
-                 src="assets/icons/logo.png"
-                 alt="AgroNext Logo"
-                 class="h-12 w-auto object-contain flex-shrink-0">
+      <a href="index.html" class="flex items-center gap-3">
 
-            <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; white-space: nowrap !important;">
-                AgroNext
-            </span>
+        <img src="assets/icons/logo.png"
+             alt="AgroNext"
+             class="h-12 w-auto object-contain">
+
+        <span class="font-semibold text-base"
+              style="color:white!important">
+          AgroNext
+        </span>
+      </a>
+
+      <nav class="main-navigation hidden md:flex items-center gap-5"
+           aria-label="Основна навігація">
+
+        <a href="catalog.html" class="text-xs">Каталог</a>
+
+        <a href="selection.html" class="text-xs">
+          Підбір техніки
         </a>
 
-        <!-- Навігація -->
-        <nav class="main-navigation hidden md:flex items-center gap-5">
-            <ul class="nav-list flex gap-5 text-xs font-medium"
-                style="color: #ffffff !important;">
+        <a href="compatibility.html" class="text-xs">
+          Сумісність
+        </a>
 
-                <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
+        <a href="calculator.html" class="text-xs">
+          Компенсація 25–40%
+        </a>
 
-                <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
+        <a href="about.html" class="text-xs">
+          Про компанію
+        </a>
+      </nav>
 
-                <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
+      <!-- Пошук -->
 
-                <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
+      <form action="catalog.html"
+            method="GET"
+            role="search"
+            class="hidden sm:block">
 
-                <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
+        <input type="search"
+               name="q"
+               placeholder="Пошук..."
+               class="px-3 py-1 rounded text-xs w-[180px]"
+               style="background:white;color:#1E3A8A">
+      </form>
 
-            </ul>
-        </nav>
+      <!-- Мобільне меню -->
 
-        <!-- Пошук -->
-        <div class="header-search hidden sm:block">
-            <form class="search-form" role="search" action="catalog.html" method="GET">
-                <input type="search"
-                       name="q"
-                       placeholder="Пошук..."
-                       class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none"
-                       style="color: #1E3A8A !important; background-color: #ffffff !important;">
-            </form>
-        </div>
+      <button id="menuButton"
+              type="button"
+              class="md:hidden p-2 rounded hover:bg-white/10"
+              aria-label="Відкрити меню"
+              aria-expanded="false"
+              aria-controls="mobileNavigation">
 
-        <!-- Мобільна кнопка меню -->
-        <button type="button"
-                class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors"
-                aria-label="Відкрити меню">
-            <svg class="w-6 h-6 block" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+        <svg id="menuIcon"
+             width="26"
+             height="26"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="white"
+             stroke-width="2">
+
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="mobileNavigation"
+         hidden
+         aria-label="Мобільне меню">
+
+      <a href="index.html">Головна</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="selection.html">Підбір техніки</a>
+      <a href="compatibility.html">Сумісність</a>
+      <a href="calculator.html">Компенсація 25–40%</a>
+      <a href="about.html">Про компанію</a>
+
+    </nav>
+  </header>
+
+  <!-- ====================================
+       ОСНОВНА СТОРІНКА
+       ==================================== -->
+
+  <main class="calculator-page max-w-[1140px] mx-auto px-5 w-full flex-grow">
+
+    <div class="text-xs text-slate-500 mb-3">
+
+      <a href="index.html" class="hover:underline">
+        Головна
+      </a>
+
+      / Калькулятор компенсації
 
     </div>
-</header>
 
+    <h1 class="text-3xl font-bold mb-3">
+      Калькулятор держкомпенсації
+    </h1>
 
-    <main class="max-w-[1140px] mx-auto px-5 py-8 w-full flex-grow">
-        <div class="text-xs text-slate-400 mb-3 flex gap-1">
-            <a href="index.html" class="hover:underline hover:text-agronext-navy transition-colors">Головна</a> 
-            <span>/</span> 
-            <span class="text-slate-600 font-medium">Калькулятор держкомпенсації</span>
+    <p class="text-sm text-slate-500 leading-relaxed mb-8">
+      Дізнайтеся, яку частину вартості сільськогосподарської техніки
+      потенційно може компенсувати держава.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mb-7">
+
+      <!-- ====================================
+           ЛІВА КАРТКА — ПАРАМЕТРИ
+           ==================================== -->
+
+      <section class="calc-card parameters-card">
+
+        <h2 class="text-xl font-bold mb-5 pb-4 border-b border-slate-200">
+          Параметри розрахунку
+        </h2>
+
+        <form id="compensationForm"
+              class="space-y-5"
+              novalidate>
+
+          <!-- ВИБІР МОДЕЛІ -->
+
+          <div>
+
+            <label class="calc-label" for="modelSelect">
+              1. Оберіть техніку
+            </label>
+
+            <select id="modelSelect"
+                    class="calc-input">
+
+              <option value="dtz-504u">
+                Трактор ДТЗ 504U
+              </option>
+
+              <option value="dtz-354u">
+                Трактор ДТЗ 354U
+              </option>
+
+              <option value="dtz-504kku">
+                Трактор ДТЗ 504KKU
+              </option>
+
+              <option value="dtz-504bkku">
+                Трактор ДТЗ 504BKKU
+              </option>
+
+              <option value="dtz-1204">
+                Трактор ДТЗ 1204
+              </option>
+
+              <option value="dtz-1204-spec">
+                Трактор ДТЗ 1204 (Спец)
+              </option>
+
+              <option value="dtz-1304">
+                Трактор ДТЗ 1304
+              </option>
+
+              <option value="dtz-470bn-gt">
+                Мотоблок ДТЗ 470БН-GT
+              </option>
+
+              <option value="manual">
+                Ввести вартість вручну
+              </option>
+
+            </select>
+
+            <p class="field-hint">
+              Ціни підставляються з каталогу AgroNext.
+              Участь конкретної моделі в державній програмі
+              необхідно перевіряти окремо.
+            </p>
+          </div>
+
+          <!-- ЦІНА -->
+
+          <div>
+
+            <label class="calc-label" for="priceInput">
+              2. Вартість однієї одиниці, грн
+            </label>
+
+            <input id="priceInput"
+                   class="calc-input"
+                   type="text"
+                   inputmode="decimal"
+                   maxlength="20"
+                   autocomplete="off"
+                   value="496480"
+                   placeholder="Введіть вартість">
+
+            <p class="field-hint">
+              Ціну можна змінити вручну.
+              Допускається кома або крапка для копійок.
+            </p>
+
+          </div>
+
+          <!-- КІЛЬКІСТЬ -->
+
+          <div>
+
+            <label class="calc-label" for="quantityInput">
+              3. Кількість одиниць
+            </label>
+
+            <input id="quantityInput"
+                   class="calc-input"
+                   type="text"
+                   inputmode="numeric"
+                   maxlength="4"
+                   value="1"
+                   placeholder="Від 1 до 20">
+
+            <p class="field-hint">
+              Введіть ціле число від 1 до 20.
+            </p>
+
+          </div>
+
+          <!-- ПДВ -->
+
+          <div>
+
+            <label class="calc-label" for="vatSelect">
+              4. Як указана ціна?
+            </label>
+
+            <select id="vatSelect"
+                    class="calc-input">
+
+              <option value="included">
+                З ПДВ 20%
+              </option>
+
+              <option value="excluded">
+                Без ПДВ
+              </option>
+
+            </select>
+
+            <p class="field-hint">
+              Компенсація розраховується
+              від вартості техніки без ПДВ.
+            </p>
+
+          </div>
+
+          <!-- СТАВКА -->
+
+          <div>
+
+            <label class="calc-label" for="rateSelect">
+              5. Умови компенсації
+            </label>
+
+            <select id="rateSelect"
+                    class="calc-input">
+
+              <option value="25">
+                25% — стандартні умови
+              </option>
+
+              <option value="40">
+                40% — спеціальні територіальні умови
+              </option>
+
+            </select>
+
+            <p class="field-hint">
+              Підвищена ставка 40% доступна
+              лише за виконання спеціальних умов програми.
+            </p>
+
+          </div>
+
+          <!-- ПОМИЛКА -->
+
+          <div id="formError"
+               class="calc-error"
+               role="alert"
+               hidden>
+          </div>
+
+          <!-- КНОПКА -->
+
+          <button type="submit" class="calc-button">
+            Розрахувати компенсацію
+          </button>
+
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Результат змінюється автоматично
+            після редагування будь-якого параметра.
+          </p>
+
+        </form>
+
+      </section>
+
+      <!-- ====================================
+           ПРАВА КАРТКА — РЕЗУЛЬТАТ
+           ==================================== -->
+
+      <section class="calc-card result-card flex flex-col">
+
+        <h2 class="text-xl font-bold mb-5 pb-4 border-b border-slate-200">
+          Результат розрахунку
+        </h2>
+
+        <div class="result-main">
+
+          <p class="text-sm text-slate-600 mb-2">
+            Орієнтовна сума від держави
+          </p>
+
+          <p id="compensationResult"
+             class="result-number"
+             aria-live="polite">
+            —
+          </p>
+
         </div>
 
-        <h1 class="font-heading text-3xl font-bold text-agronext-navy mb-1">Розрахунок держкомпенсації (25–40%) та окупності</h1>
-        <p class="text-xs text-slate-500 mb-8">Оцініть реальну економію коштів та термін повернення інвестицій за програмою підтримки</p>
+        <div class="flex-grow">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm space-y-4 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <h3 class="font-heading font-bold text-base text-agronext-navy border-b border-slate-100 pb-2">Параметри розрахунку</h3>
-                <form action="calculator.html" method="GET" class="space-y-4 text-xs">
-                    <div>
-                        <label for="category-select" class="block mb-1 font-medium text-slate-700">Категорія господарства</label>
-                        <select id="category-select" name="category" class="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 text-agronext-navy outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                            <option value="0.25">Товариство / Агрохолдинг (25%)</option>
-                            <option value="0.40" selected>ФОП / Мале господарство (40%)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="price-input" class="block mb-1 font-medium text-slate-700">Вартість техніки, ₴</label>
-                        <input id="price-input" name="price" type="number" value="2500000" step="50000" class="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 text-agronext-navy font-bold outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                    </div>
-                    <button type="submit" class="w-full bg-agronext-navy text-white py-3 rounded-lg font-bold hover:bg-agronext-navy-hover transition-all duration-300 shadow-md">
-                        Розрахувати компенсацію та окупність
-                    </button>
-                </form>
-            </div>
+          <div class="result-row">
+            <span>Повна вартість покупки</span>
+            <strong id="totalResult">—</strong>
+          </div>
 
-            <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm space-y-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-orange flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="bg-amber-50/50 p-4 rounded-xl border border-amber-200/60">
-                        <span class="text-xs text-slate-500 block mb-1">Орієнтовна сума від держави:</span>
-                        <p id="compensation-result" class="font-heading font-bold text-3xl sm:text-4xl text-agronext-orange">1 000 000 ₴</p>
-                    </div>
-                    
-                    <div class="border-t border-slate-100 pt-3 space-y-2.5 text-xs">
-                        <p class="text-slate-700 flex justify-between">
-                            <span>Чиста вартість техніки:</span> 
-                            <strong id="final-price-result" class="font-bold text-agronext-navy text-sm">1 500 000 ₴</strong>
-                        </p>
-                        <p class="text-slate-700 flex justify-between">
-                            <span>Паспортний термін окупності:</span> 
-                            <strong id="payback-result" class="font-bold text-agronext-navy text-sm">1.5 року</strong>
-                        </p>
-                    </div>
-                </div>
+          <div class="result-row">
+            <span>Вартість без ПДВ</span>
+            <strong id="baseResult">—</strong>
+          </div>
 
-                <a href="about.html#consultation" class="block text-center w-full bg-agronext-orange text-white py-3 rounded-lg font-bold text-xs hover:bg-amber-600 transition-all duration-300 shadow-md">
-                    Подати заявку на компенсацію
-                </a>
-            </div>
+          <div class="result-row">
+            <span>Ставка компенсації</span>
+            <strong id="rateResult">—</strong>
+          </div>
+
+          <div class="result-row result-highlight">
+            <span>Власні витрати після компенсації</span>
+            <strong id="ownResult">—</strong>
+          </div>
+
+          <div id="resultNotice"
+               class="calc-notice mt-5"
+               role="status"
+               aria-live="polite">
+            Виконується розрахунок...
+          </div>
+
+          <div class="calc-notice mt-4">
+
+            <strong class="block mb-2 text-[#1E3A8A]">
+              Як отримати компенсацію?
+            </strong>
+
+            Потрібно придбати техніку з офіційного переліку,
+            провести оплату через уповноважений банк
+            і подати туди заявку з необхідними документами.
+
+          </div>
+
         </div>
-    </main>
 
-   
-<!-- ФУТЕР AGRO NEXT -->
-<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+        <div class="mt-6">
+
+          <a href="https://madeinukraine.gov.ua/kompensatsiya-25-ukr-obladnannya"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="official-link">
+
+            Як отримати компенсацію
+
+          </a>
+
+          <p class="text-xs text-slate-500 leading-relaxed text-center mt-3">
+            Відкриється офіційна сторінка програми.
+            Заявка подається через уповноважений банк.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ====================================
+         ВАЖЛИВО ЗНАТИ
+         ==================================== -->
+
+    <section class="calc-card important-card">
+
+      <h2 class="text-xl font-bold mb-4">
+        Важливо знати
+      </h2>
+
+      <p class="text-sm text-slate-600 leading-relaxed mb-3">
+
+        Калькулятор виконує попередній математичний
+        розрахунок компенсації 25% або 40%.
+        Він не визначає право на державну допомогу.
+
+      </p>
+
+      <p class="text-sm text-slate-600 leading-relaxed mb-3">
+
+        Перед придбанням техніки перевірте,
+        чи входить вибрана модель до офіційного
+        переліку, а також чи відповідає
+        ваше господарство умовам програми.
+
+      </p>
+
+      <p class="text-sm text-slate-600 leading-relaxed">
+
+        Фактичний розмір компенсації
+        залежить від документів, чинних умов,
+        раніше отриманих виплат
+        і рішення уповноважених органів.
+
+      </p>
+
+    </section>
+
+  </main>
+
+  <!-- ====================================
+       ФУТЕР
+       ==================================== -->
+
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+
     <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex flex-col md:flex-row justify-between
-                    items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
-            <!-- Логотип та опис -->
-            <div class="w-full md:max-w-[340px]">
-                <a href="index.html"
-                   class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
-                         alt="Логотип AgroNext"
-                         class="w-12 h-12 object-contain">
+        <div class="w-full md:max-w-[340px]">
 
-                    <span class="text-white text-xl font-bold"
-                          style="color: #ffffff !important;">
-                        AgroNext
-                    </span>
+          <a href="index.html"
+             class="inline-flex items-center gap-3 mb-4">
+
+            <img src="assets/icons/logo.png"
+                 alt="AgroNext"
+                 class="w-12 h-12 object-contain">
+
+            <span class="text-xl font-bold"
+                  style="color:white!important">
+              AgroNext
+            </span>
+
+          </a>
+
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору
+            сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
+
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+          <div>
+
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Компанія
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="about.html">Про нас</a></li>
+              <li><a href="index.html#lead">Центр підтримки</a></li>
+              <li><a href="catalog.html">Каталог техніки</a></li>
+            </ul>
+
+          </div>
+
+          <div>
+
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Ми в соцмережах
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+
+              <li>
+                <a href="https://instagram.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Instagram
                 </a>
+              </li>
 
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Онлайн-платформа для підбору
-                    сільськогосподарської техніки,
-                    перевірки сумісності обладнання
-                    та розрахунку державної компенсації.
-                </p>
-            </div>
+              <li>
+                <a href="https://tiktok.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  TikTok
+                </a>
+              </li>
 
-            <!-- Навігація -->
-            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+              <li>
+                <a href="https://facebook.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Facebook
+                </a>
+              </li>
 
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Компанія
-                    </h3>
+            </ul>
 
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="about.html"
-                               class="hover:text-white hover:underline">
-                                Про нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#lead"
-                               class="hover:text-white hover:underline">
-                                Центр підтримки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="catalog.html"
-                               class="hover:text-white hover:underline">
-                                Каталог техніки
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+          </div>
 
-                <!-- Соціальні мережі -->
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Ми в соцмережах
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="https://instagram.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://tiktok.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                TikTok
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Facebook
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
-        <!-- Нижній рядок -->
-        <div class="border-t border-white/20 pt-5 text-center">
-            <p class="text-slate-300 text-xs">
-                © 2026 AgroNext. Всі права захищені.
-            </p>
-        </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+
+      </div>
 
     </div>
-</footer>
+
+  </footer>
+
+  <!-- ====================================
+       JAVASCRIPT КАЛЬКУЛЯТОРА
+       ПРАЦЮЄ БЕЗ ОКРЕМОГО widget.js
+       ==================================== -->
+
+  <script>
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // ====================================
+      // 1. МОБІЛЬНЕ МЕНЮ
+      // ====================================
+
+      const menuButton = document.getElementById("menuButton");
+      const mobileMenu = document.getElementById("mobileNavigation");
+      const menuIcon = document.getElementById("menuIcon");
+
+      function setMenu(open) {
+
+        mobileMenu.hidden = !open;
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        menuButton.setAttribute(
+          "aria-label",
+          open ? "Закрити меню" : "Відкрити меню"
+        );
+
+        menuIcon.innerHTML = open
+          ? '<path d="M6 6l12 12M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+
+      menuButton.addEventListener("click", function () {
+        setMenu(mobileMenu.hidden);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          setMenu(false);
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".site-header")) {
+          setMenu(false);
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 768) {
+          setMenu(false);
+        }
+      });
+
+      // ====================================
+      // 2. ДАНІ ТЕХНІКИ
+      // ====================================
+
+      const machinePrices = {
+        "dtz-504u": 496480,
+        "dtz-354u": 375840,
+        "dtz-504kku": 626400,
+        "dtz-504bkku": 784160,
+        "dtz-1204": 1531200,
+        "dtz-1204-spec": 1531200,
+        "dtz-1304": 1610080,
+        "dtz-470bn-gt": 20045
+      };
+
+      // ====================================
+      // 3. HTML-ЕЛЕМЕНТИ
+      // ====================================
+
+      const modelSelect = document.getElementById("modelSelect");
+      const priceInput = document.getElementById("priceInput");
+      const quantityInput = document.getElementById("quantityInput");
+      const vatSelect = document.getElementById("vatSelect");
+      const rateSelect = document.getElementById("rateSelect");
+
+      const form = document.getElementById("compensationForm");
+      const errorBox = document.getElementById("formError");
+
+      const compensationResult =
+        document.getElementById("compensationResult");
+
+      const totalResult =
+        document.getElementById("totalResult");
+
+      const baseResult =
+        document.getElementById("baseResult");
+
+      const rateResult =
+        document.getElementById("rateResult");
+
+      const ownResult =
+        document.getElementById("ownResult");
+
+      const resultNotice =
+        document.getElementById("resultNotice");
+
+      // ====================================
+      // 4. ФОРМАТУВАННЯ ГРОШЕЙ
+      // ====================================
+
+      const moneyFormatter = new Intl.NumberFormat("uk-UA", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      function formatMoney(value) {
+
+        if (!Number.isFinite(value)) {
+          return "—";
+        }
+
+        return moneyFormatter.format(value) + " грн";
+      }
+
+      // ====================================
+      // 5. ПЕРЕВІРКА ЦІНИ
+      // ====================================
+
+      function parsePrice(value) {
+
+        const text = String(value)
+          .trim()
+          .replace(/[\s\u00A0\u202F]/g, "")
+          .replace(",", ".");
+
+        // Тільки число з максимум 2 знаками
+        // після коми або крапки.
+
+        if (!/^\d+(?:\.\d{1,2})?$/.test(text)) {
+          return null;
+        }
+
+        const number = Number(text);
+
+        if (
+          !Number.isFinite(number) ||
+          number <= 0 ||
+          number > 100000000
+        ) {
+          return null;
+        }
+
+        return number;
+      }
+
+      // ====================================
+      // 6. ПЕРЕВІРКА КІЛЬКОСТІ
+      // ====================================
+
+      function parseQuantity(value) {
+
+        const text = String(value).trim();
+
+        if (!/^\d+$/.test(text)) {
+          return null;
+        }
+
+        const number = Number(text);
+
+        if (
+          !Number.isSafeInteger(number) ||
+          number < 1 ||
+          number > 20
+        ) {
+          return null;
+        }
+
+        return number;
+      }
+
+      // ====================================
+      // 7. ОЧИЩЕННЯ ПОМИЛОК
+      // ====================================
+
+      function clearError() {
+
+        errorBox.hidden = true;
+        errorBox.textContent = "";
+
+        priceInput.classList.remove("is-invalid");
+        quantityInput.classList.remove("is-invalid");
+
+        priceInput.removeAttribute("aria-invalid");
+        quantityInput.removeAttribute("aria-invalid");
+      }
+
+      function clearResults() {
+
+        compensationResult.textContent = "—";
+        totalResult.textContent = "—";
+        baseResult.textContent = "—";
+        rateResult.textContent = "—";
+        ownResult.textContent = "—";
+      }
+
+      function showError(message, field) {
+
+        clearError();
+
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+
+        if (field) {
+          field.classList.add("is-invalid");
+          field.setAttribute("aria-invalid", "true");
+        }
+
+        clearResults();
+
+        resultNotice.textContent =
+          "Виправте введені дані для розрахунку.";
+      }
+
+      // ====================================
+      // 8. ОСНОВНА ФУНКЦІЯ РОЗРАХУНКУ
+      // ====================================
+
+      function calculateCompensation() {
+
+        clearError();
+
+        const price = parsePrice(priceInput.value);
+        const quantity = parseQuantity(quantityInput.value);
+
+        // Перевірка ціни
+        if (price === null) {
+
+          showError(
+            "Введіть правильну ціну від 0,01 до 100 000 000 грн.",
+            priceInput
+          );
+
+          return;
+        }
+
+        // Перевірка кількості
+        if (quantity === null) {
+
+          showError(
+            "Кількість має бути цілим числом від 1 до 20.",
+            quantityInput
+          );
+
+          return;
+        }
+
+        // Перевірка ПДВ
+        const vatMode = vatSelect.value;
+
+        if (
+          vatMode !== "included" &&
+          vatMode !== "excluded"
+        ) {
+          showError("Оберіть спосіб зазначення ціни.");
+          return;
+        }
+
+        // Перевірка ставки
+        const rate = Number(rateSelect.value);
+
+        if (rate !== 25 && rate !== 40) {
+          showError("Оберіть ставку 25% або 40%.");
+          return;
+        }
+
+        // ====================================
+        // МАТЕМАТИКА
+        // ====================================
+
+        // Повна вартість покупки
+        const totalPrice = price * quantity;
+
+        // Сума без ПДВ
+        const basePrice =
+          vatMode === "included"
+            ? totalPrice / 1.20
+            : totalPrice;
+
+        // Орієнтовна компенсація
+        const rawCompensation =
+          basePrice * rate / 100;
+
+        // Річне обмеження (2026)
+        const compensation =
+          Math.min(rawCompensation, 86000000);
+
+        // Власні витрати після компенсації
+        const ownExpenses =
+          totalPrice - compensation;
+
+        // Захист від NaN та Infinity
+        const numbers = [
+          totalPrice,
+          basePrice,
+          compensation,
+          ownExpenses
+        ];
+
+        if (!numbers.every(Number.isFinite)) {
+
+          showError(
+            "Не вдалося виконати розрахунок."
+          );
+
+          return;
+        }
+
+        // ====================================
+        // 9. ВИВЕДЕННЯ РЕЗУЛЬТАТІВ
+        // ====================================
+
+        compensationResult.textContent =
+          formatMoney(compensation);
+
+        totalResult.textContent =
+          formatMoney(totalPrice);
+
+        baseResult.textContent =
+          formatMoney(basePrice);
+
+        rateResult.textContent =
+          rate + "%";
+
+        ownResult.textContent =
+          formatMoney(ownExpenses);
+
+        // Інформаційне повідомлення
+
+        if (rate === 40) {
+
+          resultNotice.textContent =
+            "Попередній розрахунок за ставкою 40%. " +
+            "Потрібно підтвердити спеціальні територіальні " +
+            "та інші умови державної програми.";
+
+        } else {
+
+          resultNotice.textContent =
+            "Попередній розрахунок за ставкою 25%. " +
+            "Фактичне право на компенсацію залежить " +
+            "від відповідності техніки та покупця " +
+            "умовам державної програми.";
+        }
+
+        if (rawCompensation > 86000000) {
+          resultNotice.textContent +=
+            " Застосовано ліміт 86 млн грн на покупця " +
+            "за 2026 рік. Попередні виплати не враховані.";
+        }
+      }
+
+      // ====================================
+      // 10. АВТОПІДСТАНОВКА ЦІНИ
+      // ====================================
+
+      function updatePriceFromModel() {
+
+        const selectedModel = modelSelect.value;
+
+        if (selectedModel === "manual") {
+
+          priceInput.value = "";
+          priceInput.focus();
+
+        } else if (
+          Object.prototype.hasOwnProperty.call(
+            machinePrices,
+            selectedModel
+          )
+        ) {
+
+          priceInput.value =
+            machinePrices[selectedModel];
+        }
+
+        calculateCompensation();
+      }
+
+      // ====================================
+      // 11. ОБРОБНИКИ ПОДІЙ
+      // ====================================
+
+      modelSelect.addEventListener(
+        "change",
+        updatePriceFromModel
+      );
+
+      priceInput.addEventListener(
+        "input",
+        calculateCompensation
+      );
+
+      quantityInput.addEventListener(
+        "input",
+        calculateCompensation
+      );
+
+      vatSelect.addEventListener(
+        "change",
+        calculateCompensation
+      );
+
+      rateSelect.addEventListener(
+        "change",
+        calculateCompensation
+      );
+
+      form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        calculateCompensation();
+      });
+
+      // ====================================
+      // 12. ПОЧАТКОВИЙ РОЗРАХУНОК
+      // ====================================
+
+      updatePriceFromModel();
+
+    });
+  </script>
+
 </body>
 </html>
