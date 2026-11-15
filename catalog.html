@@ -1,15 +1,18 @@
 
 <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Загальний каталог агротехніки — AgroNext</title>
+  <title>Каталог техніки — AgroNext</title>
+  <meta name="description" content="Каталог AgroNext: трактори, мотоблоки, ґрунтообробна техніка. Фільтрація за категорією, ціною та держкомпенсацією.">
 
+  <!-- Шрифти -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- Стилі сайту -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
 
@@ -18,15 +21,12 @@
       theme: {
         extend: {
           colors: {
-            'agronext-navy': '#1E3A8A',
-            'agronext-navy-hover': '#172554',
-            'agronext-orange': '#D97706',
-            'agronext-bg-light': '#F8FAFC'
+            "agronext-navy": "#1E3A8A",
+            "agronext-orange": "#D97706"
           },
           fontFamily: {
-            heading: ["'Space Grotesk'", 'sans-serif'],
-            body: ["'Plus Jakarta Sans'", 'sans-serif'],
-            btn: ["'Inter'", 'sans-serif']
+            heading: ["Space Grotesk", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"]
           }
         }
       }
@@ -34,608 +34,1819 @@
   </script>
 
   <style>
-    h1, h2, h3, h4, h5, h6, .font-heading {
-      font-family: 'Space Grotesk', sans-serif !important;
+    /* ======================================
+       ЗАГАЛЬНИЙ ДИЗАЙН
+       ====================================== */
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: #F8FAFC;
+      color: #1E3A8A;
+    }
+
+    .catalog-page {
+      padding-top: 105px !important;
+      padding-bottom: 55px !important;
+    }
+
+    .catalog-page h1,
+    .catalog-page h2,
+    .catalog-page h3 {
+      font-family: "Space Grotesk", sans-serif;
       color: #1E3A8A !important;
     }
 
-    .site-header * {
-      color: #ffffff;
+    /* ======================================
+       ХЕДЕР
+       ====================================== */
+
+    .site-header {
+      background-color: #1E3A8A !important;
+      z-index: 100 !important;
     }
 
-    .flip-card {
-      perspective: 1000px;
+    .site-header .logo-name {
+      color: #FFFFFF !important;
     }
 
-    .flip-card-inner {
+    .site-header .main-navigation a {
+      color: #FFFFFF !important;
+      transition: color 0.2s ease;
+    }
+
+    .site-header .main-navigation a:hover {
+      color: #FBBF24 !important;
+    }
+
+    /* ======================================
+       ФІЛЬТРИ
+       ====================================== */
+
+    .catalog-filter {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 22px;
+      align-self: start;
+      transition: border-color .25s, box-shadow .25s;
+    }
+
+    .catalog-filter:hover {
+      border-color: #1E3A8A;
+      box-shadow: 0 6px 20px rgba(30, 58, 138, .10);
+    }
+
+    .catalog-filter input[type="checkbox"] {
+      accent-color: #1E3A8A;
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+    }
+
+    .catalog-filter label {
+      cursor: pointer;
+    }
+
+    .catalog-input {
+      width: 100%;
+      min-width: 0;
+      padding: 9px 11px;
+      border: 1px solid #CBD5E1;
+      border-radius: 7px;
+      background: white;
+      color: #1E3A8A;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .catalog-input:focus {
+      border-color: #1E3A8A;
+      box-shadow: 0 0 0 2px rgba(30, 58, 138, .1);
+    }
+
+    .filter-submit,
+    .filter-reset {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .filter-submit {
+      background: #1E3A8A;
+      color: #FFFFFF !important;
+    }
+
+    .filter-submit:hover {
+      background: #172554;
+      transform: translateY(-2px);
+    }
+
+    .filter-reset {
+      margin-top: 9px;
+      background: white;
+      color: #1E3A8A;
+      border: 1px solid #1E3A8A;
+    }
+
+    .filter-reset:hover {
+      background: #EFF6FF;
+    }
+
+    /* ======================================
+       СІТКА ТОВАРІВ
+       ====================================== */
+
+    #catalog-products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    /* ======================================
+       3D ПЕРЕВОРОТ КАРТОК
+       ====================================== */
+
+    #catalog-products .flip-card {
+      position: relative;
+      height: 430px;
+      min-width: 0;
+      perspective: 1200px;
+    }
+
+    #catalog-products .flip-card[hidden] {
+      display: none !important;
+    }
+
+    #catalog-products .flip-card-inner {
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.7s;
       transform-style: preserve-3d;
+      transition: transform .65s ease;
     }
 
-    .flip-card:hover .flip-card-inner,
-    .flip-card:focus-within .flip-card-inner {
+    @media (hover: hover) {
+      #catalog-products .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+    }
+
+    #catalog-products .flip-card.is-flipped .flip-card-inner {
       transform: rotateY(180deg);
     }
 
-    .flip-card-front,
-    .flip-card-back {
+    #catalog-products .flip-card-front,
+    #catalog-products .flip-card-back {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      border-radius: 12px;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .flip-card-back {
+    #catalog-products .flip-card-front {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 3px 12px rgba(30,58,138,.07);
+    }
+
+    #catalog-products .flip-card-back {
+      background: #1E3A8A;
+      border: 1px solid #1E3A8A;
+      color: white !important;
       transform: rotateY(180deg);
+    }
+
+    #catalog-products .flip-card-front h3 {
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 700;
+      margin: 8px 0 5px;
+    }
+
+    #catalog-products .flip-card-back h3 {
+      color: #FFFFFF !important;
+      font-size: 15px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+
+    #catalog-products .flip-card-back li {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      margin-bottom: 13px;
+    }
+
+    /* ======================================
+       ФОТО ТОВАРІВ
+       ====================================== */
+
+    .product-image-box {
+      height: 148px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      margin: 10px 0;
+      background: #F8FAFC;
+      border-radius: 8px;
     }
 
     .product-image {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      display: block;
     }
 
-    .flip-card-front {
-      overflow: hidden;
+    /* ======================================
+       ПОЗНАЧКИ
+       ====================================== */
+
+    .comp-banner {
+      padding: 6px;
+      text-align: center;
+      background: #D97706;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
     }
 
-    .flip-card-back h3 {
+    .category-caption {
+      padding: 6px;
+      text-align: center;
+      background: #EFF6FF;
+      color: #1E3A8A;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+    }
+
+    .product-subtitle {
+      color: #64748B;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .price {
+      color: #1E3A8A;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .comp-note {
+      color: #15803D;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .comp-placeholder {
+      height: 17px;
+      margin-bottom: 9px;
+    }
+
+    /* ======================================
+       КНОПКИ
+       ====================================== */
+
+    .front-actions,
+    .back-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    #catalog-products .product-detail-link,
+    #catalog-products .product-back-link {
+      display: block;
+      width: 100%;
+      padding: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+
+    #catalog-products .product-detail-link {
+      background: white;
+      color: #1E3A8A !important;
+      border: 1px solid #1E3A8A;
+    }
+
+    #catalog-products .product-detail-link:hover {
+      background: #1E3A8A;
       color: white !important;
     }
 
-    .product-detail-link {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 8px;
-      border: 1px solid #1E3A8A;
-      border-radius: 5px;
-      color: #1E3A8A;
-      font-size: 12px;
-      font-weight: 600;
+    #catalog-products .product-back-link {
+      background: #D97706;
+      color: #FFFFFF !important;
     }
 
-    .product-detail-link:hover {
-      background: #1E3A8A;
+    #catalog-products .product-back-link:hover {
+      background: #B45309;
+    }
+
+    .flip-toggle {
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      text-align: center;
+      cursor: pointer;
+      color: #1E3A8A;
+    }
+
+    .flip-toggle:hover {
+      background: #EFF6FF;
+    }
+
+    .back-flip {
+      background: rgba(255,255,255,.12);
       color: white;
     }
 
-    .product-back-link {
+    .back-flip:hover {
+      background: rgba(255,255,255,.22);
+    }
+
+    /* ======================================
+       МОБІЛЬНЕ МЕНЮ
+       ====================================== */
+
+    #mobileNavigation[hidden] {
+      display: none !important;
+    }
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 12px 20px;
+      background: white;
+      z-index: 110;
+      box-shadow: 0 12px 25px rgba(0,0,0,.15);
+    }
+
+    #mobileNavigation a {
       display: block;
-      text-align: center;
-      padding: 9px;
-      background: #D97706;
+      color: #1E3A8A !important;
+      padding: 12px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    #mobileNavigation a:hover {
+      background: #EFF6FF;
+    }
+
+    /* ======================================
+       ФУТЕР
+       ====================================== */
+
+    .site-footer h3 {
       color: white !important;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: 600;
+    }
+
+    .site-footer a:hover {
+      color: white !important;
+      text-decoration: underline;
+    }
+
+    /* ======================================
+       АДАПТИВНІСТЬ
+       ====================================== */
+
+    @media (max-width: 1023px) {
+      #catalog-products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      #catalog-products {
+        grid-template-columns: 1fr;
+      }
+
+      #catalog-products .flip-card {
+        height: 425px;
+      }
+
+      .catalog-page {
+        padding-top: 90px !important;
+      }
+    }
+
+    @media (min-width: 768px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #catalog-products .flip-card-inner {
+        transition: none;
+      }
     }
   </style>
 </head>
 
-<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col">
+<body class="font-body min-h-screen flex flex-col">
 
-  <!-- ХЕДЕР -->
-  <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
-          style="background-color:#1E3A8A !important;">
+  <!-- ======================================
+       ХЕДЕР
+       ====================================== -->
+
+  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+
     <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
 
-      <a href="index.html" class="flex items-center gap-3" aria-label="Головна AgroNext">
+      <a href="index.html" class="flex items-center gap-3">
         <img src="assets/icons/logo.png"
              alt="Логотип AgroNext"
              class="h-12 w-auto object-contain">
-        <span class="font-semibold text-base"
-              style="color:white !important;">AgroNext</span>
+
+        <span class="logo-name font-semibold text-base">
+          AgroNext
+        </span>
       </a>
 
+      <!-- Навігація -->
       <nav class="main-navigation hidden md:flex items-center gap-5">
-        <a href="catalog.html" class="text-xs hover:underline">Каталог</a>
-        <a href="selection.html" class="text-xs hover:underline">Підбір техніки</a>
-        <a href="compatibility.html" class="text-xs hover:underline">Сумісність</a>
-        <a href="calculator.html" class="text-xs hover:underline">Компенсація 25–40%</a>
-        <a href="about.html" class="text-xs hover:underline">Про компанію</a>
+
+        <a href="catalog.html" class="text-xs">Каталог</a>
+        <a href="selection.html" class="text-xs">Підбір техніки</a>
+        <a href="compatibility.html" class="text-xs">Сумісність</a>
+        <a href="calculator.html" class="text-xs">Компенсація 25–40%</a>
+        <a href="about.html" class="text-xs">Про компанію</a>
+
       </nav>
 
-      <form class="hidden sm:block" action="catalog.html" method="GET">
-        <input type="search"
+      <!-- Пошук у хедері -->
+      <form id="headerSearch"
+            action="catalog.html"
+            method="GET"
+            role="search"
+            class="hidden sm:block">
+
+        <input id="headerQ"
+               type="search"
                name="q"
                placeholder="Пошук..."
                class="px-3 py-1 rounded text-xs w-[180px]"
-               style="color:#1E3A8A !important;background:white !important;">
+               style="background:white;color:#1E3A8A">
       </form>
 
-      <button type="button" class="md:hidden p-2" aria-label="Відкрити меню">
-        ☰
+      <!-- Гамбургер -->
+      <button id="menuButton"
+              type="button"
+              class="md:hidden p-2 rounded hover:bg-white/10"
+              aria-label="Відкрити меню"
+              aria-expanded="false"
+              aria-controls="mobileNavigation">
+
+        <svg id="menuIcon"
+             width="26"
+             height="26"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="white"
+             stroke-width="2">
+
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
     </div>
+
+    <!-- Мобільна навігація -->
+    <nav id="mobileNavigation" hidden>
+
+      <a href="index.html">Головна</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="selection.html">Підбір техніки</a>
+      <a href="compatibility.html">Сумісність</a>
+      <a href="calculator.html">Компенсація 25–40%</a>
+      <a href="about.html">Про компанію</a>
+
+    </nav>
   </header>
 
-  <main class="max-w-[1140px] mx-auto px-5 py-8 pt-24 w-full flex-grow">
+  <!-- ======================================
+       ОСНОВНА СТОРІНКА
+       ====================================== -->
 
-    <div class="text-xs text-slate-400 mb-3 flex gap-1">
-      <a href="index.html" class="hover:underline">Головна</a>
-      <span>/</span>
-      <span>Загальний каталог</span>
+  <main class="catalog-page max-w-[1140px] mx-auto px-5 w-full flex-grow">
+
+    <div class="text-xs text-slate-500 mb-3">
+
+      <a href="index.html" class="hover:underline">
+        Головна
+      </a>
+
+      / Каталог
     </div>
 
-    <h1 class="font-heading text-3xl font-bold mb-1">
+    <h1 class="text-3xl font-bold mb-2">
       Загальний каталог агротехніки
     </h1>
 
-    <p class="text-xs text-slate-500 mb-8">
-      Уся техніка підряд із можливістю точного фільтрування під ваше господарство
+    <p class="text-sm text-slate-500 mb-7">
+      16 товарів: трактори, мотоблок і ґрунтообробна техніка
     </p>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-      <!-- ФІЛЬТРИ -->
-      <aside class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm h-fit">
-        <h3 class="font-heading font-bold text-sm mb-4 pb-2 border-b">
+      <!-- ======================================
+           ФІЛЬТР ТЕХНІКИ
+           ====================================== -->
+
+      <aside class="catalog-filter lg:col-span-1">
+
+        <h2 class="text-lg font-bold mb-4 pb-3 border-b border-slate-200">
           Фільтри техніки
-        </h3>
+        </h2>
 
-        <form class="space-y-4 text-xs" action="catalog.html" method="GET">
+        <form id="filterForm" class="space-y-5 text-sm">
 
+          <!-- Назва -->
           <div>
-            <span class="font-bold block mb-2">Категорії</span>
-
-            <label class="flex gap-2 mb-2">
-              <input type="checkbox" checked> Трактори
+            <label for="searchTerm" class="font-bold block mb-2">
+              Пошук за назвою
             </label>
 
-            <label class="flex gap-2 mb-2">
-              <input type="checkbox" checked> Мотоблоки
-            </label>
-
-            <label class="flex gap-2">
-              <input type="checkbox" checked> Ґрунтообробка
-            </label>
+            <input id="searchTerm"
+                   class="catalog-input"
+                   type="search"
+                   placeholder="Наприклад, ДТЗ 504">
           </div>
 
-          <div>
-            <span class="font-bold block mb-2">Ціна, ₴</span>
+          <!-- Категорії -->
+          <fieldset>
 
-            <div class="flex gap-2">
-              <input type="text" placeholder="Від"
-                     class="w-full p-2 border border-slate-200 rounded text-xs">
-              <input type="text" placeholder="До"
-                     class="w-full p-2 border border-slate-200 rounded text-xs">
+            <legend class="font-bold mb-2">
+              Категорії
+            </legend>
+
+            <label class="flex items-center gap-2 mb-2">
+              <input type="checkbox"
+                     class="category-checkbox"
+                     value="tractor"
+                     checked>
+              Трактори
+            </label>
+
+            <label class="flex items-center gap-2 mb-2">
+              <input type="checkbox"
+                     class="category-checkbox"
+                     value="motoblock"
+                     checked>
+              Мотоблоки
+            </label>
+
+            <label class="flex items-center gap-2">
+              <input type="checkbox"
+                     class="category-checkbox"
+                     value="soil"
+                     checked>
+              Ґрунтообробка
+            </label>
+
+          </fieldset>
+
+          <!-- Ціна -->
+          <fieldset>
+
+            <legend class="font-bold mb-2">
+              Ціна, грн
+            </legend>
+
+            <div class="grid grid-cols-2 gap-2">
+
+              <input id="priceMin"
+                     class="catalog-input"
+                     type="number"
+                     min="0"
+                     placeholder="Від"
+                     aria-label="Мінімальна ціна">
+
+              <input id="priceMax"
+                     class="catalog-input"
+                     type="number"
+                     min="0"
+                     placeholder="До"
+                     aria-label="Максимальна ціна">
+
             </div>
-          </div>
+          </fieldset>
 
+          <!-- Компенсація -->
           <label class="flex items-center gap-2">
-            <input type="checkbox" checked>
-            З держкомпенсацією (25–40%)
+
+            <input id="compOnly"
+                   type="checkbox">
+
+            Лише з держкомпенсацією
           </label>
 
-          <button type="submit"
-                  class="w-full bg-agronext-navy py-2.5 rounded-lg font-semibold"
-                  style="color:white !important;">
-            Застосувати фільтри
-          </button>
+          <!-- Кнопки -->
+          <div>
+            <button type="submit" class="filter-submit">
+              Застосувати фільтри
+            </button>
+
+            <button type="button"
+                    id="resetFilters"
+                    class="filter-reset">
+              Скинути фільтри
+            </button>
+          </div>
+
         </form>
       </aside>
 
-      <!-- ТОВАРИ 1–6 -->
+      <!-- ======================================
+           КАТАЛОГ ТОВАРІВ
+           ====================================== -->
+
       <section class="lg:col-span-3">
 
-        <div class="flex justify-between items-center mb-4 text-xs">
-          <span class="text-slate-500 font-medium">
-            Відображено 1–6 із 8 позицій
-          </span>
-          <span class="text-slate-500">
-            Сортування: За замовчуванням ▼
-          </span>
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+
+          <p id="resultsCount"
+             class="text-sm text-slate-500"
+             role="status"
+             aria-live="polite">
+            Відображено 16 із 16 товарів
+          </p>
+
+          <label class="text-xs text-slate-500">
+
+            Сортування:
+
+            <select id="sortSelect"
+                    class="catalog-input !w-auto ml-1">
+
+              <option value="default">За замовчуванням</option>
+              <option value="asc">Спочатку дешевші</option>
+              <option value="desc">Спочатку дорожчі</option>
+              <option value="name">За назвою</option>
+
+            </select>
+
+          </label>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+        <div id="catalog-products">
 
-          <!-- ТОВАР 1: Мотоблок ДТЗ 470БН-GT -->
-          <div class="flip-card h-[430px]">
+          <!-- ======================================
+               1. МОТОБЛОК ДТЗ 470БН-GT
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="motoblock"
+                   data-price="20045"
+                   data-comp="1"
+                   data-name="мотоблок дтз 470бн-gt">
+
             <div class="flip-card-inner">
 
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+              <div class="flip-card-front bg-white border border-slate-200">
 
                 <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
+                  <div class="comp-banner">
                     Держкомпенсація 25%
                   </div>
 
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-470bn-gt (1).jpg"
-                         alt="Мотоблок ДТЗ 470БН - GT"
-                         class="product-image">
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-470bn-gt (1).jpg"
+                         alt="Мотоблок ДТЗ 470БН-GT"
+                         loading="lazy">
                   </div>
 
-                  <h3 class="font-heading font-bold text-sm">
-                    Мотоблок ДТЗ 470БН - GT
-                  </h3>
+                  <h3>Мотоблок ДТЗ 470БН-GT</h3>
 
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    Колеса 4.00-8 | 7.0 к.с.
+                  <p class="product-subtitle">
+                    7 к. с. · Колеса 4.00–8
                   </p>
                 </div>
 
                 <div>
-                  <p class="font-bold text-base mb-0.5">20 045 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
+                  <p class="price">20 045 ₴</p>
+
+                  <p class="comp-note">
                     З компенсацією: 15 034 ₴
                   </p>
-                  <a href="products/dtz-470bn-gt.html" class="product-detail-link">
-                    Детальніше
-                  </a>
+
+                  <div class="front-actions">
+
+                    <a href="products/dtz-470bn-gt.html"
+                       class="product-detail-link">
+                      Детальніше
+                    </a>
+
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
+                  <h3>Характеристики</h3>
 
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 7,0 к. с.</li>
-                    <li>Двигун: 170F (Бензин)</li>
-                    <li>Передачі: 3 вп / 1 наз</li>
+                  <ul>
+                    <li>Потужність: 7 к. с.</li>
+                    <li>Двигун: бензиновий 170F</li>
+                    <li>Передачі: 3 вперед / 1 назад</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-470bn-gt.html" class="product-back-link">
-                  Детальніше
-                </a>
+                <div class="back-actions">
+
+                  <a href="products/dtz-470bn-gt.html"
+                     class="product-back-link">
+                    Детальніше
+                  </a>
+
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+
+                </div>
               </div>
-
             </div>
-          </div>
+          </article>
 
-          <!-- ТОВАР 2: Трактор ДТЗ 1304 -->
-          <div class="flip-card h-[430px]">
+          <!-- ======================================
+               2. ТРАКТОР ДТЗ 1304
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="1610080"
+                   data-comp="1"
+                   data-name="трактор дтз 1304">
+
             <div class="flip-card-inner">
 
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
+              <div class="flip-card-front bg-white border border-slate-200">
 
                 <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
-                    Держкомпенсація 25%
-                  </div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
 
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-1304 (1).jpg"
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-1304 (1).jpg"
                          alt="Трактор ДТЗ 1304"
-                         class="product-image">
+                         loading="lazy">
                   </div>
 
-                  <h3 class="font-heading font-bold text-sm">
-                    Трактор ДТЗ 1304
-                  </h3>
-
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    130 к.с. | Кондиціонер
-                  </p>
+                  <h3>Трактор ДТЗ 1304</h3>
+                  <p class="product-subtitle">130 к. с. · Привід 4×4</p>
                 </div>
 
                 <div>
-                  <p class="font-bold text-base mb-0.5">1 610 080 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
-                    З компенсацією: 1 207 560 ₴
-                  </p>
-                  <a href="products/dtz-1304.html" class="product-detail-link">
-                    Детальніше
-                  </a>
+                  <p class="price">1 610 080 ₴</p>
+                  <p class="comp-note">З компенсацією: 1 207 560 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-1304.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
-
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 130 к.с.</li>
-                    <li>Двигун: CF5F-130T Турбо</li>
-                    <li>КПП: 24+24 Реверс</li>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 130 к. с.</li>
+                    <li>Об'єм двигуна: 4765 см³</li>
+                    <li>Передачі: 24+24</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-1304.html" class="product-back-link">
-                  Детальніше
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ТОВАР 3: Трактор ДТЗ 1204 -->
-          <div class="flip-card h-[430px]">
-            <div class="flip-card-inner">
-
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
-
-                <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
-                    Держкомпенсація 25%
-                  </div>
-
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-1204 (1).jpg"
-                         alt="Трактор ДТЗ 1204"
-                         class="product-image">
-                  </div>
-
-                  <h3 class="font-heading font-bold text-sm">
-                    Трактор ДТЗ 1204
-                  </h3>
-
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    120 к.с. | Панорама 360°
-                  </p>
-                </div>
-
-                <div>
-                  <p class="font-bold text-base mb-0.5">1 531 200 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
-                    З компенсацією: 1 148 400 ₴
-                  </p>
-                  <a href="products/dtz-1204.html" class="product-detail-link">
+                <div class="back-actions">
+                  <a href="products/dtz-1304.html" class="product-back-link">
                     Детальніше
                   </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               3. ТРАКТОР ДТЗ 1204
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="1531200"
+                   data-comp="1"
+                   data-name="трактор дтз 1204">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-1204 (1).jpg"
+                         alt="Трактор ДТЗ 1204"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 1204</h3>
+                  <p class="product-subtitle">120 к. с. · Привід 4×4</p>
+                </div>
+
+                <div>
+                  <p class="price">1 531 200 ₴</p>
+                  <p class="comp-note">З компенсацією: 1 148 400 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-1204.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
-
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 120 к.с.</li>
-                    <li>Двигун: CF5F120-T</li>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 120 к. с.</li>
+                    <li>Об'єм двигуна: 4765 см³</li>
                     <li>Маса: 4850 кг</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-1204.html" class="product-back-link">
-                  Детальніше
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ТОВАР 4: Трактор ДТЗ 504KKU -->
-          <div class="flip-card h-[430px]">
-            <div class="flip-card-inner">
-
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
-
-                <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
-                    Держкомпенсація 25%
-                  </div>
-
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-504kku (1).jpg"
-                         alt="Трактор ДТЗ 504KKU"
-                         class="product-image">
-                  </div>
-
-                  <h3 class="font-heading font-bold text-sm">
-                    Трактор ДТЗ 504KKU
-                  </h3>
-
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    50 к.с. | Кондиціонер
-                  </p>
-                </div>
-
-                <div>
-                  <p class="font-bold text-base mb-0.5">626 400 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
-                    З компенсацією: 469 800 ₴
-                  </p>
-                  <a href="products/dtz-504kku.html" class="product-detail-link">
+                <div class="back-actions">
+                  <a href="products/dtz-1204.html" class="product-back-link">
                     Детальніше
                   </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               4. ТРАКТОР ДТЗ 504KKU
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="626400"
+                   data-comp="1"
+                   data-name="трактор дтз 504kku">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-504kku (1).jpg"
+                         alt="Трактор ДТЗ 504KKU"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 504KKU</h3>
+                  <p class="product-subtitle">50 к. с. · Із кабіною</p>
+                </div>
+
+                <div>
+                  <p class="price">626 400 ₴</p>
+                  <p class="comp-note">З компенсацією: 469 800 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-504kku.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
-
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 50 к.с.</li>
-                    <li>Двигун: CF4B50T-Z Турбо</li>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 50 к. с.</li>
+                    <li>Двигун: CF4B50T-Z</li>
                     <li>Маса: 2160 кг</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-504kku.html" class="product-back-link">
-                  Детальніше
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ТОВАР 5: Трактор ДТЗ 504BKKU -->
-          <div class="flip-card h-[430px]">
-            <div class="flip-card-inner">
-
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
-
-                <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
-                    Держкомпенсація 25%
-                  </div>
-
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-504bkku (1).jpg"
-                         alt="Трактор ДТЗ 504BKKU"
-                         class="product-image">
-                  </div>
-
-                  <h3 class="font-heading font-bold text-sm">
-                    Трактор ДТЗ 504BKKU
-                  </h3>
-
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    50 к.с. | Двигун V38N
-                  </p>
-                </div>
-
-                <div>
-                  <p class="font-bold text-base mb-0.5">784 160 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
-                    З компенсацією: 588 120 ₴
-                  </p>
-                  <a href="products/dtz-504bkku.html" class="product-detail-link">
+                <div class="back-actions">
+                  <a href="products/dtz-504kku.html" class="product-back-link">
                     Детальніше
                   </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               5. ТРАКТОР ДТЗ 504BKKU
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="784160"
+                   data-comp="1"
+                   data-name="трактор дтз 504bkku">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-504bkku (1).jpg"
+                         alt="Трактор ДТЗ 504BKKU"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 504BKKU</h3>
+                  <p class="product-subtitle">50 к. с. · Із кабіною</p>
+                </div>
+
+                <div>
+                  <p class="price">784 160 ₴</p>
+                  <p class="comp-note">З компенсацією: 588 120 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-504bkku.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
-
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 50 к.с.</li>
-                    <li>Об'єм двигуна: 3768 см³</li>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 50 к. с.</li>
+                    <li>Двигун: V38N</li>
                     <li>Маса: 2850 кг</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-504bkku.html" class="product-back-link">
-                  Детальніше
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ТОВАР 6: Трактор ДТЗ 504U -->
-          <div class="flip-card h-[430px]">
-            <div class="flip-card-inner">
-
-              <div class="flip-card-front bg-white border border-slate-200 p-4 flex flex-col justify-between shadow-sm">
-
-                <div>
-                  <div class="bg-agronext-orange text-white text-[10px] font-bold text-center py-1 rounded-t-lg -mx-4 -mt-4 mb-3">
-                    Держкомпенсація 25%
-                  </div>
-
-                  <div class="h-36 bg-slate-50 rounded-lg p-2 flex items-center justify-center mb-3">
-                    <img src="assets/images/dtz-504u (1).jpg"
-                         alt="Трактор ДТЗ 504U"
-                         class="product-image">
-                  </div>
-
-                  <h3 class="font-heading font-bold text-sm">
-                    Трактор ДТЗ 504U
-                  </h3>
-
-                  <p class="text-[0.7rem] text-slate-500 mt-1">
-                    50 к.с. | Без кабіни
-                  </p>
-                </div>
-
-                <div>
-                  <p class="font-bold text-base mb-0.5">496 480 ₴</p>
-                  <p class="text-[10px] text-emerald-600 font-semibold mb-2">
-                    З компенсацією: 372 360 ₴
-                  </p>
-                  <a href="products/dtz-504u.html" class="product-detail-link">
+                <div class="back-actions">
+                  <a href="products/dtz-504bkku.html" class="product-back-link">
                     Детальніше
                   </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               6. ТРАКТОР ДТЗ 504U
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="496480"
+                   data-comp="1"
+                   data-name="трактор дтз 504u">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-504u (1).jpg"
+                         alt="Трактор ДТЗ 504U"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 504U</h3>
+                  <p class="product-subtitle">50 к. с. · Без кабіни</p>
+                </div>
+
+                <div>
+                  <p class="price">496 480 ₴</p>
+                  <p class="comp-note">З компенсацією: 372 360 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-504u.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="flip-card-back bg-agronext-navy text-white p-5 flex flex-col justify-between shadow-lg">
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
 
                 <div>
-                  <h3 class="font-bold text-sm mb-2 pb-1 border-b border-white/20">
-                    Характеристики
-                  </h3>
-
-                  <ul class="text-[0.7rem] space-y-2 text-slate-200">
-                    <li>Потужність: 50 к.с.</li>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 50 к. с.</li>
                     <li>Двигун: CF4B50T-Z</li>
                     <li>Маса: 1990 кг</li>
                   </ul>
                 </div>
 
-                <a href="products/dtz-504u.html" class="product-back-link">
-                  Детальніше
-                </a>
+                <div class="back-actions">
+                  <a href="products/dtz-504u.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               7. ТРАКТОР ДТЗ 354U
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="375840"
+                   data-comp="1"
+                   data-name="трактор дтз 354u">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-354u (1).jpg"
+                         alt="Трактор ДТЗ 354U"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 354U</h3>
+                  <p class="product-subtitle">35 к. с. · Привід 4×4</p>
+                </div>
+
+                <div>
+                  <p class="price">375 840 ₴</p>
+                  <p class="comp-note">З компенсацією: 281 880 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-354u.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
               </div>
 
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 35 к. с.</li>
+                    <li>Двигун: CF3B35T</li>
+                    <li>Об'єм двигуна: 1909 см³</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/dtz-354u.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
             </div>
-          </div>
+          </article>
+
+          <!-- ======================================
+               8. ТРАКТОР ДТЗ 1204 СПЕЦ
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="tractor"
+                   data-price="1531200"
+                   data-comp="1"
+                   data-name="трактор дтз 1204 спец">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="comp-banner">Держкомпенсація 25%</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/dtz-1204-spec (1).jpg"
+                         alt="Трактор ДТЗ 1204 Спец"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Трактор ДТЗ 1204 (Спец)</h3>
+                  <p class="product-subtitle">120 к. с. · Привід 4×4</p>
+                </div>
+
+                <div>
+                  <p class="price">1 531 200 ₴</p>
+                  <p class="comp-note">З компенсацією: 1 148 400 ₴</p>
+
+                  <div class="front-actions">
+                    <a href="products/dtz-1204-spec.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Потужність: 120 к. с.</li>
+                    <li>Об'єм двигуна: 4765 см³</li>
+                    <li>Маса: 4850 кг</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/dtz-1204-spec.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               9. ДИСКОВА БОРОНА
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="40335"
+                   data-comp="0"
+                   data-name="дискова борона бдн 2.1">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/borona-dyskova.jpg"
+                         alt="Дискова борона БДН-2.1"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Дискова борона БДН-2.1</h3>
+                  <p class="product-subtitle">Навісна · Захват 2,1 м</p>
+                </div>
+
+                <div>
+                  <p class="price">40 335 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/borona-dyskova.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 2,1 м</li>
+                    <li>Кількість дисків: 22</li>
+                    <li>Глибина обробки: до 15 см</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/borona-dyskova.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               10. КУЛЬТИВАТОР КДУ-1,6
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="27700"
+                   data-comp="0"
+                   data-name="культиватор дтз кду 1,6">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/kultyvator-kdu-16.jpg"
+                         alt="Культиватор ДТЗ КДУ-1,6"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Культиватор ДТЗ КДУ-1,6</h3>
+                  <p class="product-subtitle">Ширина захвату 1,6 м</p>
+                </div>
+
+                <div>
+                  <p class="price">27 700 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/kultyvator-kdu-16.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 1,6 м</li>
+                    <li>Глибина: 60–120 мм</li>
+                    <li>Стрільчатих лап: 7</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/kultyvator-kdu-16.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               11. КУЛЬТИВАТОР КДУ-2,0
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="32500"
+                   data-comp="0"
+                   data-name="культиватор дтз кду 2,0">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/kultyvator-kdu-20.jpg"
+                         alt="Культиватор ДТЗ КДУ-2,0"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Культиватор ДТЗ КДУ-2,0</h3>
+                  <p class="product-subtitle">Ширина захвату 2,0 м</p>
+                </div>
+
+                <div>
+                  <p class="price">32 500 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/kultyvator-kdu-20.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 2,0 м</li>
+                    <li>Глибина: 60–120 мм</li>
+                    <li>Стрільчатих лап: 9</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/kultyvator-kdu-20.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               12. ҐРУНТОФРЕЗА ФН-2,0
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="60549"
+                   data-comp="0"
+                   data-name="ґрунтофреза фн 2,0">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/gruntofreza-fn-20.jpg"
+                         alt="Ґрунтофреза ФН-2,0"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Ґрунтофреза ФН-2,0</h3>
+                  <p class="product-subtitle">Ширина захвату 2,0 м</p>
+                </div>
+
+                <div>
+                  <p class="price">60 549 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/gruntofreza-fn-20.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 2000 мм</li>
+                    <li>Кількість ножів: 30/30</li>
+                    <li>Глибина обробки: до 200 мм</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/gruntofreza-fn-20.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               13. ҐРУНТОФРЕЗА ДТЗ ФН-2,0К
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="69825"
+                   data-comp="0"
+                   data-name="ґрунтофреза дтз фн 2,0к">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/gruntofreza-dtz-fn-20k.jpg"
+                         alt="Ґрунтофреза ДТЗ ФН-2,0К"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Ґрунтофреза ДТЗ ФН-2,0К</h3>
+                  <p class="product-subtitle">Опорні колеса · Захват 2,0 м</p>
+                </div>
+
+                <div>
+                  <p class="price">69 825 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/gruntofreza-dtz-fn-20k.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 2000 мм</li>
+                    <li>Кількість ножів: 30/30</li>
+                    <li>Опорні колеса: є</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/gruntofreza-dtz-fn-20k.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               14. ҐРУНТОФРЕЗА ФН-2,2
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="64656"
+                   data-comp="0"
+                   data-name="ґрунтофреза фн 2,2">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/gruntofreza-fn-22.jpg"
+                         alt="Ґрунтофреза ФН-2,2"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Ґрунтофреза ФН-2,2</h3>
+                  <p class="product-subtitle">Ширина захвату 2,2 м</p>
+                </div>
+
+                <div>
+                  <p class="price">64 656 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/gruntofreza-fn-22.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Ширина захвату: 2200 мм</li>
+                    <li>Кількість ножів: 31/31</li>
+                    <li>Глибина обробки: до 200 мм</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/gruntofreza-fn-22.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               15. ПІДГОРТАЛЬНИК СТРІЛА-1
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="780"
+                   data-comp="0"
+                   data-name="підгортальник стріла 1">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/pidgortach-strila-1.jpg"
+                         alt="Підгортальник Стріла-1"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Підгортальник Стріла-1</h3>
+                  <p class="product-subtitle">Універсальний підгортальник</p>
+                </div>
+
+                <div>
+                  <p class="price">780 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/pidgortach-strila-1.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Глибина підгортання: до 250 мм</li>
+                    <li>Розмах крил: 240–320 мм</li>
+                    <li>Маса: 4,5 кг</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/pidgortach-strila-1.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ======================================
+               16. ПІДГОРТАЛЬНИК СТРІЛА-2
+               ====================================== -->
+
+          <article class="flip-card"
+                   data-category="soil"
+                   data-price="830"
+                   data-comp="0"
+                   data-name="підгортальник стріла 2">
+
+            <div class="flip-card-inner">
+
+              <div class="flip-card-front bg-white border border-slate-200">
+
+                <div>
+                  <div class="category-caption">Ґрунтообробна техніка</div>
+
+                  <div class="product-image-box">
+                    <img class="product-image"
+                         src="assets/images/pidgortach-strila-2.jpg"
+                         alt="Підгортальник Стріла-2"
+                         loading="lazy">
+                  </div>
+
+                  <h3>Підгортальник Стріла-2</h3>
+                  <p class="product-subtitle">Універсальний підгортальник</p>
+                </div>
+
+                <div>
+                  <p class="price">830 ₴</p>
+                  <p class="comp-placeholder">&nbsp;</p>
+
+                  <div class="front-actions">
+                    <a href="products/pidgortach-strila-2.html" class="product-detail-link">
+                      Детальніше
+                    </a>
+                    <button type="button" class="flip-toggle">
+                      Характеристики ↻
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back bg-[#1E3A8A] text-white">
+
+                <div>
+                  <h3>Характеристики</h3>
+                  <ul>
+                    <li>Глибина підгортання: до 280 мм</li>
+                    <li>Розмах крил: 220–410 мм</li>
+                    <li>Маса: 5,5 кг</li>
+                  </ul>
+                </div>
+
+                <div class="back-actions">
+                  <a href="products/pidgortach-strila-2.html" class="product-back-link">
+                    Детальніше
+                  </a>
+                  <button type="button" class="flip-toggle back-flip">
+                    ← До фото
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
 
         </div>
 
-        <!-- ПЕРЕМИКАННЯ СТОРІНОК -->
-        <div class="flex justify-center items-center gap-2 mt-8 text-xs font-semibold">
+        <!-- Якщо нічого не знайдено -->
+        <p id="noResults"
+           hidden
+           class="text-center text-slate-500 bg-white border border-slate-200 rounded-xl p-8 mt-4">
 
-          <span class="w-8 h-8 rounded bg-agronext-navy text-white flex items-center justify-center">
-            1
-          </span>
+          За вибраними умовами товарів не знайдено.
+          Змініть параметри або натисніть «Скинути фільтри».
 
-          <a href="catalog-2.html"
-             class="w-8 h-8 rounded bg-white border border-slate-200 flex items-center justify-center hover:bg-agronext-navy hover:text-white">
-            2
-          </a>
-
-          <a href="catalog-2.html"
-             class="px-3 h-8 rounded bg-white border border-slate-200 flex items-center justify-center hover:bg-agronext-navy hover:text-white">
-            Вперед &gt;
-          </a>
-        </div>
-
+        </p>
       </section>
     </div>
   </main>
 
-  <!-- ФУТЕР -->
-  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+  <!-- ======================================
+       ФУТЕР
+       ====================================== -->
+
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+
     <div class="max-w-[1140px] mx-auto px-5">
 
       <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
         <div class="w-full md:max-w-[340px]">
+
           <a href="index.html" class="inline-flex items-center gap-3 mb-4">
 
             <img src="assets/icons/logo.png"
-                 alt="Логотип AgroNext"
+                 alt="AgroNext"
                  class="w-12 h-12 object-contain">
 
-            <span class="text-white text-xl font-bold"
-                  style="color:white !important;">
+            <span class="text-xl font-bold" style="color:white!important">
               AgroNext
             </span>
           </a>
 
           <p class="text-slate-300 text-sm leading-relaxed">
-            Онлайн-платформа для підбору
-            сільськогосподарської техніки,
+            Онлайн-платформа для підбору сільськогосподарської техніки,
             перевірки сумісності обладнання
             та розрахунку державної компенсації.
           </p>
@@ -644,35 +1855,338 @@
         <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
 
           <div>
-            <h3 class="font-bold text-base mb-4"
-                style="color:white !important;">Компанія</h3>
+            <h3 class="font-bold text-base mb-4" style="color:white!important">
+              Компанія
+            </h3>
 
             <ul class="space-y-3 text-sm text-slate-300">
-              <li><a href="about.html" class="hover:underline">Про нас</a></li>
-              <li><a href="index.html#lead" class="hover:underline">Центр підтримки</a></li>
-              <li><a href="catalog.html" class="hover:underline">Каталог техніки</a></li>
+
+              <li><a href="about.html">Про нас</a></li>
+              <li><a href="index.html#lead">Центр підтримки</a></li>
+              <li><a href="catalog.html">Каталог техніки</a></li>
+
             </ul>
           </div>
 
           <div>
-            <h3 class="font-bold text-base mb-4"
-                style="color:white !important;">Ми в соцмережах</h3>
+            <h3 class="font-bold text-base mb-4" style="color:white!important">
+              Ми в соцмережах
+            </h3>
 
             <ul class="space-y-3 text-sm text-slate-300">
-              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a></li>
-              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+
+              <li>
+                <a href="https://instagram.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Instagram
+                </a>
+              </li>
+
+              <li>
+                <a href="https://tiktok.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  TikTok
+                </a>
+              </li>
+
+              <li>
+                <a href="https://facebook.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Facebook
+                </a>
+              </li>
+
             </ul>
           </div>
+
         </div>
       </div>
 
       <div class="border-t border-white/20 pt-5 text-center">
+
         <p class="text-slate-300 text-xs">
           © 2026 AgroNext. Всі права захищені.
         </p>
+
       </div>
     </div>
   </footer>
+
+  <!-- ======================================
+       JAVASCRIPT
+       ====================================== -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /* ======================================
+         1. ГАМБУРГЕР-МЕНЮ
+         ====================================== */
+
+      const menuButton = document.getElementById("menuButton");
+      const mobileMenu = document.getElementById("mobileNavigation");
+      const menuIcon = document.getElementById("menuIcon");
+
+      function setMenu(open) {
+
+        mobileMenu.hidden = !open;
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        menuButton.setAttribute(
+          "aria-label",
+          open ? "Закрити меню" : "Відкрити меню"
+        );
+
+        menuIcon.innerHTML = open
+          ? '<path d="M6 6l12 12M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+
+      menuButton.addEventListener("click", function () {
+        setMenu(mobileMenu.hidden);
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".site-header")) {
+          setMenu(false);
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 768) {
+          setMenu(false);
+        }
+      });
+
+      /* ======================================
+         2. ПЕРЕВОРОТ КАРТОК
+         ====================================== */
+
+      document.querySelectorAll(".flip-toggle").forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+          const card = button.closest(".flip-card");
+
+          card.classList.toggle("is-flipped");
+
+        });
+      });
+
+      document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+          setMenu(false);
+
+          document.querySelectorAll(".flip-card.is-flipped").forEach(
+            function (card) {
+              card.classList.remove("is-flipped");
+            }
+          );
+        }
+      });
+
+      /* ======================================
+         3. ФІЛЬТРАЦІЯ ТОВАРІВ
+         ====================================== */
+
+      const form = document.getElementById("filterForm");
+      const searchInput = document.getElementById("searchTerm");
+      const headerSearchInput = document.getElementById("headerQ");
+
+      const container = document.getElementById("catalog-products");
+
+      const cards = Array.from(
+        container.querySelectorAll(".flip-card")
+      );
+
+      const total = cards.length;
+
+      /* Запам'ятовуємо початковий порядок */
+      cards.forEach(function (card, index) {
+        card.dataset.order = index;
+      });
+
+      /* Пошук із головної сторінки */
+      const urlQuery = new URLSearchParams(
+        window.location.search
+      ).get("q");
+
+      if (urlQuery) {
+        searchInput.value = urlQuery;
+        headerSearchInput.value = urlQuery;
+      }
+
+      /* Основна функція фільтрації */
+      function applyFilters() {
+
+        /* Вибрані категорії */
+        const categories = Array.from(
+          document.querySelectorAll(".category-checkbox:checked")
+        ).map(function (checkbox) {
+          return checkbox.value;
+        });
+
+        /* Межі ціни */
+        const minValue = document.getElementById("priceMin").value;
+        const maxValue = document.getElementById("priceMax").value;
+
+        const minPrice = minValue === "" ? 0 : Number(minValue);
+
+        const maxPrice = maxValue === ""
+          ? Infinity
+          : Number(maxValue);
+
+        /* Компенсація */
+        const onlyCompensation =
+          document.getElementById("compOnly").checked;
+
+        /* Назва товару */
+        const query = searchInput.value
+          .trim()
+          .toLocaleLowerCase("uk");
+
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+
+          const category = card.dataset.category;
+
+          const price = Number(card.dataset.price);
+
+          const compensation = card.dataset.comp === "1";
+
+          const name = card.dataset.name
+            .toLocaleLowerCase("uk");
+
+          /* Перевіряємо всі умови */
+          const matchesCategory = categories.includes(category);
+
+          const matchesPrice =
+            price >= minPrice &&
+            price <= maxPrice;
+
+          const matchesCompensation =
+            !onlyCompensation || compensation;
+
+          const matchesSearch =
+            name.includes(query) ||
+            card.querySelector(".flip-card-front h3")
+                .textContent.toLocaleLowerCase("uk").includes(query);
+
+          const visible =
+            matchesCategory &&
+            matchesPrice &&
+            matchesCompensation &&
+            matchesSearch;
+
+          card.hidden = !visible;
+
+          card.classList.remove("is-flipped");
+
+          if (visible) {
+            visibleCount++;
+          }
+        });
+
+        /* ======================================
+           4. СОРТУВАННЯ
+           ====================================== */
+
+        const sort = document.getElementById("sortSelect").value;
+
+        const sortedCards = cards.slice().sort(function (a, b) {
+
+          if (sort === "asc") {
+            return Number(a.dataset.price) - Number(b.dataset.price);
+          }
+
+          if (sort === "desc") {
+            return Number(b.dataset.price) - Number(a.dataset.price);
+          }
+
+          if (sort === "name") {
+            return a.dataset.name.localeCompare(b.dataset.name, "uk");
+          }
+
+          return Number(a.dataset.order) - Number(b.dataset.order);
+        });
+
+        sortedCards.forEach(function (card) {
+          container.appendChild(card);
+        });
+
+        /* Оновлення кількості */
+        document.getElementById("resultsCount").textContent =
+          `Відображено ${visibleCount} із ${total} товарів`;
+
+        /* Повідомлення, якщо немає результатів */
+        document.getElementById("noResults").hidden =
+          visibleCount !== 0;
+      }
+
+      /* Кнопка «Застосувати фільтри» */
+      form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        applyFilters();
+      });
+
+      /* Сортування */
+      document.getElementById("sortSelect").addEventListener(
+        "change",
+        applyFilters
+      );
+
+      /* Кнопка «Скинути фільтри» */
+      document.getElementById("resetFilters").addEventListener(
+        "click",
+        function () {
+
+          form.reset();
+
+          searchInput.value = "";
+          headerSearchInput.value = "";
+
+          document.getElementById("sortSelect").value = "default";
+
+          window.history.replaceState(
+            null,
+            "",
+            window.location.pathname
+          );
+
+          applyFilters();
+        }
+      );
+
+      /* Пошук із хедера */
+      document.getElementById("headerSearch").addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+          searchInput.value = headerSearchInput.value;
+
+          applyFilters();
+        }
+      );
+
+      /* Початкова фільтрація */
+      applyFilters();
+
+    });
+  </script>
+
 </body>
 </html>
