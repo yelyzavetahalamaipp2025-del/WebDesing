@@ -1,300 +1,1732 @@
+
 <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конфігуратор та підбір агропарку — AgroNext</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'agronext-navy': '#1E3A8A',
-                        'agronext-navy-hover': '#172554',
-                        'agronext-orange': '#D97706',
-                        'agronext-bg-light': '#F8FAFC',
-                    },
-                    fontFamily: {
-                        heading: ["'Space Grotesk'", 'sans-serif'],
-                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
-                        btn: ["'Inter'", 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
-        .text-white, .logo-text, .site-header * { color: #FFFFFF; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Підбір техніки — AgroNext</title>
+  <meta name="description"
+        content="Розумний підбір тракторів, мотоблоків і ґрунтообробної техніки AgroNext.">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+        rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background: #F8FAFC;
+      color: #1E3A8A;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .selection-page {
+      padding-top: 110px;
+      padding-bottom: 55px;
+    }
+
+    .selection-page h1,
+    .selection-page h2,
+    .selection-page h3 {
+      font-family: "Space Grotesk", sans-serif;
+      color: #1E3A8A !important;
+    }
+
+    /* Хедер */
+
+    .site-header {
+      background: #1E3A8A !important;
+      z-index: 100 !important;
+    }
+
+    .site-header .main-navigation a {
+      color: white !important;
+      transition: color .2s;
+    }
+
+    .site-header .main-navigation a:hover {
+      color: #FBBF24 !important;
+    }
+
+    /* Основний блок */
+
+    .selection-panel {
+      padding: 24px;
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(30,58,138,.06);
+      transition: border-color .25s, box-shadow .25s;
+    }
+
+    .selection-panel:hover,
+    .selection-panel:focus-within {
+      border-color: #1E3A8A;
+      box-shadow: 0 8px 25px rgba(30,58,138,.12);
+    }
+
+    .selection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .selection-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1E3A8A;
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      background: #1E3A8A;
+      color: white;
+      font-size: 12px;
+    }
+
+    .field-box {
+      padding: 15px;
+      background: #F8FAFC;
+      border: 1px solid #E9EEF5;
+      border-radius: 11px;
+      margin-bottom: 12px;
+    }
+
+    .field-title {
+      display: block;
+      margin-bottom: 9px;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .selection-input {
+      width: 100%;
+      min-width: 0;
+      padding: 10px 11px;
+      border: 1px solid #CBD5E1;
+      border-radius: 7px;
+      background: white;
+      color: #1E3A8A;
+      font-size: 12px;
+    }
+
+    .selection-input:focus-visible {
+      outline: 2px solid #1E3A8A;
+      outline-offset: 2px;
+    }
+
+    .field-hint {
+      margin-top: 8px;
+      color: #64748B;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* Площа */
+
+    .area-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 7px;
+    }
+
+    .area-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .area-option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .area-option span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 35px;
+      padding: 7px;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      background: white;
+      color: #334155;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .area-option input:checked + span {
+      color: white;
+      background: #1E3A8A;
+      border-color: #1E3A8A;
+      font-weight: 700;
+    }
+
+    .area-option input:focus-visible + span {
+      outline: 2px solid #D97706;
+      outline-offset: 2px;
+    }
+
+    /* Чекбокси */
+
+    .task-option,
+    .comp-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 11px;
+      color: #334155;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .task-option input,
+    .comp-option input {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: #1E3A8A;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 8px;
+    }
+
+    /* Кнопки */
+
+    .selection-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 19px;
+    }
+
+    .selection-button,
+    .reset-button {
+      padding: 12px 21px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .selection-button {
+      background: #1E3A8A;
+      color: white !important;
+    }
+
+    .selection-button:hover {
+      background: #172554;
+      box-shadow: 0 6px 18px rgba(30,58,138,.18);
+    }
+
+    .reset-button {
+      border: 1px solid #1E3A8A;
+      background: white;
+      color: #1E3A8A;
+    }
+
+    .reset-button:hover {
+      background: #EFF6FF;
+    }
+
+    .selection-error {
+      padding: 12px;
+      margin-top: 15px;
+      background: #FEF2F2;
+      color: #B91C1C;
+      border: 1px solid #FECACA;
+      border-radius: 9px;
+      font-size: 12px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /* Результати */
+
+    .results-section {
+      margin-top: 35px;
+    }
+
+    .result-heading {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .result-intro {
+      font-size: 12px;
+      line-height: 1.7;
+      color: #64748B;
+      margin-bottom: 17px;
+    }
+
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .status-message {
+      padding: 18px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      background: white;
+      border: 1px solid #E2E8F0;
+      color: #334155;
+      margin-bottom: 17px;
+    }
+
+    .status-warning {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      color: #92400E;
+    }
+
+    /* Картки */
+
+    .recommendation-card {
+      display: grid;
+      grid-template-columns: 155px minmax(0,1fr) 190px;
+      align-items: center;
+      gap: 19px;
+      padding: 19px;
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(30,58,138,.05);
+      transition: border-color .25s, box-shadow .25s, transform .25s;
+    }
+
+    .recommendation-card:hover {
+      border-color: #1E3A8A;
+      box-shadow: 0 8px 23px rgba(30,58,138,.12);
+      transform: translateY(-2px);
+    }
+
+    .alternative-card {
+      border-left: 4px solid #D97706;
+    }
+
+    .alternative-card:hover {
+      border-color: #D97706;
+      box-shadow: 0 8px 23px rgba(217,119,6,.13);
+    }
+
+    .recommendation-image-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 135px;
+      padding: 8px;
+      background: #F8FAFC;
+      border-radius: 10px;
+    }
+
+    .recommendation-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .recommendation-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 8px 0;
+    }
+
+    .recommendation-description {
+      color: #64748B;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .recommendation-details {
+      font-size: 11px;
+      line-height: 1.7;
+      color: #475569;
+      margin-top: 9px;
+    }
+
+    .recommendation-label {
+      display: inline-block;
+      padding: 5px 8px;
+      background: #EFF6FF;
+      color: #1E3A8A;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .alternative-label {
+      background: #FFF7ED;
+      color: #9A3412;
+    }
+
+    .issues-list {
+      margin-top: 10px;
+      padding-left: 17px;
+      list-style: disc;
+      color: #9A3412;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .recommendation-side {
+      text-align: right;
+    }
+
+    .recommendation-price {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1E3A8A;
+    }
+
+    .recommendation-comp {
+      color: #15803D;
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 7px;
+    }
+
+    .details-button {
+      display: block;
+      margin-top: 13px;
+      padding: 11px;
+      border-radius: 7px;
+      background: #1E3A8A;
+      color: white !important;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .details-button:hover {
+      background: #172554;
+    }
+
+    .alternative-card .details-button {
+      background: #D97706;
+    }
+
+    .alternative-card .details-button:hover {
+      background: #B45309;
+    }
+
+    .alternative-section {
+      margin-top: 32px;
+    }
+
+    .selection-disclaimer {
+      margin-top: 25px;
+      padding: 15px;
+      background: #EFF6FF;
+      border: 1px solid #DBEAFE;
+      border-radius: 10px;
+      color: #475569;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* Мобільне меню */
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 12px 20px;
+      background: white;
+      z-index: 110;
+      box-shadow: 0 12px 25px rgba(0,0,0,.15);
+    }
+
+    #mobileNavigation a {
+      display: block;
+      padding: 12px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E3A8A !important;
+    }
+
+    #mobileNavigation a:hover {
+      background: #EFF6FF;
+    }
+
+    .site-footer h3 {
+      color: white !important;
+    }
+
+    .site-footer a:hover {
+      color: white !important;
+      text-decoration: underline;
+    }
+
+    /* Адаптивність */
+
+    @media (max-width: 1023px) {
+      .selection-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .recommendation-card {
+        grid-template-columns: 135px minmax(0,1fr);
+      }
+
+      .recommendation-side {
+        grid-column: 1 / -1;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .selection-page {
+        padding-top: 95px;
+      }
+
+      .selection-panel {
+        padding: 17px;
+      }
+
+      .selection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation-card {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation-side {
+        grid-column: auto;
+      }
+
+      .recommendation-image-box {
+        height: 185px;
+      }
+
+      .selection-actions {
+        flex-direction: column-reverse;
+      }
+
+      .selection-actions button {
+        width: 100%;
+      }
+
+      .result-heading {
+        font-size: 19px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .recommendation-card {
+        transition: none;
+      }
+
+      .recommendation-card:hover {
+        transform: none;
+      }
+    }
+  </style>
 </head>
-<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
-   <!-- ХЕДЕР (ЗБЕРЕЖЕНО ПОЧАТКОВИЙ ДИЗАЙН ТА КОЛЬОРИ) -->
+<body class="min-h-screen flex flex-col">
 
-<!-- ХЕДЕР AGRO NEXT -->
-<header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3"
-        style="background-color: #1E3A8A !important;">
+  <!-- ХЕДЕР -->
 
-    <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
+  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between gap-4">
 
-        <!-- Логотип і перехід на головну -->
-        <a href="index.html"
-           style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;"
-           aria-label="Головна AgroNext">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/icons/logo.png"
+             alt="AgroNext" class="h-12 w-auto object-contain">
+        <span class="font-semibold text-base"
+              style="color:white!important">AgroNext</span>
+      </a>
 
-            <img id="logo"
-                 src="assets/icons/logo.png"
-                 alt="AgroNext Logo"
-                 class="h-12 w-auto object-contain flex-shrink-0">
+      <nav class="main-navigation hidden lg:flex items-center gap-5"
+           aria-label="Основна навігація">
 
-            <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; white-space: nowrap !important;">
-                AgroNext
-            </span>
-        </a>
+        <a href="catalog.html" class="text-xs">Каталог</a>
+        <a href="selection.html" class="text-xs">Підбір техніки</a>
+        <a href="compatibility.html" class="text-xs">Сумісність</a>
+        <a href="calculator.html" class="text-xs">Компенсація 25–40%</a>
+        <a href="about.html" class="text-xs">Про компанію</a>
+      </nav>
 
-        <!-- Навігація -->
-        <nav class="main-navigation hidden md:flex items-center gap-5">
-            <ul class="nav-list flex gap-5 text-xs font-medium"
-                style="color: #ffffff !important;">
+      <form action="catalog.html" method="GET"
+            role="search" class="hidden sm:block">
 
-                <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
+        <input type="search" name="q" placeholder="Пошук..."
+               class="px-3 py-1 rounded text-xs w-[145px]"
+               style="background:white;color:#1E3A8A">
+      </form>
 
-                <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
+      <button id="menuButton" type="button"
+              class="lg:hidden p-2 rounded hover:bg-white/10"
+              aria-label="Відкрити меню"
+              aria-expanded="false"
+              aria-controls="mobileNavigation">
 
-                <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
-
-                <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
-
-                <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
-
-            </ul>
-        </nav>
-
-        <!-- Пошук -->
-        <div class="header-search hidden sm:block">
-            <form class="search-form" role="search" action="catalog.html" method="GET">
-                <input type="search"
-                       name="q"
-                       placeholder="Пошук..."
-                       class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none"
-                       style="color: #1E3A8A !important; background-color: #ffffff !important;">
-            </form>
-        </div>
-
-        <!-- Мобільна кнопка меню -->
-        <button type="button"
-                class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors"
-                aria-label="Відкрити меню">
-            <svg class="w-6 h-6 block" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
-
+        <svg id="menuIcon" width="26" height="26"
+             viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
     </div>
-</header>
 
+    <nav id="mobileNavigation" hidden aria-label="Мобільне меню">
+      <a href="index.html">Головна</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="selection.html">Підбір техніки</a>
+      <a href="compatibility.html">Сумісність</a>
+      <a href="calculator.html">Компенсація 25–40%</a>
+      <a href="about.html">Про компанію</a>
+    </nav>
+  </header>
 
-    <main class="max-w-[1140px] mx-auto px-5 py-8 w-full flex-grow">
-        <div class="text-xs text-slate-400 mb-3 flex gap-1">
-            <a href="index.html" class="hover:underline">Головна</a> <span>/</span> <span class="text-slate-600">Розумний підбір техніки</span>
-        </div>
+  <!-- ОСНОВНИЙ ВМІСТ -->
 
-        <h1 class="font-heading text-3xl font-bold text-agronext-navy mb-1">Конфігуратор та підбір агропарку</h1>
-        <p class="text-xs text-slate-500 mb-8">Дайте відповідь на 3 запитання, щоб отримати оптимальний комплект техніки під ваші площі та бюджет</p>
+  <main class="selection-page max-w-[1140px] mx-auto px-5 w-full flex-grow">
 
-        <form action="catalog.html" method="GET" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-10 transition-all duration-300 hover:shadow-xl hover:border-agronext-navy">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="w-6 h-6 rounded-full bg-agronext-navy text-white flex items-center justify-center text-xs font-bold">1</span>
-                        <span class="font-bold text-xs text-agronext-navy">Площа та тип ґрунту</span>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-2">
-                        <label class="block text-[0.7rem] text-slate-500">Площа господарства</label>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <button type="button" class="p-2 border border-slate-200 rounded bg-white text-slate-700 font-medium hover:border-agronext-navy transition-all">До 50 га</button>
-                            <button type="button" class="p-2 border border-agronext-navy rounded bg-agronext-navy text-white font-bold transition-all">50–200 га</button>
-                            <button type="button" class="p-2 border border-slate-200 rounded bg-white text-slate-700 font-medium hover:border-agronext-navy transition-all">200–500 га</button>
-                            <button type="button" class="p-2 border border-slate-200 rounded bg-white text-slate-700 font-medium hover:border-agronext-navy transition-all">500+ га</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="text-xs text-slate-500 mb-3">
+      <a href="index.html" class="hover:underline">Головна</a>
+      / Підбір техніки
+    </div>
 
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="w-6 h-6 rounded-full bg-agronext-navy text-white flex items-center justify-center text-xs font-bold">2</span>
-                        <span class="font-bold text-xs text-agronext-navy">Основні агротехнічні завдання</span>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-2 text-xs text-slate-700">
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="rounded text-agronext-navy"> Оранка / Оборанка</label>
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded text-agronext-navy"> Посівні роботи</label>
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded text-agronext-navy"> Збирання врожаю</label>
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded text-agronext-navy"> Внесення добрив</label>
-                    </div>
-                </div>
+    <h1 class="text-3xl font-bold mb-3">Підбір техніки</h1>
 
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="w-6 h-6 rounded-full bg-agronext-navy text-white flex items-center justify-center text-xs font-bold">3</span>
-                        <span class="font-bold text-xs text-agronext-navy">Бюджет та державна компенсація</span>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-2 text-xs">
-                        <label class="block text-[0.7rem] text-slate-500">Вартість комплекту, ₴</label>
-                        <div class="flex gap-2">
-                            <input type="text" value="1 200 000 ₴" class="w-full p-2 border border-slate-200 rounded bg-white text-agronext-navy outline-none focus:border-agronext-navy">
-                            <input type="text" value="2 000 000 ₴" class="w-full p-2 border border-slate-200 rounded bg-white text-agronext-navy outline-none focus:border-agronext-navy">
-                        </div>
-                        <label class="flex items-center gap-2 text-[0.75rem] text-slate-700 font-medium pt-1 cursor-pointer">
-                            <input type="checkbox" checked class="rounded text-agronext-navy"> Врахувати компенсацію 25–40%
-                        </label>
-                    </div>
-                </div>
+    <p class="text-sm text-slate-500 mb-8 leading-relaxed">
+      Вкажіть параметри господарства та потрібні роботи.
+      Ми покажемо товари, що відповідають умовам,
+      а за відсутності таких — найближчі альтернативи.
+    </p>
+
+    <!-- ФОРМА -->
+
+    <section class="selection-panel">
+
+      <form id="selectionForm" novalidate>
+
+        <div class="selection-grid">
+
+          <!-- КОЛОНКА 1 -->
+
+          <div>
+            <div class="selection-heading">
+              <span class="step-number">1</span>
+              Тип техніки та площа
             </div>
 
-            <div class="mt-6 text-right">
-                <button type="submit" class="bg-agronext-navy text-white font-btn font-semibold text-xs py-2.5 px-6 rounded-xl hover:bg-agronext-navy-hover transition-all shadow-sm">
-                    Розрахувати та підібрати комплекти
-                </button>
+            <div class="field-box">
+              <label for="categorySelect" class="field-title">
+                Яку техніку шукаєте?
+              </label>
+
+              <select id="categorySelect" class="selection-input">
+                <option value="all">Усю техніку</option>
+                <option value="tractor">Трактор</option>
+                <option value="motoblock">Мотоблок</option>
+                <option value="soil">Ґрунтообробне обладнання</option>
+              </select>
             </div>
-        </form>
 
-        <h2 class="font-heading text-xl font-bold text-agronext-navy mb-4">Рекомендовані комплекти для вашого господарства</h2>
-        
-        <div class="space-y-4">
-            <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row gap-6 items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <img src="assets/images/plow.jpg" alt="Комплект Оптимальний" class="w-48 h-36 object-contain bg-slate-50 p-2 rounded-xl">
-                <div class="flex-grow">
-                    <span class="bg-agronext-orange text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Рекомендований варіант</span>
-                    <h3 class="font-heading font-bold text-lg text-agronext-navy mt-1">Комплект 'Оптимальний 100 га'</h3>
-                    <p class="text-xs text-slate-500 my-1">Запас потужності для оранки суглинку та середніх навантажень на 100 га.</p>
-                    <p class="text-xs font-semibold text-slate-700 mt-2">Склад комплекту: Трактор AgroNext T-260 + Плуг 3-корпусний</p>
+            <div class="field-box">
+
+              <span class="field-title">Площа господарства</span>
+
+              <div class="area-options">
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="under1">
+                  <span>До 1 га</span>
+                </label>
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="1-10">
+                  <span>1–10 га</span>
+                </label>
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="10-50">
+                  <span>10–50 га</span>
+                </label>
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="50-200" checked>
+                  <span>50–200 га</span>
+                </label>
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="200-500">
+                  <span>200–500 га</span>
+                </label>
+
+                <label class="area-option">
+                  <input type="radio" name="area" value="over500">
+                  <span>500+ га</span>
+                </label>
+              </div>
+
+              <p class="field-hint">
+                Площа враховується для орієнтовної оцінки масштабу техніки.
+              </p>
+            </div>
+          </div>
+
+          <!-- КОЛОНКА 2 -->
+
+          <div>
+            <div class="selection-heading">
+              <span class="step-number">2</span>
+              Основні завдання
+            </div>
+
+            <div class="field-box">
+
+              <span class="field-title">
+                Які роботи потрібно виконувати?
+              </span>
+
+              <label class="task-option">
+                <input type="checkbox" name="task"
+                       value="tillage" checked>
+                Обробіток ґрунту
+              </label>
+
+              <label class="task-option">
+                <input type="checkbox" name="task"
+                       value="cultivation">
+                Культивація
+              </label>
+
+              <label class="task-option">
+                <input type="checkbox" name="task"
+                       value="milling">
+                Фрезерування
+              </label>
+
+              <label class="task-option">
+                <input type="checkbox" name="task"
+                       value="hilling">
+                Підгортання
+              </label>
+
+              <label class="task-option">
+                <input type="checkbox" name="task"
+                       value="general">
+                Універсальні господарські роботи
+              </label>
+
+              <p class="field-hint">
+                Можна обрати кілька робіт одночасно.
+                Для відповідності достатньо хоча б одного збігу.
+              </p>
+            </div>
+
+            <div class="field-box">
+
+              <label for="tractorPower" class="field-title">
+                Потужність наявного трактора
+              </label>
+
+              <input id="tractorPower"
+                     class="selection-input"
+                     type="number"
+                     min="1"
+                     max="500"
+                     step="1"
+                     placeholder="Наприклад, 50 к. с.">
+
+              <p class="field-hint">
+                Необов'язково. Використовується для попереднього
+                відбору ґрунтообробного обладнання.
+              </p>
+            </div>
+          </div>
+
+          <!-- КОЛОНКА 3 -->
+
+          <div>
+            <div class="selection-heading">
+              <span class="step-number">3</span>
+              Бюджет і компенсація
+            </div>
+
+            <div class="field-box">
+
+              <span class="field-title">Бюджет покупки, грн</span>
+
+              <div class="budget-grid">
+                <div>
+                  <label for="budgetMin" class="field-title">
+                    Від
+                  </label>
+
+                  <input id="budgetMin"
+                         class="selection-input"
+                         type="number"
+                         min="0"
+                         step="1"
+                         value="0">
                 </div>
-                <div class="text-right min-w-[200px] max-md:text-center max-md:w-full">
-                    <span class="text-xs text-slate-400 line-through">2 000 000 ₴</span>
-                    <p class="text-xl font-bold text-agronext-navy">1 800 000 ₴</p>
-                    <p class="text-[0.75rem] text-emerald-600 font-semibold mb-3">Після компенсації: 1 080 000 ₴</p>
-                    <a href="pdp.html" class="block text-center w-full py-2.5 px-4 bg-agronext-navy text-white font-btn font-semibold text-xs rounded-lg hover:bg-agronext-navy-hover transition-all">
-                        Замовити розрахунок
-                    </a>
+
+                <div>
+                  <label for="budgetMax" class="field-title">
+                    До
+                  </label>
+
+                  <input id="budgetMax"
+                         class="selection-input"
+                         type="number"
+                         min="0"
+                         step="1"
+                         value="2000000">
                 </div>
-            </article>
+              </div>
+
+              <p class="field-hint">
+                Бюджет перевіряється за повною ціною товару,
+                без попереднього віднімання компенсації.
+              </p>
+            </div>
+
+            <div class="field-box">
+
+              <label class="comp-option">
+                <input id="includeCompensation"
+                       type="checkbox" checked>
+                <span>
+                  Підбирати лише товари з позначкою
+                  можливої держкомпенсації
+                </span>
+              </label>
+
+              <div id="compensationRateBox" class="mt-3">
+
+                <label for="compensationRate" class="field-title">
+                  Ставка для орієнтовного розрахунку
+                </label>
+
+                <select id="compensationRate"
+                        class="selection-input">
+
+                  <option value="25">25% — стандартна</option>
+                  <option value="40">
+                    40% — за спеціальними умовами
+                  </option>
+                </select>
+
+              </div>
+
+              <p class="field-hint">
+                Якщо позначку увімкнено, товари без неї
+                не потрапляють до основних рекомендацій.
+                Офіційне право на компенсацію потрібно перевіряти.
+              </p>
+            </div>
+          </div>
+
         </div>
-    </main>
 
- 
-<!-- ФУТЕР AGRO NEXT -->
-<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+        <p id="selectionError"
+           class="selection-error"
+           role="alert"
+           hidden></p>
+
+        <div class="selection-actions">
+
+          <button id="resetSelection"
+                  class="reset-button"
+                  type="button">
+            Скинути параметри
+          </button>
+
+          <button class="selection-button" type="submit">
+            Підібрати техніку
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- РЕЗУЛЬТАТИ -->
+
+    <section id="resultsSection" class="results-section">
+
+      <h2 class="result-heading">
+        Техніка, що відповідає вибраним умовам
+      </h2>
+
+      <p class="result-intro">
+        Тут показуються тільки товари, які проходять
+        усі обов'язкові умови нашого підбору.
+      </p>
+
+      <p id="matchStatus"
+         class="status-message"
+         role="status"
+         aria-live="polite"></p>
+
+      <div id="exactResults" class="result-list"></div>
+
+      <!-- АЛЬТЕРНАТИВИ -->
+
+      <section id="alternativeSection"
+               class="alternative-section"
+               hidden>
+
+        <h2 class="result-heading">
+          Найближчі альтернативні варіанти
+        </h2>
+
+        <p class="result-intro">
+          Ці товари не відповідають усім вибраним умовам.
+          Під кожним указано, що саме потрібно врахувати.
+        </p>
+
+        <div id="alternativeResults"
+             class="result-list"></div>
+      </section>
+
+      <div class="selection-disclaimer">
+        <strong>Важливо:</strong>
+        це рекомендаційний підбір за даними нашого каталогу.
+        Оцінка відповідності площі є орієнтовною,
+        а не паспортним обмеженням виробника.
+        Для навісного обладнання потрібно окремо перевірити
+        кріплення, ВВП та інші параметри трактора.
+        Позначка компенсації в нашому каталозі
+        не підтверджує включення товару до офіційного переліку.
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ФУТЕР -->
+
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+
     <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex flex-col md:flex-row justify-between
-                    items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
-            <!-- Логотип та опис -->
-            <div class="w-full md:max-w-[340px]">
-                <a href="index.html"
-                   class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
-                         alt="Логотип AgroNext"
-                         class="w-12 h-12 object-contain">
+        <div class="w-full md:max-w-[340px]">
+          <a href="index.html"
+             class="inline-flex items-center gap-3 mb-4">
 
-                    <span class="text-white text-xl font-bold"
-                          style="color: #ffffff !important;">
-                        AgroNext
-                    </span>
-                </a>
+            <img src="assets/icons/logo.png" alt="AgroNext"
+                 class="w-12 h-12 object-contain">
 
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Онлайн-платформа для підбору
-                    сільськогосподарської техніки,
-                    перевірки сумісності обладнання
-                    та розрахунку державної компенсації.
-                </p>
-            </div>
+            <span class="text-xl font-bold"
+                  style="color:white!important">
+              AgroNext
+            </span>
+          </a>
 
-            <!-- Навігація -->
-            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
-
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Компанія
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="about.html"
-                               class="hover:text-white hover:underline">
-                                Про нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#lead"
-                               class="hover:text-white hover:underline">
-                                Центр підтримки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="catalog.html"
-                               class="hover:text-white hover:underline">
-                                Каталог техніки
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Соціальні мережі -->
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Ми в соцмережах
-                    </h3>
-
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="https://instagram.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://tiktok.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                TikTok
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Facebook
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору сільськогосподарської
+            техніки, перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
         </div>
 
-        <!-- Нижній рядок -->
-        <div class="border-t border-white/20 pt-5 text-center">
-            <p class="text-slate-300 text-xs">
-                © 2026 AgroNext. Всі права захищені.
-            </p>
-        </div>
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
 
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Компанія
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="about.html">Про нас</a></li>
+              <li><a href="index.html#lead">Центр підтримки</a></li>
+              <li><a href="catalog.html">Каталог техніки</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Ми в соцмережах
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li><a href="https://instagram.com"
+                     target="_blank"
+                     rel="noopener noreferrer">Instagram</a></li>
+
+              <li><a href="https://tiktok.com"
+                     target="_blank"
+                     rel="noopener noreferrer">TikTok</a></li>
+
+              <li><a href="https://facebook.com"
+                     target="_blank"
+                     rel="noopener noreferrer">Facebook</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+      </div>
     </div>
-</footer>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /* МОБІЛЬНЕ МЕНЮ */
+
+      const menuButton = document.getElementById("menuButton");
+      const mobileMenu = document.getElementById("mobileNavigation");
+      const menuIcon = document.getElementById("menuIcon");
+
+      function setMenu(open) {
+        mobileMenu.hidden = !open;
+        menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.setAttribute(
+          "aria-label",
+          open ? "Закрити меню" : "Відкрити меню"
+        );
+
+        menuIcon.innerHTML = open
+          ? '<path d="M6 6l12 12M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+
+      menuButton.addEventListener("click", function () {
+        setMenu(mobileMenu.hidden);
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".site-header")) {
+          setMenu(false);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          setMenu(false);
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 1024) {
+          setMenu(false);
+        }
+      });
+
+      /* ДАНІ НАШИХ 16 ТОВАРІВ */
+
+      const products = [
+        {
+          name: "Мотоблок ДТЗ 470БН-GT",
+          category: "motoblock",
+          price: 20045,
+          image: "assets/images/dtz-470bn-gt (1).jpg",
+          url: "products/dtz-470bn-gt.html",
+          hp: 7,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "general"],
+          description: "Мотоблок із бензиновим двигуном потужністю 7 к. с.",
+          detail: "Компактний засіб для невеликих господарських робіт."
+        },
+        {
+          name: "Трактор ДТЗ 1304",
+          category: "tractor",
+          price: 1610080,
+          image: "assets/images/dtz-1304 (1).jpg",
+          url: "products/dtz-1304.html",
+          hp: 130,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 130 к. с.",
+          detail: "Для виконання робіт потрібне відповідне навісне обладнання."
+        },
+        {
+          name: "Трактор ДТЗ 1204",
+          category: "tractor",
+          price: 1531200,
+          image: "assets/images/dtz-1204 (1).jpg",
+          url: "products/dtz-1204.html",
+          hp: 120,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 120 к. с.",
+          detail: "Тяговий засіб для широкого кола сільськогосподарських робіт."
+        },
+        {
+          name: "Трактор ДТЗ 504KKU",
+          category: "tractor",
+          price: 626400,
+          image: "assets/images/dtz-504kku (1).jpg",
+          url: "products/dtz-504kku.html",
+          hp: 50,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 50 к. с., із кабіною.",
+          detail: "Може використовуватися для різних робіт з відповідними агрегатами."
+        },
+        {
+          name: "Трактор ДТЗ 504BKKU",
+          category: "tractor",
+          price: 784160,
+          image: "assets/images/dtz-504bkku (1).jpg",
+          url: "products/dtz-504bkku.html",
+          hp: 50,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 50 к. с., із кабіною.",
+          detail: "Для господарських робіт із правильно підібраним обладнанням."
+        },
+        {
+          name: "Трактор ДТЗ 504U",
+          category: "tractor",
+          price: 496480,
+          image: "assets/images/dtz-504u (1).jpg",
+          url: "products/dtz-504u.html",
+          hp: 50,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 50 к. с., без кабіни.",
+          detail: "Універсальний варіант для робіт за наявності потрібної навіски."
+        },
+        {
+          name: "Трактор ДТЗ 354U",
+          category: "tractor",
+          price: 375840,
+          image: "assets/images/dtz-354u (1).jpg",
+          url: "products/dtz-354u.html",
+          hp: 35,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Трактор потужністю 35 к. с.",
+          detail: "Компактніша модель для різних господарських завдань."
+        },
+        {
+          name: "Трактор ДТЗ 1204 (Спец)",
+          category: "tractor",
+          price: 1531200,
+          image: "assets/images/dtz-1204-spec (1).jpg",
+          url: "products/dtz-1204-spec.html",
+          hp: 120,
+          minHp: null,
+          comp: true,
+          tasks: ["tillage", "cultivation", "milling", "hilling", "general"],
+          description: "Спеціальна версія трактора ДТЗ 1204.",
+          detail: "Потужність 120 к. с.; навісне обладнання підбирається окремо."
+        },
+        {
+          name: "Дискова борона БДН-2.1",
+          category: "soil",
+          price: 40335,
+          image: "assets/images/borona-dyskova.jpg",
+          url: "products/borona-dyskova.html",
+          hp: null,
+          minHp: 50,
+          comp: false,
+          tasks: ["tillage"],
+          description: "Дискова борона із шириною захвату 2,1 м.",
+          detail: "22 диски; глибина обробки до 15 см."
+        },
+        {
+          name: "Культиватор ДТЗ КДУ-1,6",
+          category: "soil",
+          price: 27700,
+          image: "assets/images/kultyvator-kdu-16.jpg",
+          url: "products/kultyvator-kdu-16.html",
+          hp: null,
+          minHp: 24,
+          comp: false,
+          tasks: ["cultivation", "tillage"],
+          description: "Культиватор із захватом 1,6 м.",
+          detail: "7 стрільчатих лап; глибина обробки 60–120 мм."
+        },
+        {
+          name: "Культиватор ДТЗ КДУ-2,0",
+          category: "soil",
+          price: 32500,
+          image: "assets/images/kultyvator-kdu-20.jpg",
+          url: "products/kultyvator-kdu-20.html",
+          hp: null,
+          minHp: 35,
+          comp: false,
+          tasks: ["cultivation", "tillage"],
+          description: "Культиватор із захватом 2,0 м.",
+          detail: "9 стрільчатих лап; глибина обробки 60–120 мм."
+        },
+        {
+          name: "Ґрунтофреза ФН-2,0",
+          category: "soil",
+          price: 60549,
+          image: "assets/images/gruntofreza-fn-20.jpg",
+          url: "products/gruntofreza-fn-20.html",
+          hp: null,
+          minHp: 35,
+          comp: false,
+          tasks: ["milling", "tillage"],
+          description: "Ґрунтофреза із шириною захвату 2,0 м.",
+          detail: "60 ножів; глибина обробки до 200 мм."
+        },
+        {
+          name: "Ґрунтофреза ДТЗ ФН-2,0К",
+          category: "soil",
+          price: 69825,
+          image: "assets/images/gruntofreza-dtz-fn-20k.jpg",
+          url: "products/gruntofreza-dtz-fn-20k.html",
+          hp: null,
+          minHp: 35,
+          comp: false,
+          tasks: ["milling", "tillage"],
+          description: "Ґрунтофреза з опорними колесами, захват 2,0 м.",
+          detail: "Опорні колеса для регулювання заглиблення."
+        },
+        {
+          name: "Ґрунтофреза ФН-2,2",
+          category: "soil",
+          price: 64656,
+          image: "assets/images/gruntofreza-fn-22.jpg",
+          url: "products/gruntofreza-fn-22.html",
+          hp: null,
+          minHp: 45,
+          comp: false,
+          tasks: ["milling", "tillage"],
+          description: "Ґрунтофреза із шириною захвату 2,2 м.",
+          detail: "62 ножі; глибина обробки до 200 мм."
+        },
+        {
+          name: "Підгортальник Стріла-1",
+          category: "soil",
+          price: 780,
+          image: "assets/images/pidgortach-strila-1.jpg",
+          url: "products/pidgortach-strila-1.html",
+          hp: null,
+          minHp: null,
+          comp: false,
+          tasks: ["hilling"],
+          description: "Універсальний підгортальник.",
+          detail: "Глибина до 250 мм; маса 4,5 кг."
+        },
+        {
+          name: "Підгортальник Стріла-2",
+          category: "soil",
+          price: 830,
+          image: "assets/images/pidgortach-strila-2.jpg",
+          url: "products/pidgortach-strila-2.html",
+          hp: null,
+          minHp: null,
+          comp: false,
+          tasks: ["hilling"],
+          description: "Підгортальник із регулюванням крил.",
+          detail: "Глибина до 280 мм; маса 5,5 кг."
+        }
+      ];
+
+      /* ЕЛЕМЕНТИ СТОРІНКИ */
+
+      const form = document.getElementById("selectionForm");
+      const category = document.getElementById("categorySelect");
+      const powerInput = document.getElementById("tractorPower");
+      const budgetMin = document.getElementById("budgetMin");
+      const budgetMax = document.getElementById("budgetMax");
+      const compensation = document.getElementById("includeCompensation");
+      const compensationRate = document.getElementById("compensationRate");
+      const rateBox = document.getElementById("compensationRateBox");
+
+      const errorBox = document.getElementById("selectionError");
+      const matchStatus = document.getElementById("matchStatus");
+      const exactResults = document.getElementById("exactResults");
+      const altSection = document.getElementById("alternativeSection");
+      const alternativeResults = document.getElementById("alternativeResults");
+
+      const moneyFormatter = new Intl.NumberFormat("uk-UA", {
+        maximumFractionDigits: 0
+      });
+
+      function money(value) {
+        return moneyFormatter.format(value) + " грн";
+      }
+
+      function categoryName(value) {
+        if (value === "tractor") return "Трактор";
+        if (value === "motoblock") return "Мотоблок";
+        return "Ґрунтообробна техніка";
+      }
+
+      /* ЗЧИТУВАННЯ ПАРАМЕТРІВ */
+
+      function readCriteria() {
+        errorBox.hidden = true;
+        errorBox.textContent = "";
+
+        const selectedArea = document.querySelector(
+          'input[name="area"]:checked'
+        );
+
+        const tasks = Array.from(
+          document.querySelectorAll('input[name="task"]:checked')
+        ).map(input => input.value);
+
+        const minRaw = budgetMin.value.trim();
+        const maxRaw = budgetMax.value.trim();
+        const powerRaw = powerInput.value.trim();
+
+        const min = minRaw === "" ? 0 : Number(minRaw);
+        const max = maxRaw === "" ? Infinity : Number(maxRaw);
+        const power = powerRaw === "" ? null : Number(powerRaw);
+
+        if (tasks.length === 0) {
+          showError("Оберіть хоча б один вид робіт.");
+          return null;
+        }
+
+        if (
+          min < 0 ||
+          max < 0 ||
+          min > max ||
+          !Number.isFinite(min) ||
+          (max !== Infinity && !Number.isFinite(max))
+        ) {
+          showError("Перевірте бюджет: сума «Від» не може бути більшою за «До».");
+          return null;
+        }
+
+        if (
+          power !== null &&
+          (!Number.isInteger(power) || power < 1 || power > 500)
+        ) {
+          showError("Потужність трактора має бути від 1 до 500 к. с.");
+          return null;
+        }
+
+        return {
+          category: category.value,
+          area: selectedArea ? selectedArea.value : "50-200",
+          tasks,
+          min,
+          max,
+          power,
+          compensation: compensation.checked,
+          rate: Number(compensationRate.value)
+        };
+      }
+
+      function showError(text) {
+        errorBox.textContent = text;
+        errorBox.hidden = false;
+      }
+
+      /* ПЕРЕВІРКА ВСІХ УМОВ */
+
+      function checkProduct(product, criteria) {
+        const issues = [];
+
+        if (
+          criteria.category !== "all" &&
+          product.category !== criteria.category
+        ) {
+          issues.push({
+            type: "category",
+            text: "Інша категорія: " + categoryName(product.category) + "."
+          });
+        }
+
+        const taskMatch = criteria.tasks.some(task =>
+          product.tasks.includes(task)
+        );
+
+        if (!taskMatch) {
+          issues.push({
+            type: "task",
+            text: "Не призначений для вибраного виду робіт у нашому каталозі."
+          });
+        }
+
+        if (product.price < criteria.min) {
+          issues.push({
+            type: "budget",
+            text: "Ціна нижча за задану нижню межу бюджету."
+          });
+        }
+
+        if (product.price > criteria.max) {
+          issues.push({
+            type: "budget",
+            text: "Перевищує бюджет на " +
+                  money(product.price - criteria.max) + "."
+          });
+        }
+
+        if (criteria.compensation && !product.comp) {
+          issues.push({
+            type: "compensation",
+            text: "Немає позначки можливої держкомпенсації в каталозі."
+          });
+        }
+
+        if (criteria.power !== null && product.category === "soil") {
+          if (product.minHp === null) {
+            issues.push({
+              type: "power",
+              text: "Недостатньо даних, щоб підтвердити відповідність потужності вашого трактора."
+            });
+          } else if (criteria.power < product.minHp) {
+            issues.push({
+              type: "power",
+              text: "Орієнтовно потрібно від " +
+                    product.minHp + " к. с., а ви вказали " +
+                    criteria.power + " к. с."
+            });
+          }
+        }
+
+        /*
+          Оцінка площі — рекомендаційна,
+          а не паспортна межа виробника.
+        */
+
+        const largeAreas = [
+          "10-50",
+          "50-200",
+          "200-500",
+          "over500"
+        ];
+
+        if (
+          product.category === "motoblock" &&
+          largeAreas.includes(criteria.area)
+        ) {
+          issues.push({
+            type: "area",
+            text: "Мотоблок 7 к. с. не рекомендується як основна техніка для вибраної площі."
+          });
+        }
+
+        if (
+          criteria.area === "under1" &&
+          product.category === "tractor" &&
+          product.hp >= 100
+        ) {
+          issues.push({
+            type: "area",
+            text: "Для ділянки до 1 га така потужність, як правило, надлишкова."
+          });
+        }
+
+        return issues;
+      }
+
+      /* ОЦІНКА ПРІОРИТЕТНОСТІ */
+
+      function scoreProduct(product, criteria) {
+        let score = 0;
+
+        const matchedTasks = criteria.tasks.filter(task =>
+          product.tasks.includes(task)
+        );
+
+        score += matchedTasks.length * 20;
+
+        if (
+          ["50-200", "200-500", "over500"].includes(criteria.area) &&
+          product.category === "tractor"
+        ) {
+          score += product.hp >= 100 ? 18 : 6;
+        }
+
+        if (
+          ["under1", "1-10"].includes(criteria.area) &&
+          product.category === "motoblock"
+        ) {
+          score += 16;
+        }
+
+        if (
+          product.category === "tractor" &&
+          criteria.area === "10-50" &&
+          product.hp >= 35 &&
+          product.hp <= 50
+        ) {
+          score += 15;
+        }
+
+        return score;
+      }
+
+      /*
+        Для альтернатив рахуємо кількість
+        і важливість невиконаних умов.
+      */
+
+      const issueWeights = {
+        category: 6,
+        task: 9,
+        budget: 4,
+        compensation: 5,
+        power: 8,
+        area: 7
+      };
+
+      function alternativePenalty(issues) {
+        return issues.reduce((sum, issue) =>
+          sum + issueWeights[issue.type], 0
+        );
+      }
+
+      /* КАРТКИ РЕЗУЛЬТАТІВ */
+
+      function renderCard(item, alternative, criteria) {
+        const product = item.product;
+
+        const article = document.createElement("article");
+        article.className = alternative
+          ? "recommendation-card alternative-card"
+          : "recommendation-card";
+
+        const imageBox = document.createElement("div");
+        imageBox.className = "recommendation-image-box";
+
+        const img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.name;
+        img.loading = "lazy";
+        img.className = "recommendation-image";
+        imageBox.appendChild(img);
+
+        const info = document.createElement("div");
+
+        const label = document.createElement("span");
+        label.className = alternative
+          ? "recommendation-label alternative-label"
+          : "recommendation-label";
+
+        label.textContent = alternative
+          ? "Не всі умови виконані"
+          : "Відповідає умовам підбору";
+
+        const title = document.createElement("h3");
+        title.className = "recommendation-name";
+        title.textContent = product.name;
+
+        const description = document.createElement("p");
+        description.className = "recommendation-description";
+        description.textContent = product.description;
+
+        const details = document.createElement("p");
+        details.className = "recommendation-details";
+        details.textContent = product.detail;
+
+        info.append(label, title, description, details);
+
+        if (alternative && item.issues.length > 0) {
+          const list = document.createElement("ul");
+          list.className = "issues-list";
+
+          item.issues.forEach(issue => {
+            const li = document.createElement("li");
+            li.textContent = issue.text;
+            list.appendChild(li);
+          });
+
+          info.appendChild(list);
+        }
+
+        const side = document.createElement("div");
+        side.className = "recommendation-side";
+
+        const price = document.createElement("p");
+        price.className = "recommendation-price";
+        price.textContent = money(product.price);
+        side.appendChild(price);
+
+        if (criteria.compensation && product.comp) {
+          const estimated = product.price -
+            (product.price / 1.2) * (criteria.rate / 100);
+
+          const note = document.createElement("p");
+          note.className = "recommendation-comp";
+          note.textContent =
+            "Умовно після " + criteria.rate +
+            "% компенсації: " + money(estimated);
+
+          side.appendChild(note);
+        }
+
+        const link = document.createElement("a");
+        link.className = "details-button";
+        link.href = product.url;
+        link.textContent = "Детальніше";
+
+        side.appendChild(link);
+
+        article.append(imageBox, info, side);
+        return article;
+      }
+
+      /* ОСНОВНИЙ ПІДБІР */
+
+      function recommend() {
+        const criteria = readCriteria();
+
+        if (!criteria) {
+          return;
+        }
+
+        const evaluated = products.map(product => ({
+          product,
+          issues: checkProduct(product, criteria),
+          score: scoreProduct(product, criteria)
+        }));
+
+        const matching = evaluated
+          .filter(item => item.issues.length === 0)
+          .sort((a, b) =>
+            b.score - a.score ||
+            a.product.price - b.product.price
+          );
+
+        exactResults.replaceChildren();
+        alternativeResults.replaceChildren();
+
+        matching.forEach(item => {
+          exactResults.appendChild(
+            renderCard(item, false, criteria)
+          );
+        });
+
+        if (matching.length > 0) {
+          matchStatus.className = "status-message";
+          matchStatus.textContent =
+            "Знайдено техніку, яка відповідає вибраним умовам " +
+            "підбору. Перегляньте рекомендовані моделі нижче.";
+
+          altSection.hidden = true;
+          return;
+        }
+
+        /* ЯКЩО ТОЧНИХ ЗБІГІВ НЕМАЄ */
+
+        matchStatus.className = "status-message status-warning";
+
+        if (
+          criteria.category === "soil" &&
+          criteria.compensation
+        ) {
+          matchStatus.textContent =
+            "За вибраними умовами відповідної техніки немає. " +
+            "Жоден із восьми товарів ґрунтообробки в нашому " +
+            "каталозі не має позначки можливої держкомпенсації. " +
+            "Нижче показано альтернативи без цієї умови.";
+        } else if (
+          criteria.category === "motoblock" &&
+          ["10-50", "50-200", "200-500", "over500"]
+            .includes(criteria.area)
+        ) {
+          matchStatus.textContent =
+            "Для такої площі серед нашого асортименту немає " +
+            "мотоблока, який ми могли б рекомендувати як " +
+            "основну техніку. ДТЗ 470БН-GT має 7 к. с. " +
+            "Нижче показано найближчі варіанти й причини " +
+            "їхньої невідповідності.";
+        } else {
+          matchStatus.textContent =
+            "На жаль, у нашому каталозі немає товару, " +
+            "що одночасно відповідає всім вибраним умовам. " +
+            "Нижче — найближчі альтернативи з поясненнями.";
+        }
+
+        const alternatives = evaluated
+          .filter(item => item.issues.length > 0)
+          .sort((a, b) => {
+            const penaltyA = alternativePenalty(a.issues);
+            const penaltyB = alternativePenalty(b.issues);
+
+            return penaltyA - penaltyB ||
+              b.score - a.score ||
+              a.product.price - b.product.price;
+          })
+          .slice(0, 4);
+
+        alternatives.forEach(item => {
+          alternativeResults.appendChild(
+            renderCard(item, true, criteria)
+          );
+        });
+
+        altSection.hidden = alternatives.length === 0;
+      }
+
+      /* КНОПКИ */
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        recommend();
+      });
+
+      compensation.addEventListener("change", function () {
+        rateBox.hidden = !compensation.checked;
+      });
+
+      document.getElementById("resetSelection")
+        .addEventListener("click", function () {
+          form.reset();
+
+          errorBox.hidden = true;
+          errorBox.textContent = "";
+
+          rateBox.hidden = !compensation.checked;
+          recommend();
+        });
+
+      /* ПОЧАТКОВИЙ ПІДБІР */
+
+      rateBox.hidden = !compensation.checked;
+      recommend();
+
+    });
+  </script>
+
 </body>
 </html>
