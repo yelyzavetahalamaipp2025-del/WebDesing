@@ -831,3 +831,80 @@ main {
 .agronext-swiper .swiper-pagination-bullet-active {
   background: #2d408c;
 }
+
+
+
+/* ==========================================
+   AGRONEXT — СИНЄ ПІДСВІЧУВАННЯ ТОВАРІВ
+   ========================================== */
+
+/* Великі блоки залишаються нерухомими */
+#product-page > section.product-card {
+    transform: none !important;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+/* Синє підсвічування блоків */
+#product-page > section.product-card:hover,
+#product-page > section.product-card:focus-within {
+    transform: none !important;
+    border-color: #1E3A8A !important;
+    box-shadow: 0 6px 22px rgba(30, 58, 138, 0.18) !important;
+}
+
+/* Фото та блок із ціною */
+#product-page > .grid > .product-card:hover,
+#product-page > .grid > .product-card:focus-within {
+    transform: translateY(-2px) !important;
+    border-color: #1E3A8A !important;
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.18) !important;
+}
+
+/* Таблиця характеристик */
+#product-page .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+#product-page .spec-table th,
+#product-page .spec-table td {
+    padding: 11px 14px;
+    line-height: 1.6;
+    vertical-align: middle;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* Темно-синє підсвічування рядків */
+#product-page .spec-table tr:not(.spec-group):hover > th,
+#product-page .spec-table tr:not(.spec-group):hover > td {
+    background-color: #1E3A8A !important;
+    color: #FFFFFF !important;
+}
+
+/* Заголовки груп характеристик */
+#product-page .spec-table .spec-group th {
+    background-color: #1E3A8A !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+/* Відео не зміщується */
+#product-page iframe {
+    display: block;
+    transform: none !important;
+    border-radius: 12px;
+}
+
+/* Адаптивність */
+@media (max-width: 640px) {
+    #product-page .spec-table th,
+    #product-page .spec-table td {
+        padding: 9px 8px;
+        font-size: 12px;
+    }
+}

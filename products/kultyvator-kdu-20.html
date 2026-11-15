@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Культиватор ДТЗ КДУ-2,0 — AgroNext</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
+
+<style>
+body{font-family:"Plus Jakarta Sans",sans-serif;background:#F8FAFC;color:#1E3A8A}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;color:#1E3A8A!important}
+.site-header{background:#1E3A8A!important;z-index:100!important}
+.site-header .main-navigation a{color:white!important;transition:color .2s}
+.site-header .main-navigation a:hover{color:#FBBF24!important}
+#product-page{padding-top:105px!important;padding-bottom:45px!important}
+.product-card{
+ background:white;border:1px solid #E2E8F0;border-radius:16px;
+ padding:24px;box-shadow:0 3px 12px rgba(30,58,138,.05);
+ transition:border-color .25s,box-shadow .25s,transform .25s
+}
+.top-card:hover{
+ border-color:#1E3A8A;
+ box-shadow:0 10px 25px rgba(30,58,138,.15);
+ transform:translateY(-2px)
+}
+.spec-card:hover{
+ border-color:#1E3A8A;
+ box-shadow:0 6px 22px rgba(30,58,138,.15)
+}
+.product-photo{display:block;width:100%;text-align:center;cursor:zoom-in}
+.product-photo img{
+ width:100%;max-height:360px;object-fit:contain;
+ margin:auto;transition:transform .3s
+}
+.product-photo:hover img{transform:scale(1.045)}
+.consult-btn{
+ display:block;padding:13px 20px;text-align:center;
+ background:#1E3A8A;color:white!important;border-radius:8px;
+ font-weight:700;transition:background .2s,transform .2s
+}
+.consult-btn:hover{background:#172554;transform:translateY(-2px)}
+.spec-table{width:100%;border-collapse:collapse;font-size:14px}
+.spec-table th,.spec-table td{
+ text-align:left;padding:13px;border-bottom:1px solid #E2E8F0;
+ vertical-align:top
+}
+.spec-table th{width:48%;font-weight:600;color:#1E3A8A}
+.spec-table tr:hover>th,.spec-table tr:hover>td{
+ background:#1E3A8A!important;color:white!important
+}
+#mobileNavigation[hidden]{display:none!important}
+#mobileNavigation{
+ position:absolute;top:100%;left:0;right:0;z-index:110;
+ background:white;padding:12px 20px;
+ box-shadow:0 12px 25px rgba(0,0,0,.15)
+}
+#mobileNavigation a{
+ display:block;color:#1E3A8A!important;padding:12px;
+ border-bottom:1px solid #E2E8F0
+}
+#mobileNavigation a:hover{background:#EFF6FF}
+.site-footer h3{color:white!important}
+.site-footer a:hover{color:white!important;text-decoration:underline}
+@media(min-width:768px){#mobileNavigation{display:none!important}}
+@media(max-width:640px){
+ #product-page{padding-top:90px!important}
+ .product-card{padding:18px}
+ .spec-table th,.spec-table td{padding:10px 8px;font-size:12px}
+}
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+<!-- ХЕДЕР -->
+<header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+ <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
+  <a href="../index.html" class="flex items-center gap-3">
+   <img src="../assets/icons/logo.png" alt="AgroNext" class="h-12 w-auto object-contain">
+   <span class="font-semibold text-base" style="color:white!important">AgroNext</span>
+  </a>
+
+  <nav class="main-navigation hidden md:flex items-center gap-5">
+   <ul class="flex gap-5 text-xs font-medium">
+    <li><a href="../catalog.html">Каталог</a></li>
+    <li><a href="../selection.html">Підбір техніки</a></li>
+    <li><a href="../compatibility.html">Сумісність</a></li>
+    <li><a href="../calculator.html">Компенсація 25–40%</a></li>
+    <li><a href="../about.html">Про компанію</a></li>
+   </ul>
+  </nav>
+
+  <form action="../catalog.html" method="GET" role="search" class="hidden sm:block">
+   <input type="search" name="q" placeholder="Пошук..."
+          class="px-3 py-1 rounded text-xs w-[180px]"
+          style="background:white;color:#1E3A8A">
+  </form>
+
+  <button id="menuButton" type="button" class="md:hidden p-2 rounded hover:bg-white/10"
+          aria-label="Відкрити меню" aria-controls="mobileNavigation" aria-expanded="false">
+   <svg id="menuIcon" width="26" height="26" viewBox="0 0 24 24"
+        fill="none" stroke="white" stroke-width="2">
+    <path d="M4 6h16M4 12h16M4 18h16"/>
+   </svg>
+  </button>
+ </div>
+
+ <nav id="mobileNavigation" hidden aria-label="Мобільне меню">
+  <a href="../index.html">Головна</a>
+  <a href="../catalog.html">Каталог</a>
+  <a href="../selection.html">Підбір техніки</a>
+  <a href="../compatibility.html">Сумісність</a>
+  <a href="../calculator.html">Компенсація 25–40%</a>
+  <a href="../about.html">Про компанію</a>
+ </nav>
+</header>
+
+<!-- ОСНОВНИЙ ВМІСТ -->
+<main id="product-page" class="max-w-[1140px] mx-auto px-5 w-full flex-grow">
+
+ <div class="text-xs text-slate-500 mb-5">
+  <a href="../index.html" class="hover:underline">Головна</a> /
+  <a href="../catalog.html" class="hover:underline">Каталог</a> /
+  Культиватор ДТЗ КДУ-2,0
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+  <div class="product-card top-card flex items-center justify-center">
+   <a href="../assets/images/kultyvator-kdu-20.jpg"
+      data-fancybox="product"
+      data-caption="Культиватор ДТЗ КДУ-2,0"
+      class="product-photo" aria-label="Збільшити фото культиватора">
+    <img src="../assets/images/kultyvator-kdu-20.jpg"
+         alt="Культиватор універсальний ДТЗ КДУ-2,0">
+    <span class="block text-xs text-slate-500 mt-3">
+     Натисніть для збільшення фото
+    </span>
+   </a>
+  </div>
+
+  <div class="product-card top-card flex flex-col justify-center">
+   <h1 class="text-3xl font-bold mb-6">
+    Культиватор універсальний «ДТЗ» КДУ-2,0
+   </h1>
+   <p class="text-sm text-slate-500 mb-5">
+    Універсальний культиватор із шириною захвату 2 метри.
+   </p>
+   <p class="text-3xl font-bold mb-7">32 500 грн</p>
+   <a href="../index.html#lead" class="consult-btn">
+    Замовити консультацію
+   </a>
+  </div>
+ </div>
+
+ <section class="product-card spec-card">
+  <h2 class="text-2xl font-bold mb-5">Технічні характеристики</h2>
+  <div class="overflow-x-auto">
+   <table class="spec-table">
+    <thead>
+     <tr class="bg-slate-50">
+      <th scope="col">Параметр</th>
+      <th scope="col">Значення</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><th scope="row">Ширина захвату, м</th><td>2,0</td></tr>
+     <tr><th scope="row">Глибина обробки, мм</th><td>60–120</td></tr>
+     <tr><th scope="row">Кількість стрільчатих лап, од.</th><td>9</td></tr>
+     <tr><th scope="row">Потужність трактора, що агрегатується, к. с.</th><td>Від 35</td></tr>
+     <tr><th scope="row">Маса, кг</th><td>186</td></tr>
+    </tbody>
+   </table>
+  </div>
+ </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+ <div class="max-w-[1140px] mx-auto px-5">
+  <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
+   <div class="w-full md:max-w-[340px]">
+    <a href="../index.html" class="inline-flex items-center gap-3 mb-4">
+     <img src="../assets/icons/logo.png" alt="AgroNext" class="w-12 h-12 object-contain">
+     <span class="text-xl font-bold" style="color:white!important">AgroNext</span>
+    </a>
+    <p class="text-slate-300 text-sm leading-relaxed">
+     Онлайн-платформа для підбору сільськогосподарської техніки,
+     перевірки сумісності обладнання та розрахунку державної компенсації.
+    </p>
+   </div>
+
+   <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+    <div>
+     <h3 class="font-bold text-base mb-4" style="color:white!important">Компанія</h3>
+     <ul class="space-y-3 text-sm text-slate-300">
+      <li><a href="../about.html">Про нас</a></li>
+      <li><a href="../index.html#lead">Центр підтримки</a></li>
+      <li><a href="../catalog.html">Каталог техніки</a></li>
+     </ul>
+    </div>
+    <div>
+     <h3 class="font-bold text-base mb-4" style="color:white!important">Ми в соцмережах</h3>
+     <ul class="space-y-3 text-sm text-slate-300">
+      <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="border-t border-white/20 pt-5 text-center">
+   <p class="text-slate-300 text-xs">© 2026 AgroNext. Всі права захищені.</p>
+  </div>
+ </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+ const button = document.getElementById("menuButton");
+ const menu = document.getElementById("mobileNavigation");
+ const icon = document.getElementById("menuIcon");
+
+ function setMenu(open) {
+  menu.hidden = !open;
+  button.setAttribute("aria-expanded", String(open));
+  button.setAttribute("aria-label", open ? "Закрити меню" : "Відкрити меню");
+  icon.innerHTML = open
+   ? '<path d="M6 6l12 12M18 6L6 18"/>'
+   : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+ }
+
+ button.addEventListener("click", () => setMenu(menu.hidden));
+ document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !menu.hidden) {
+   setMenu(false);
+   button.focus();
+  }
+ });
+ document.addEventListener("click", e => {
+  if (!e.target.closest(".site-header")) setMenu(false);
+ });
+ window.addEventListener("resize", () => {
+  if (window.innerWidth >= 768) setMenu(false);
+ });
+
+ if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="product"]', {});
+ }
+});
+</script>
+</body>
+</html>

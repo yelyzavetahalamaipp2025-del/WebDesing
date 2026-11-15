@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Трактор ДТЗ 1204 (Спец) — AgroNext</title>
+
+  <meta name="description"
+        content="Трактор ДТЗ 1204. Технічні характеристики, ціна, відеоогляд та розрахунок державної компенсації.">
+
+  <!-- Шрифти -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Основні стилі сайту -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Fancybox -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "agronext-navy": "#1E3A8A",
+            "agronext-navy-hover": "#172554",
+            "agronext-orange": "#D97706"
+          },
+          fontFamily: {
+            heading: ["Space Grotesk", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"],
+            btn: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Загальний дизайн */
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: #F8FAFC;
+      color: #1E3A8A;
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", sans-serif;
+      color: #1E3A8A !important;
+    }
+
+    /* Хедер */
+    .site-header {
+      background: #1E3A8A !important;
+      z-index: 100 !important;
+    }
+
+    .site-header a {
+      color: #FFFFFF !important;
+    }
+
+    .site-header .main-navigation a {
+      transition: color 0.2s ease;
+    }
+
+    .site-header .main-navigation a:hover {
+      color: #FBBF24 !important;
+    }
+
+    /* Відступ від закріпленого хедера */
+    main#product-page {
+      padding-top: 105px !important;
+      padding-bottom: 42px !important;
+    }
+
+    /* Картки з інтерактивним 3D-ефектом */
+    .product-card {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.04);
+
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+
+      transform-style: preserve-3d;
+    }
+
+    .product-card:hover,
+    .product-card:focus-within {
+      transform:
+        perspective(1000px)
+        translateY(-5px)
+        rotateX(1deg);
+
+      border-color: #1E3A8A;
+
+      box-shadow:
+        0 14px 30px rgba(30, 58, 138, 0.14);
+    }
+
+    /* Фотографія трактора */
+    .product-photo {
+      display: block;
+      width: 100%;
+      cursor: zoom-in;
+      text-align: center;
+    }
+
+    .product-photo img {
+      display: block;
+      width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+
+    .product-photo:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Кнопка консультації */
+    .consult-btn {
+      display: block;
+      width: 100%;
+      padding: 13px 20px;
+      background: #1E3A8A;
+      color: white !important;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 9px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .consult-btn:hover {
+      background: #172554 !important;
+      color: white !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(30, 58, 138, 0.2);
+    }
+
+    /* Таблиця характеристик */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .spec-table th[scope="row"] {
+      width: 43%;
+      font-weight: 600;
+      color: #1E3A8A;
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .spec-table tr:not(.spec-group):hover {
+      background: #EFF6FF;
+    }
+
+    .spec-group th {
+      background: #EAF1FF;
+      color: #1E3A8A;
+      padding: 14px;
+      font-weight: 700;
+    }
+
+    /* Гамбургер-меню */
+    #mobileNavigation[hidden] {
+      display: none !important;
+    }
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 110;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    #mobileNavigation a {
+      display: block;
+      padding: 12px;
+      color: #1E3A8A !important;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    #mobileNavigation a:last-child {
+      border-bottom: none;
+    }
+
+    #mobileNavigation a:hover,
+    #mobileNavigation a:focus-visible {
+      background: #EFF6FF;
+      border-radius: 6px;
+    }
+
+    /* Футер */
+    .site-footer h3 {
+      color: white !important;
+    }
+
+    .site-footer a:hover {
+      color: white !important;
+      text-decoration: underline;
+    }
+
+    /* Адаптивність */
+    @media (min-width: 768px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main#product-page {
+        padding-top: 90px !important;
+      }
+
+      .product-card {
+        padding: 18px;
+      }
+
+      .spec-table th,
+      .spec-table td {
+        padding: 9px 8px;
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .product-card,
+      .product-photo img,
+      .consult-btn {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- ======================== -->
+  <!-- ХЕДЕР -->
+  <!-- ======================== -->
+  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+
+    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
+
+      <!-- Логотип -->
+      <a href="../index.html"
+         class="flex items-center gap-3"
+         aria-label="Головна AgroNext">
+
+        <img src="../assets/icons/logo.png"
+             alt="AgroNext"
+             class="h-12 w-auto object-contain">
+
+        <span style="color:white!important;font-size:16px;font-weight:600">
+          AgroNext
+        </span>
+      </a>
+
+      <!-- Навігація для комп'ютера -->
+      <nav class="main-navigation hidden md:flex items-center gap-5"
+           aria-label="Основна навігація">
+
+        <ul class="flex gap-5 text-xs font-medium">
+
+          <li>
+            <a href="../catalog.html">Каталог</a>
+          </li>
+
+          <li>
+            <a href="../selection.html">Підбір техніки</a>
+          </li>
+
+          <li>
+            <a href="../compatibility.html">Сумісність</a>
+          </li>
+
+          <li>
+            <a href="../calculator.html">Компенсація 25–40%</a>
+          </li>
+
+          <li>
+            <a href="../about.html">Про компанію</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- Пошук -->
+      <form action="../catalog.html"
+            method="GET"
+            role="search"
+            class="hidden sm:block">
+
+        <input type="search"
+               name="q"
+               placeholder="Пошук..."
+               class="px-3 py-1 rounded text-xs w-[180px]"
+               style="background:white;color:#1E3A8A">
+      </form>
+
+      <!-- Гамбургер -->
+      <button id="menuButton"
+              type="button"
+              class="md:hidden p-2 rounded hover:bg-white/10"
+              aria-label="Відкрити меню"
+              aria-expanded="false"
+              aria-controls="mobileNavigation">
+
+        <svg id="menuIcon"
+             width="26"
+             height="26"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="white"
+             stroke-width="2"
+             aria-hidden="true">
+
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Мобільна навігація -->
+    <nav id="mobileNavigation"
+         hidden
+         aria-label="Мобільне меню">
+
+      <a href="../index.html">Головна</a>
+      <a href="../catalog.html">Каталог</a>
+      <a href="../selection.html">Підбір техніки</a>
+      <a href="../compatibility.html">Сумісність</a>
+      <a href="../calculator.html">Компенсація 25–40%</a>
+      <a href="../about.html">Про компанію</a>
+
+    </nav>
+  </header>
+
+  <!-- ======================== -->
+  <!-- ОСНОВНА ЧАСТИНА -->
+  <!-- ======================== -->
+  <main id="product-page"
+        class="max-w-[1140px] mx-auto px-5 w-full flex-grow">
+
+    <!-- Навігаційний шлях -->
+    <div class="text-xs text-slate-500 mb-5">
+
+      <a href="../index.html" class="hover:underline">
+        Головна
+      </a>
+
+      /
+
+      <a href="../catalog.html" class="hover:underline">
+        Каталог
+      </a>
+
+      /
+
+      <span>Трактор ДТЗ 1204 (Спец)</span>
+    </div>
+
+    <!-- ======================== -->
+    <!-- ФОТО + ІНФОРМАЦІЯ -->
+    <!-- ======================== -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-7">
+
+      <!-- Фото -->
+      <div class="product-card flex items-center justify-center">
+
+        <a href="../assets/images/dtz-1204-spec (1).jpg"
+           class="product-photo"
+           data-fancybox="product"
+           data-caption="Трактор ДТЗ 1204 (Спец)"
+           aria-label="Збільшити фотографію трактора">
+
+          <img
+            id="tractorPhoto"
+            src="../assets/images/dtz-1204-spec (1).jpg"
+            alt="Трактор ДТЗ 1204 (Спец)"
+            loading="eager"
+          >
+
+          <span class="block text-center text-xs text-slate-500 mt-3">
+            Натисніть для збільшення фото
+          </span>
+        </a>
+      </div>
+
+      <!-- Назва та ціна -->
+      <div class="product-card flex flex-col justify-center">
+
+        <span class="self-start bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+          Підлягає держкомпенсації
+        </span>
+
+        <h1 class="text-3xl font-bold mt-5 mb-5">
+          Трактор ДТЗ 1204 (Спец)
+        </h1>
+
+        <p class="text-3xl font-bold mb-7">
+          1 531 200 грн
+        </p>
+
+        <a href="../index.html#lead" class="consult-btn">
+          Замовити консультацію
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- РОЗРАХУНОК КОМПЕНСАЦІЇ -->
+    <!-- ======================== -->
+    <section class="product-card mb-8">
+
+      <h2 class="text-xl font-bold mb-4">
+        Розрахунок компенсації
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+
+        <!-- Повна ціна -->
+        <div class="bg-slate-50 rounded-lg p-4">
+
+          <p class="text-slate-500 mb-2">
+            Повна ціна
+          </p>
+
+          <strong>1 531 200 грн</strong>
+        </div>
+
+        <!-- Економія -->
+        <div class="bg-emerald-50 rounded-lg p-4">
+
+          <p class="text-emerald-700 mb-2">
+            Економія 25%
+          </p>
+
+          <strong class="text-emerald-700">
+            382 800 грн
+          </strong>
+        </div>
+
+        <!-- Ціна після компенсації -->
+        <div class="bg-blue-50 rounded-lg p-4">
+
+          <p class="text-slate-500 mb-2">
+            Ціна після компенсації
+          </p>
+
+          <strong>1 148 400 грн</strong>
+        </div>
+
+      </div>
+
+      <p class="text-xs text-slate-500 mt-3">
+        Розрахунок орієнтовний. Право на компенсацію та її
+        фактичний розмір залежать від умов державної програми.
+      </p>
+
+    </section>
+
+    <!-- ======================== -->
+    <!-- ТЕХНІЧНІ ХАРАКТЕРИСТИКИ -->
+    <!-- ======================== -->
+    <section class="product-card mb-8">
+
+      <h2 class="text-2xl font-bold mb-5">
+        Технічні характеристики
+      </h2>
+
+      <div class="overflow-x-auto">
+
+        <table class="spec-table">
+
+          <thead>
+            <tr>
+              <th scope="col">Параметр</th>
+              <th scope="col">Значення</th>
+            </tr>
+          </thead>
+
+          <tbody id="specRows">
+            <!-- Заповнюється з характеристик нижче -->
+          </tbody>
+
+        </table>
+
+      </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- ВІДЕООГЛЯД -->
+    <!-- ======================== -->
+    <section class="product-card mb-8">
+
+      <h2 class="text-2xl font-bold mb-5">
+        Відеоогляд
+      </h2>
+
+      <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-100">
+
+        <iframe
+          class="absolute inset-0 w-full h-full border-0"
+          src="https://www.youtube.com/embed/P7xbX_XQ9RM"
+          title="Відеоогляд трактора ДТЗ 1204"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================== -->
+  <!-- ФУТЕР -->
+  <!-- ======================== -->
+  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+
+    <div class="max-w-[1140px] mx-auto px-5">
+
+      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
+
+        <!-- Інформація про компанію -->
+        <div class="w-full md:max-w-[340px]">
+
+          <a href="../index.html"
+             class="inline-flex items-center gap-3 mb-4">
+
+            <img src="../assets/icons/logo.png"
+                 alt="AgroNext"
+                 class="w-12 h-12 object-contain">
+
+            <span class="text-xl font-bold"
+                  style="color:white!important">
+              AgroNext
+            </span>
+          </a>
+
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
+
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+          <!-- Навігація -->
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Компанія
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+
+              <li>
+                <a href="../about.html">Про нас</a>
+              </li>
+
+              <li>
+                <a href="../index.html#lead">Центр підтримки</a>
+              </li>
+
+              <li>
+                <a href="../catalog.html">Каталог техніки</a>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- Соціальні мережі -->
+          <div>
+            <h3 class="font-bold text-base mb-4"
+                style="color:white!important">
+              Ми в соцмережах
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+
+              <li>
+                <a href="https://instagram.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Instagram
+                </a>
+              </li>
+
+              <li>
+                <a href="https://tiktok.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  TikTok
+                </a>
+              </li>
+
+              <li>
+                <a href="https://facebook.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Facebook
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== -->
+  <!-- ХАРАКТЕРИСТИКИ З EXCEL -->
+  <!-- ======================== -->
+  <script id="specData" type="text/plain">
+# ДВИГУН
+Модель двигуна|CF5F120-T
+Тип двигуна|Дизельний, 4-тактний, електронний регулятор упорскування, турбонаддув, інтеркулер, актуатор
+Кількість і розташування циліндрів|4, вертикальне
+Об'єм двигуна, см³|4765
+Турбонаддув|Є
+Номінальна потужність двигуна, к.с. (кВт)|120 (88,2)
+Повітряний фільтр|Сухого типу, високий повітрозабірник, циклон із крильчаткою, два паперові фільтрувальні елементи, механічний вакуумний індикатор забрудненості, клапан видалення конденсату
+Підігрів повітря у впускному колекторі|Електрична спіраль розжарювання
+Об’єм паливного бака, л|165
+
+# ТРАНСМІСІЯ, ХОДОВА
+Тип трансмісії|Механічна шестеренчаста
+Формула перемикання передач|24+24
+Основна коробка передач|4 передачі, нейтраль
+Додаткові понижувальні коробки|Перша: 3 передачі, нейтраль, друга: 2 передачі, нейтраль
+Окрема реверсивна коробка|Вперед-нейтраль-назад
+Муфта зчеплення|Двоступенева, дводискова, суха, кулачкова, з механічним приводом від педалі на хід та від важеля на ВВП
+Рульове керування|Гідрооб’ємне з окремим насосом
+Колісна формула|4х4
+Гальма|Задні, дискові в масляній ванні, механічні, роздільні педалі на праве і ліве колесо
+Теоретична швидкість руху вперед, км/год|0,27-37,0
+Теоретична швидкість руху назад, км/год|0,24-33,2
+Блокування диференціала заднього мосту|Механічне
+Мінімальний радіус розвороту без гальм, м|4,8
+Мінімальний радіус розвороту з гальмами, м|4,3
+
+# ОСНОВНІ ХАРАКТЕРИСТИКИ
+Номінальне тягове зусилля, кН|23
+Габаритні розміри (ДхШхВ), мм|4500х2000х2850
+Експлуатаційна маса, кг|4850
+Розмір передніх шин|11,2-28
+Розмір задніх шин|16,9-34
+Колісна база, мм|2200
+Колія передніх коліс, мм|1590/1712/1812
+Колія задніх коліс, мм|1530/1830/1930
+Агротехнічний просвіт, мм|560
+Кліренс, мм|470
+Додаткові вантажі передні/задні, (од. × кг)|10×30/(6×45)×2
+Об’єм паливного бака, л|165
+
+# НАВІСНА СИСТЕМА
+Задня навісна система|Універсальна, 3-точкова
+Привод гідропідйомника|Зовнішні двоходові гідроциліндри
+Максимальна вантажність навісного мех-му, кг|3000
+Буксирувальний пристрій|Маятникова сережка, знімна цапфа
+Оберти вала відбору потужності (ВВП), об/хв|540/1000
+Об’єм масляного бака гідросистеми, л|14
+Гідравлічні виходи для підключення навісного обладнання|3 пари вхід/вихід (4-позиційний гідророзподільник, 1 пара 3 - позиційний) і 1 злив у бак
+Додаткове обладнання|Компресор пневматичний, поршневий, із ресивером та клапаном скидання тиску, вимикається, 2 пневмовиходи – для гальм причепа та для підключення навісного обладнання
+
+# ЕРГОНОМІКА, ЕЛЕКТРООБЛАДНАННЯ
+Кабіна водія|Закрита, скляна з оглядом на 360
+Сидіння водія|На амортизаторі, регульоване за жорсткістю, відстанню до керма та за нахилом спинки, з підлокітниками, пасок безпеки, підголівник
+Панель приладів|Електронна, зі світловими індикаторами, виводом текстової і графічної інформації на монітор
+Рівна підлога|Є
+Напруга та потужність генератора, В/Вт потужність|14/980
+Напруга та ємність акумуляторної батареї, В/А•год|12/150
+Електророзетка для підключення причепа|Є
+Компресор|Є
+Передні крила|Пластикові передні крила з гнучкими бризковиками
+Магнітола|Є
+Кондиціонер|Є
+Кабіна з опаленням|Є
+Додаткове обладнання|Звуковий сигнал, аварійна сигналізація, освітлення кабіни, проблисковий маячок, передній склоочисник, омивач, стереосистема, металеві задні крила, таблички для кріплення номерних знаків, капот із гідропідйомниками, дзеркала заднього виду, ящик для інструментів
+  </script>
+
+  <!-- ======================== -->
+  <!-- JAVASCRIPT -->
+  <!-- ======================== -->
+
+  <!-- Fancybox -->
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /* ------------------------ */
+      /* ГАМБУРГЕР-МЕНЮ */
+      /* ------------------------ */
+
+      const button = document.getElementById("menuButton");
+      const menu = document.getElementById("mobileNavigation");
+      const icon = document.getElementById("menuIcon");
+
+      function setMenu(open) {
+
+        menu.hidden = !open;
+
+        button.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        button.setAttribute(
+          "aria-label",
+          open ? "Закрити меню" : "Відкрити меню"
+        );
+
+        icon.innerHTML = open
+          ? '<path d="M6 6l12 12M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+
+      button.addEventListener("click", function () {
+        setMenu(menu.hidden);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !menu.hidden) {
+          setMenu(false);
+          button.focus();
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        if (
+          !menu.hidden &&
+          !event.target.closest(".site-header")
+        ) {
+          setMenu(false);
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 768) {
+          setMenu(false);
+        }
+      });
+
+      /* ------------------------ */
+      /* ТАБЛИЦЯ ХАРАКТЕРИСТИК */
+      /* ------------------------ */
+
+      const tbody = document.getElementById("specRows");
+      const data = document.getElementById("specData");
+
+      const lines = data.textContent
+        .trim()
+        .split(/\r?\n/);
+
+      lines.forEach(function (line) {
+
+        line = line.trim();
+
+        if (!line) return;
+
+        const row = document.createElement("tr");
+
+        // Заголовок групи
+        if (line.startsWith("# ")) {
+
+          row.className = "spec-group";
+
+          const heading = document.createElement("th");
+
+          heading.colSpan = 2;
+          heading.textContent = line.slice(2);
+
+          row.appendChild(heading);
+
+        } else {
+
+          // Характеристика та її значення
+          const separator = line.indexOf("|");
+
+          const parameter = document.createElement("th");
+          parameter.scope = "row";
+
+          parameter.textContent = separator < 0
+            ? line
+            : line.slice(0, separator);
+
+          const value = document.createElement("td");
+
+          value.textContent = separator < 0
+            ? "—"
+            : line.slice(separator + 1);
+
+          row.append(parameter, value);
+        }
+
+        tbody.appendChild(row);
+      });
+
+      /* ------------------------ */
+      /* ЗБІЛЬШЕННЯ ФОТО */
+      /* ------------------------ */
+
+      const photo = document.getElementById("tractorPhoto");
+      const photoLink = photo.closest(".product-photo");
+
+      // Якщо для версії «Спец» немає окремого JPG,
+      // використовуємо фото звичайного ДТЗ 1204.
+      photo.addEventListener("error", function () {
+
+        const fallback = "../assets/images/dtz-1204 (1).jpg";
+
+        if (!photo.src.includes("dtz-1204%20(1).jpg")) {
+          photo.src = fallback;
+          photoLink.href = fallback;
+        }
+      });
+
+      if (window.Fancybox) {
+        Fancybox.bind('[data-fancybox="product"]', {
+          groupAll: false
+        });
+      }
+
+    });
+  </script>
+
+</body>
+</html>
