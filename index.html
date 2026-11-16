@@ -4,112 +4,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgroNext — каталог сільгосптехніки ДТЗ, швидкий підбір, перевірка сумісності та калькулятор держкомпенсації.">
   <title>AgroNext — Зважений підхід до оновлення вашого агропарку</title>
-  <meta name="description" content="AgroNext — каталог сільськогосподарської техніки, підбір обладнання та розрахунок компенсації.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'agronext-navy': '#1E3A8A',
-            'agronext-orange': '#D97706'
-          },
-          fontFamily: {
-            heading: ["'Space Grotesk'", 'sans-serif'],
-            body: ["'Plus Jakarta Sans'", 'sans-serif'],
-            btn: ["'Inter'", 'sans-serif']
-          }
-        }
-      }
-    };
-  </script>
-
   <style>
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Space Grotesk', sans-serif !important;
-      color: #1E3A8A !important;
+    body {
+      margin: 0;
+      background: #fff;
+      color: #1E3A8A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #1E3A8A;
     }
 
     .site-header {
       background: #1E3A8A !important;
-      z-index: 100 !important;
+      z-index: 1000;
     }
 
-    .site-header .logo-name {
-      color: white !important;
+    .site-header .main-navigation a {
+      color: #fff !important;
+      transition: color .2s;
     }
 
-    /* Відновлене підсвічування кнопок */
-    .step-btn {
-      cursor: pointer;
-      background: white !important;
-      color: #1E3A8A !important;
-      border: 1px solid #E2E8F0 !important;
-      transition: background .2s, color .2s, border-color .2s, transform .2s;
-    }
-
-    .step-btn:not(.active):hover {
-      background: #EFF6FF !important;
-      border-color: #1E3A8A !important;
-      transform: translateY(-1px);
-    }
-
-    .step-btn.active {
-      background: #1E3A8A !important;
-      color: white !important;
-      border-color: #1E3A8A !important;
-    }
-
-    .step-btn.active:hover {
-      background: #172554 !important;
-    }
-
-    .step-card,
-    .tool-card,
-    .testimonial-card {
-      transition: box-shadow .2s, border-color .2s, transform .2s;
-    }
-
-    .step-card:hover,
-    .tool-card:hover,
-    .testimonial-card:hover {
-      border-color: #93C5FD !important;
-      box-shadow: 0 8px 24px rgba(30,58,138,.12) !important;
-      transform: translateY(-2px);
-    }
-
-    .main-navigation a:hover {
+    .site-header .main-navigation a:hover {
       color: #FBBF24 !important;
     }
 
-    .btn-outline-full:hover,
-    .selection-btn:hover {
-      background: #1E3A8A !important;
-      color: white !important;
+    /* Головний банер */
+
+    .hero-video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* Картки з переворотом */
+    .hero-shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,.86),
+        rgba(255,255,255,.48) 48%,
+        rgba(255,255,255,.03)
+      );
+    }
+
+    .hero-content {
+      position: absolute;
+      left: max(24px, calc((100% - 1140px)/2));
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(480px, calc(100% - 48px));
+    }
+
+    /* Кнопки */
+
+    .btn-primary,
+    .btn-outline {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #1E3A8A;
+      color: #fff !important;
+      border: 1px solid #1E3A8A;
+    }
+
+    .btn-primary:hover {
+      background: #172554;
+      box-shadow: 0 6px 18px rgba(30,58,138,.19);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: #1E3A8A !important;
+      border: 1px solid #1E3A8A;
+    }
+
+    .btn-outline:hover {
+      background: #EFF6FF;
+    }
+
+    /* Основні картки */
+
+    .section-card {
+      border: 1px solid #E2E8F0;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 3px 13px rgba(30,58,138,.05);
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .2s;
+    }
+
+    .section-card:hover {
+      border-color: #93C5FD;
+      box-shadow: 0 8px 23px rgba(30,58,138,.12);
+      transform: translateY(-2px);
+    }
+
+    /* Вибір параметрів */
+
+    .choice-btn {
+      border: 1px solid #CBD5E1;
+      background: #fff;
+      color: #1E3A8A;
+      padding: 8px 11px;
+      border-radius: 7px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .choice-btn.active,
+    .choice-btn[aria-pressed="true"] {
+      background: #1E3A8A;
+      border-color: #1E3A8A;
+      color: #fff;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 7px;
+    }
+
+    .field-input {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      background: #F8FAFC;
+      color: #1E3A8A;
+      font-size: 13px;
+      padding: 11px 12px;
+    }
+
+    .field-input:focus {
+      outline: 2px solid #1E3A8A;
+      outline-offset: 1px;
+    }
+
+    /* Результати */
+
+    .inline-result {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 10px;
+      padding: 14px;
+      color: #334155;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .inline-result.error {
+      color: #991B1B;
+      background: #FEF2F2;
+      border-color: #FECACA;
+    }
+
+    .inline-result.success {
+      color: #166534;
+      background: #F0FDF4;
+      border-color: #86EFAC;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /* Карусель товарів */
+
+    .recommended-swiper {
+      padding: 12px 35px 50px;
+      overflow: hidden;
+    }
+
+    .recommended-swiper .swiper-slide {
+      height: auto;
+    }
+
+    /* 3D картки */
+
     .flip-card {
-      perspective: 1000px;
-      height: 430px;
+      height: 385px;
+      perspective: 1100px;
     }
 
     .flip-card-inner {
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform .7s;
       transform-style: preserve-3d;
+      transition: transform .65s;
     }
 
     .flip-card:hover .flip-card-inner,
@@ -123,29 +234,79 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      border-radius: 12px;
-      -webkit-backface-visibility: hidden;
+      border-radius: 13px;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    .flip-card-front {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
     }
 
     .flip-card-back {
       transform: rotateY(180deg);
+      background: #1E3A8A;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .flip-card-back h3 {
-      color: white !important;
+      color: #fff !important;
     }
 
-    /* Слайдер */
-    .recommended-swiper {
+    .product-photo {
       width: 100%;
-      padding: 12px 38px 55px;
-      overflow: hidden;
+      height: 173px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px;
+      border-radius: 10px;
+      background: #F8FAFC;
     }
 
-    .recommended-swiper .swiper-slide {
-      height: auto;
-      box-sizing: border-box;
+    .product-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .product-link {
+      display: block;
+      width: 100%;
+      text-align: center;
+      border-radius: 8px;
+      padding: 11px;
+      margin-top: 12px;
+      border: 1px solid #1E3A8A;
+      color: #1E3A8A !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .product-link:hover {
+      color: #fff !important;
+      background: #1E3A8A;
+    }
+
+    .flip-card-back .product-link {
+      background: #D97706;
+      border-color: #D97706;
+      color: #fff !important;
+    }
+
+    .flip-card-back .product-link:hover {
+      background: #B45309;
     }
 
     .recommended-swiper .swiper-button-next,
@@ -155,574 +316,578 @@
 
     .recommended-swiper .swiper-button-next::after,
     .recommended-swiper .swiper-button-prev::after {
-      font-size: 23px;
-      font-weight: bold;
+      font-size: 22px;
     }
 
     .recommended-swiper .swiper-pagination-bullet-active {
       background: #1E3A8A;
     }
 
-    .product-image-link {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      cursor: zoom-in;
+    /* Резервний вигляд без Swiper */
+
+    .recommended-swiper.no-swiper {
+      overflow: visible;
+      padding: 12px 0 0;
     }
 
-    .product-image-link img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    .recommended-swiper.no-swiper .swiper-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
     }
 
-    .recommended-swiper .product-detail-link {
-      display: block !important;
-      width: 100% !important;
-      padding: 10px 14px !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      border: 1.5px solid #1E3A8A !important;
-      border-radius: 7px !important;
-      background: white !important;
-      color: #1E3A8A !important;
-      font-family: 'Inter', sans-serif !important;
-      font-size: 13px !important;
-      font-weight: 700 !important;
-      cursor: pointer;
-      transition: .2s;
+    .recommended-swiper.no-swiper .swiper-slide {
+      width: auto !important;
     }
 
-    .recommended-swiper .product-detail-link:hover {
-      background: #1E3A8A !important;
-      color: white !important;
-    }
-
-    .recommended-swiper .product-back-link {
-      display: block !important;
-      width: 100% !important;
-      padding: 10px 14px !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      background: #D97706 !important;
-      color: white !important;
-      border: 1px solid #D97706 !important;
-      border-radius: 7px !important;
-      font-weight: 700 !important;
-      font-size: 13px !important;
-      cursor: pointer;
-    }
-
-    .recommended-swiper .product-back-link:hover {
-      background: #B45309 !important;
-    }
-
-    .product-photo-button {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 8px;
-      color: white !important;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.5);
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: zoom-in;
-    }
-
-    .product-photo-button:hover {
-      background: rgba(255,255,255,.25);
-    }
-
-    /* Мобільне меню */
-    .agronext-mobile-menu {
+    .recommended-swiper.no-swiper .swiper-button-next,
+    .recommended-swiper.no-swiper .swiper-button-prev,
+    .recommended-swiper.no-swiper .swiper-pagination {
       display: none;
     }
 
-    @media (max-width: 767px) {
-      .agronext-mobile-menu.is-open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 110;
-        background: white;
-        padding: 12px 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,.18);
-        border-radius: 0 0 12px 12px;
-      }
+    /* Мобільне меню */
 
-      .agronext-mobile-menu a {
-        display: block;
-        padding: 13px 12px;
-        color: #1E3A8A !important;
-        font-size: 14px;
-        font-weight: 600;
-        border-bottom: 1px solid #E2E8F0;
-      }
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1100;
+      background: #fff;
+      padding: 12px 20px;
+      box-shadow: 0 12px 25px rgba(0,0,0,.16);
+    }
 
-      .agronext-mobile-menu a:last-child {
-        border-bottom: none;
-      }
+    #mobileNavigation a {
+      display: block;
+      padding: 11px;
+      color: #1E3A8A !important;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 13px;
+    }
 
-      .agronext-mobile-menu a:hover {
-        background: #EFF6FF;
-      }
+    #mobileNavigation a:hover {
+      background: #EFF6FF;
+    }
 
-      .recommended-swiper {
-        padding-left: 22px;
-        padding-right: 22px;
+    /* Футер */
+
+    .site-footer h3 {
+      color: #fff !important;
+    }
+
+    .site-footer a:hover {
+      color: #fff !important;
+      text-decoration: underline;
+    }
+
+    /* Адаптивність */
+
+    @media(max-width:1023px) {
+      .hero-content {
+        left: 30px;
       }
     }
 
-    @media (min-width: 768px) {
-      .agronext-mobile-menu {
+    @media(max-width:767px) {
+      .hero-video {
+        height: 270px;
+      }
+
+      .hero-shade {
+        display: none;
+      }
+
+      .hero-content {
+        position: static;
+        transform: none;
+        width: 100%;
+        padding: 27px 20px;
+        background: #F8FAFC;
+      }
+
+      .recommended-swiper {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+
+      .recommended-swiper.no-swiper .swiper-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(min-width:768px) {
+      #mobileNavigation {
         display: none !important;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .flip-card-inner {
+    @media(prefers-reduced-motion:reduce) {
+      .flip-card-inner,
+      .section-card {
         transition: none;
       }
+
+      .section-card:hover {
+        transform: none;
+      }
     }
-
-/* Підсвічування блоку «Почніть сьогодні» */
-.lead-generation-section .lead-flex {
-    transition: all 0.3s ease;
-}
-
-.lead-generation-section .lead-flex:hover {
-    border-color: #1E3A8A !important;
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.18) !important;
-    transform: translateY(-3px);
-}
-
-/* Підсвічування полів форми */
-.lead-generation-section .form-input:hover {
-    border-color: #93C5FD !important;
-}
-
-.lead-generation-section .form-input:focus {
-    border-color: #1E3A8A !important;
-    outline: 2px solid rgba(30, 58, 138, 0.15);
-}
-
-/* Підсвічування кнопки консультації */
-.lead-generation-section button[type="submit"] {
-    transition: all 0.25s ease;
-    cursor: pointer;
-}
-
-.lead-generation-section button[type="submit"]:hover {
-    background-color: #172554 !important;
-    box-shadow: 0 5px 15px rgba(30, 58, 138, 0.25);
-    transform: translateY(-2px);
-}
-
   </style>
 </head>
 
-<body class="font-body bg-white text-agronext-navy antialiased">
+<body class="antialiased">
 
-  <!-- Хедер -->
+  <!-- ХЕДЕР -->
+
   <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
-    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
+    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between gap-4">
 
       <a href="index.html" class="flex items-center gap-3" aria-label="Головна AgroNext">
-        <img src="assets/icons/logo.png" alt="Логотип AgroNext" class="h-12 w-auto object-contain">
-        <span class="logo-name font-semibold text-base">AgroNext</span>
+        <img src="assets/icons/logo.png" alt="AgroNext" class="h-12 w-auto object-contain">
+        <span class="font-semibold text-base" style="color:white!important">AgroNext</span>
       </a>
 
-      <nav class="main-navigation hidden md:flex items-center gap-5">
-        <ul class="flex gap-5 text-xs font-medium">
-          <li><a href="catalog.html" style="color:white">Каталог</a></li>
-          <li><a href="selection.html" style="color:white">Підбір техніки</a></li>
-          <li><a href="compatibility.html" style="color:white">Сумісність</a></li>
-          <li><a href="calculator.html" style="color:white">Компенсація 25–40%</a></li>
-          <li><a href="about.html" style="color:white">Про компанію</a></li>
-        </ul>
+      <nav class="main-navigation hidden lg:flex items-center gap-5" aria-label="Основна навігація">
+        <a href="catalog.html" class="text-xs">Каталог</a>
+        <a href="selection.html" class="text-xs">Підбір техніки</a>
+        <a href="compatibility.html" class="text-xs">Сумісність</a>
+        <a href="calculator.html" class="text-xs">Компенсація 25–40%</a>
+        <a href="about.html" class="text-xs">Про компанію</a>
       </nav>
 
-      <div class="hidden sm:block">
-        <form action="catalog.html" method="GET" role="search">
-          <input type="search" name="q" placeholder="Пошук..."
-                 class="px-3 py-1 rounded text-xs w-[180px]"
-                 style="color:#1E3A8A;background:white">
-        </form>
-      </div>
+      <form action="catalog.html" method="get" role="search" class="hidden sm:block">
+        <label class="sr-only" for="headerSearch">Пошук техніки</label>
+        <input id="headerSearch" type="search" name="q" placeholder="Пошук..."
+               class="px-3 py-2 rounded-lg text-xs w-[190px]"
+               style="background:white;color:#1E3A8A">
+      </form>
 
-      <button type="button" id="mobile-menu-button"
-              class="md:hidden text-white p-2 rounded hover:bg-white/10"
-              aria-label="Відкрити меню"
-              aria-controls="agronext-mobile-menu"
-              aria-expanded="false">
-        <svg id="menu-icon" class="w-7 h-7" fill="none" stroke="white"
-             viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <button id="menuButton" class="lg:hidden p-2 rounded hover:bg-white/10"
+              type="button" aria-label="Відкрити меню"
+              aria-expanded="false" aria-controls="mobileNavigation">
+        <svg id="menuIcon" width="26" height="26" viewBox="0 0 24 24"
+             fill="none" stroke="white" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
     </div>
 
-    <nav id="agronext-mobile-menu" class="agronext-mobile-menu"
-         aria-label="Мобільна навігація">
+    <nav id="mobileNavigation" hidden aria-label="Мобільне меню">
       <a href="index.html">Головна</a>
       <a href="catalog.html">Каталог</a>
       <a href="selection.html">Підбір техніки</a>
       <a href="compatibility.html">Сумісність</a>
       <a href="calculator.html">Компенсація 25–40%</a>
       <a href="about.html">Про компанію</a>
+
+      <form action="catalog.html" method="get" role="search" class="py-3">
+        <label class="sr-only" for="mobileSearch">Пошук товару</label>
+        <input id="mobileSearch" type="search" name="q"
+               placeholder="Знайти техніку..." class="field-input">
+      </form>
     </nav>
   </header>
 
-  <main class="main-content" style="padding-top:0 !important;margin-top:0 !important">
+  <main>
 
-    <!-- Головний банер -->
-    <section class="hero-section w-full flex justify-center bg-slate-100 overflow-hidden">
-      <div class="hero-wrapper-fixed relative w-full h-[804px] mx-auto max-lg:h-auto max-lg:flex max-lg:flex-col">
+    <!-- ГОЛОВНИЙ БАНЕР -->
 
-        <video id="video"
-               class="hero-video w-full h-full object-cover block max-lg:h-[280px]"
-               autoplay muted loop playsinline>
+    <section class="relative mt-[68px] bg-slate-100" aria-labelledby="heroTitle">
+      <div class="relative h-[804px] max-md:h-auto">
+
+        <video class="hero-video" autoplay muted loop playsinline
+               aria-label="Відео сільськогосподарської техніки">
           <source src="assets/video_hs.mp4" type="video/mp4">
         </video>
 
-        <div class="hero-overlay-text absolute top-[320px] left-[150px] max-w-[480px] z-10 max-lg:relative max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:max-w-full max-lg:text-center">
-          <h1 class="font-heading text-4xl max-lg:text-2xl font-bold leading-tight mb-4">
+        <div class="hero-shade" aria-hidden="true"></div>
+
+        <div class="hero-content">
+          <h1 id="heroTitle" class="font-bold text-4xl md:text-5xl leading-tight mb-4">
             Зважений підхід до оновлення вашого агропарку
           </h1>
-          <p class="text-base max-lg:text-sm mb-7 leading-snug font-medium">
+
+          <p class="text-base leading-relaxed mb-7">
             Підбирайте агротехніку з урахуванням сумісності,
-            держкомпенсації та сервісу
+            можливостей держкомпенсації та потреб вашого господарства.
           </p>
-          <a href="catalog.html"
-             class="btn btn-hero-outline inline-block px-10 py-2.5 border border-agronext-navy text-sm font-semibold rounded bg-white text-center">
-            Каталог
+
+          <a class="btn-outline" href="catalog.html">
+            Переглянути каталог
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Розумний підбір техніки -->
-    <section id="selection" class="smart-selection-section py-14">
+    <!-- ШВИДКИЙ ПІДБІР -->
+
+    <section id="selection" class="py-14 bg-white">
       <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex items-center gap-3.5 mb-1">
-          <img src="assets/icons/settings.svg" alt=""
-               class="w-[54px] h-[54px] object-contain icon-deep-blue">
+        <div class="flex items-center gap-3 mb-2">
+          <img src="assets/icons/settings.svg" alt="" class="w-11 h-11 object-contain">
           <h2 class="text-2xl font-bold">Розумний підбір техніки</h2>
         </div>
 
-        <p class="text-sm text-slate-500 mt-1 mb-7">
-          Вкажіть параметри вашого господарства для розрахунку потреб вашого господарства
+        <p class="text-sm text-slate-500 mb-7">
+          Оберіть площу, роботу та бюджет — ми покажемо кілька товарів із вашого каталогу,
+          а за кнопкою «Детальніше» відкриється потрібна сторінка.
         </p>
 
-        <div class="selection-steps-grid grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
-              <h3 class="text-lg font-bold">Площа землі</h3>
-            </div>
-            <p class="text-xs text-slate-500 mb-3">Оберіть площу вашої ділянки:</p>
+          <div class="section-card p-5">
+            <h3 class="font-bold text-base mb-3">1. Площа господарства</h3>
 
-            <div class="pill-options flex gap-2 flex-wrap">
-              <button type="button" class="step-btn pill-btn active px-3 py-1.5 border rounded text-xs">10-50 га</button>
-              <button type="button" class="step-btn pill-btn px-3 py-1.5 border rounded text-xs">50-100 га</button>
-              <button type="button" class="step-btn pill-btn px-3 py-1.5 border rounded text-xs">100+ га</button>
-            </div>
-          </div>
-
-          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
-              <h3 class="text-lg font-bold">Тип завдання</h3>
-            </div>
-            <p class="text-xs text-slate-500 mb-3">Оберіть основні завдання:</p>
-
-            <div class="pill-options flex gap-2 flex-wrap">
-              <button type="button" class="step-btn pill-btn active px-3 py-1.5 border rounded text-xs">Оранка</button>
-              <button type="button" class="step-btn pill-btn px-3 py-1.5 border rounded text-xs">Збирання врожаю</button>
-              <button type="button" class="step-btn pill-btn px-3 py-1.5 border rounded text-xs">Посівні роботи</button>
+            <div id="areaChoices" class="flex flex-wrap gap-2"
+                 role="group" aria-label="Площа господарства">
+              <button type="button" class="choice-btn" data-area="under1">До 1 га</button>
+              <button type="button" class="choice-btn" data-area="1-10">1–10 га</button>
+              <button type="button" class="choice-btn active" data-area="10-50"
+                      aria-pressed="true">10–50 га</button>
+              <button type="button" class="choice-btn" data-area="50-200">50–200 га</button>
+              <button type="button" class="choice-btn" data-area="200-500">200–500 га</button>
+              <button type="button" class="choice-btn" data-area="over500">500+ га</button>
             </div>
           </div>
 
-          <div class="step-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="w-7 h-7 bg-agronext-navy text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
-              <h3 class="text-lg font-bold">Бюджет</h3>
-            </div>
-            <p class="text-xs text-slate-500 mb-3">Вкажіть орієнтовний бюджет:</p>
+          <div class="section-card p-5">
+            <h3 class="font-bold text-base mb-3">2. Основне завдання</h3>
 
-            <div class="flex gap-2">
-              <input type="number" min="0" placeholder="Від 0"
-                     class="w-full px-3 py-2 border border-slate-200 rounded text-xs">
-              <input type="number" min="0" placeholder="До 0"
-                     class="w-full px-3 py-2 border border-slate-200 rounded text-xs">
+            <div id="taskChoices" class="flex flex-wrap gap-2"
+                 role="group" aria-label="Основний вид робіт">
+              <button type="button" class="choice-btn active" data-task="tillage"
+                      aria-pressed="true">Обробіток ґрунту</button>
+              <button type="button" class="choice-btn" data-task="cultivation">Культивація</button>
+              <button type="button" class="choice-btn" data-task="milling">Фрезерування</button>
+              <button type="button" class="choice-btn" data-task="hilling">Підгортання</button>
+              <button type="button" class="choice-btn" data-task="general">Господарські роботи</button>
             </div>
+          </div>
+
+          <div class="section-card p-5">
+            <h3 class="font-bold text-base mb-3">3. Бюджет, грн</h3>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="field-label" for="budgetFrom">Від</label>
+                <input id="budgetFrom" class="field-input" type="text"
+                       inputmode="numeric" value="0" placeholder="0">
+              </div>
+
+              <div>
+                <label class="field-label" for="budgetTo">До</label>
+                <input id="budgetTo" class="field-input" type="text"
+                       inputmode="numeric" value="2000000" placeholder="2000000">
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-500 mt-3">
+              Сума вказується без урахування майбутньої компенсації.
+            </p>
           </div>
         </div>
 
-        <div class="mt-7 text-center">
-          <a href="selection.html"
-             class="selection-btn btn-outline-full inline-block max-w-[340px] w-full py-2.5 px-4 border border-agronext-navy rounded text-xs font-semibold">
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <button id="quickPickButton" type="button" class="btn-primary">
             Підібрати оптимальну техніку
+          </button>
+
+          <a class="btn-outline" href="selection.html">
+            Розширений підбір
           </a>
         </div>
+
+        <div id="quickPickResult" class="mt-6" hidden aria-live="polite"></div>
       </div>
     </section>
 
-    <!-- Інтерактивні інструменти -->
-    <section id="tools" class="interactive-tools-section pb-14">
+    <!-- ІНТЕРАКТИВНІ ІНСТРУМЕНТИ -->
+
+    <section id="tools" class="py-12 bg-slate-50/70 border-y border-slate-200">
       <div class="max-w-[1140px] mx-auto px-5">
-        <h2 class="text-2xl font-bold mb-5">Інтерактивні інструменти</h2>
+
+        <h2 class="text-2xl font-bold mb-6">Інтерактивні інструменти</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-          <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
-            <div class="flex gap-3 mb-4">
-              <img src="assets/icons/shield-check.svg" alt=""
-                   class="w-9 h-9 object-contain">
+          <!-- СУМІСНІСТЬ -->
+
+          <article class="section-card p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <img src="assets/icons/shield-check.svg" alt="" class="w-9 h-9">
+
               <div>
-                <h3 class="text-lg font-bold">Перевірка сумісності</h3>
+                <h3 class="font-bold text-lg">Перевірка сумісності</h3>
                 <p class="text-xs text-slate-500">
-                  Перевірте сумісність наявного технічного парку
+                  Виберіть трактор або мотоблок і навісне обладнання
                 </p>
               </div>
             </div>
 
-            <div class="flex flex-col gap-3">
-              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-                <option>Оберіть модель трактора</option>
-              </select>
-              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-                <option>Оберіть причіпне обладнання</option>
-              </select>
-              <a href="compatibility.html" class="btn-outline-full block text-center">
-                Перевірити сумісність
-              </a>
-            </div>
-          </div>
+            <label for="miniMachine" class="field-label">Трактор / мотоблок</label>
+            <select id="miniMachine" class="field-input mb-3"></select>
 
-          <div class="tool-card border border-slate-200 rounded-xl p-6 bg-white shadow-sm"
-               id="compensation">
-            <div class="flex gap-3 mb-4">
-              <img src="assets/icons/calculator.svg" alt=""
-                   class="w-9 h-9 object-contain">
+            <label for="miniEquipment" class="field-label">Ґрунтообробне обладнання</label>
+            <select id="miniEquipment" class="field-input"></select>
+
+            <button id="miniCheckButton" type="button" class="btn-outline w-full mt-4">
+              Перевірити сумісність
+            </button>
+
+            <div id="miniCheckResult" class="inline-result mt-3"
+                 hidden aria-live="polite"></div>
+
+            <a href="compatibility.html" class="block text-xs font-semibold text-center mt-3 underline">
+              Повна перевірка та пошук усіх сумісних моделей
+            </a>
+          </article>
+
+          <!-- КАЛЬКУЛЯТОР -->
+
+          <article class="section-card p-6" id="compensation">
+            <div class="flex items-center gap-3 mb-4">
+              <img src="assets/icons/calculator.svg" alt="" class="w-9 h-9">
+
               <div>
-                <h3 class="text-lg font-bold">Калькулятор держкомпенсації 25–40%</h3>
+                <h3 class="font-bold text-lg">Калькулятор держкомпенсації 25–40%</h3>
                 <p class="text-xs text-slate-500">
-                  Розрахуйте орієнтовну суму відшкодування
+                  Орієнтовний математичний розрахунок
                 </p>
               </div>
             </div>
 
-            <div class="flex flex-col gap-3">
-              <input type="number" min="0" placeholder="Ціна техніки (грн)"
-                     class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-              <select class="w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-                <option>Оберіть категорію</option>
-              </select>
-              <a href="calculator.html" class="btn-outline-full block text-center">
-                Розрахувати
-              </a>
-              <div class="bg-agronext-navy p-3 rounded flex justify-between text-sm"
-                   style="color:white">
-                <span>Сума компенсації:</span>
-                <strong>0,00 ₴</strong>
-              </div>
-            </div>
-          </div>
+            <label for="miniPrice" class="field-label">Ціна техніки з ПДВ, грн</label>
+            <input id="miniPrice" type="text" class="field-input mb-3"
+                   inputmode="decimal" value="496480" placeholder="Наприклад, 496480">
 
+            <label for="miniRate" class="field-label">Орієнтовна ставка</label>
+            <select id="miniRate" class="field-input">
+              <option value="25">25% — стандартні умови</option>
+              <option value="40">40% — спеціальні умови</option>
+            </select>
+
+            <button id="miniCalcButton" type="button" class="btn-outline w-full mt-4">
+              Розрахувати
+            </button>
+
+            <div id="miniCalcResult" class="inline-result mt-3"
+                 hidden aria-live="polite"></div>
+
+            <p class="text-[11px] leading-relaxed text-slate-500 mt-2">
+              Не підтверджує право конкретної моделі чи покупця на державну компенсацію.
+            </p>
+
+            <a href="calculator.html" class="block text-xs font-semibold text-center mt-3 underline">
+              Відкрити повний калькулятор
+            </a>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Рекомендовані товари -->
-    <section id="catalog"
-             class="catalog-showcase py-10 bg-slate-50/50 border-t border-slate-200">
+    <!-- КАРУСЕЛЬ ТОВАРІВ -->
+
+    <section id="catalog" class="py-12 bg-white">
       <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="catalog-header flex justify-between items-center mb-6 gap-3">
-          <div class="flex items-center gap-3">
-            <img src="assets/icons/tractor.svg" alt="" class="w-6 h-6 object-contain">
+        <div class="flex justify-between items-center gap-3 flex-wrap mb-5">
+          <div class="flex gap-3 items-center">
+            <img src="assets/icons/tractor.svg" alt="" class="w-7 h-7 object-contain">
             <h2 class="text-2xl font-bold">Рекомендовані товари</h2>
           </div>
-          <a href="catalog.html" class="text-xs font-semibold hover:underline">
-            Переглянути весь каталог &rarr;
+
+          <a href="catalog.html" class="text-xs font-bold underline">
+            Переглянути весь каталог
           </a>
         </div>
 
-        <div class="swiper recommended-swiper" aria-label="Рекомендовані товари">
-          <div class="swiper-wrapper" id="recommended-products"></div>
-          <div class="swiper-pagination recommended-pagination"></div>
-          <div class="swiper-button-prev recommended-prev"></div>
-          <div class="swiper-button-next recommended-next"></div>
+        <div class="swiper recommended-swiper" aria-label="Товари AgroNext">
+          <div id="recommended-products" class="swiper-wrapper"></div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
 
-        <p id="catalog-loading" class="text-center text-xs text-slate-500">
+        <p id="catalogLoading" class="text-xs text-slate-500 text-center">
           Завантаження товарів...
         </p>
       </div>
     </section>
 
-    <!-- Відгуки -->
-    <section class="testimonials-section pt-12 pb-14 bg-white border-t border-slate-100">
-      <div class="max-w-[1140px] mx-auto px-5">
-        <h2 class="text-2xl font-bold mb-5">Нам довіряють</h2>
+    <!-- ВІДГУКИ -->
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-          <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+    <section class="py-12 bg-white border-t border-slate-200">
+      <div class="max-w-[1140px] mx-auto px-5">
+
+        <h2 class="text-2xl font-bold mb-4">Нам довіряють</h2>
+
+        <p class="text-xs text-slate-500 mb-5">
+          Нижче демонстраційні відгуки для навчального макета,
+          не підтверджені відгуки покупців.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <div class="section-card p-5">
             <div class="text-amber-500 mb-2">★★★★★</div>
-            <p class="text-sm">
-              «AgroNext допомогли підібрати сівалку під наш трактор і оформити компенсацію на суму 150 000 грн.»
+
+            <p class="text-sm text-slate-600">
+              «AgroNext допомогли підібрати сівалку під наш трактор
+              і оформити компенсацію на суму 150 000 грн.»
             </p>
-            <span class="block mt-3 text-xs text-slate-500">
-              Іван К., Власник ОСГ
+
+            <span class="block text-xs text-slate-500 mt-3">
+              Іван К., приклад відгуку
             </span>
           </div>
 
-          <div class="testimonial-card border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+          <div class="section-card p-5">
             <div class="text-amber-500 mb-2">★★★★★</div>
-            <p class="text-sm">
-              «Перевірка сумісності підтвердила, що наше обладнання підійде, що дуже зберегло час і гроші. Дякуємо!»
+
+            <p class="text-sm text-slate-600">
+              «Перевірка сумісності підтвердила, що наше обладнання
+              підійде, що дуже зберегло час і гроші. Дякуємо!»
             </p>
-            <span class="block mt-3 text-xs text-slate-500">
-              Ігор М.
+
+            <span class="block text-xs text-slate-500 mt-3">
+              Ігор М., приклад відгуку
             </span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Форма зворотного зв'язку -->
-    <section id="lead"
-             class="lead-generation-section py-16 bg-slate-50/70 border-t border-slate-200">
+    <!-- КОНТАКТНА ФОРМА -->
+
+    <section id="lead" class="py-14 bg-white">
       <div class="max-w-[1140px] mx-auto px-5">
-        <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-9 items-center bg-slate-50 p-7 md:p-9 border border-slate-200 rounded-2xl">
 
           <div>
-            <h2 class="text-2xl font-bold">Почніть сьогодні</h2>
-            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-              Поговоріть з експертом AgroNext, щоб підібрати потрібну техніку
-              під ваш агрокалендар та вигідно оформити компенсацію.
+            <h2 class="text-2xl font-bold mb-3">Почніть сьогодні</h2>
+
+            <p class="text-sm text-slate-500 leading-relaxed">
+              Підберіть техніку для свого господарства або залиште запитання
+              про модель, агрегат чи умови державної підтримки.
             </p>
           </div>
 
           <form id="feedbackForm" class="lead-form-stacked flex flex-col gap-3" novalidate>
+
             <div>
-              <label for="username" class="block text-xs font-semibold mb-1">
-                Ваше ім'я *
-              </label>
+              <label for="username" class="field-label">Ваше ім'я *</label>
+
               <input id="username" name="username" type="text"
-                     placeholder="Іван Петренко"
-                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-              <p id="nameError" class="hidden text-[11px] text-red-500 mt-1"></p>
+                     class="field-input" placeholder="Іван Петренко">
+
+              <p id="nameError" class="hidden text-[11px] text-red-600 mt-1"></p>
             </div>
 
             <div>
-              <label for="email" class="block text-xs font-semibold mb-1">
-                Електронна пошта *
-              </label>
+              <label for="email" class="field-label">Електронна пошта *</label>
+
               <input id="email" name="email" type="email"
-                     placeholder="example@mail.com"
-                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-              <p id="emailError" class="hidden text-[11px] text-red-500 mt-1"></p>
+                     class="field-input" placeholder="example@mail.com">
+
+              <p id="emailError" class="hidden text-[11px] text-red-600 mt-1"></p>
             </div>
 
             <div>
-              <label for="phone" class="block text-xs font-semibold mb-1">
-                Номер телефону *
-              </label>
-              <input id="phone" name="phone" type="tel" value="+380"
-                     placeholder="+380501234567"
-                     class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50">
-              <p id="phoneError" class="hidden text-[11px] text-red-500 mt-1"></p>
+              <label for="phone" class="field-label">Номер телефону *</label>
+
+              <input id="phone" name="phone" type="tel"
+                     class="field-input" placeholder="+380501234567">
+
+              <p id="phoneError" class="hidden text-[11px] text-red-600 mt-1"></p>
             </div>
 
             <div>
-              <label for="message" class="block text-xs font-semibold mb-1">
-                Повідомлення *
-              </label>
+              <label for="message" class="field-label">Повідомлення *</label>
+
               <textarea id="message" name="message" rows="3"
-                        placeholder="Опишіть ваше запитання..."
-                        class="form-input w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50"></textarea>
-              <p id="messageError" class="hidden text-[11px] text-red-500 mt-1"></p>
+                        class="field-input" placeholder="Опишіть ваше запитання..."></textarea>
+
+              <p id="messageError" class="hidden text-[11px] text-red-600 mt-1"></p>
             </div>
 
             <div>
-              <label class="flex items-center gap-2 cursor-pointer">
+              <label class="flex gap-2 items-center text-xs text-slate-600">
                 <input type="checkbox" id="agreement" name="agreement">
-                <span class="text-xs text-slate-600">
-                  Я погоджуюся з політикою конфіденційності
-                </span>
+                Я погоджуюся з політикою конфіденційності
               </label>
-              <p id="agreementError" class="hidden text-[11px] text-red-500 mt-1"></p>
+
+              <p id="agreementError" class="hidden text-[11px] text-red-600 mt-1"></p>
             </div>
 
-            <button type="submit"
-                    class="bg-agronext-navy px-6 py-2.5 rounded-lg text-xs font-semibold shadow-md hover:bg-blue-950 transition-colors"
-                    style="color:white !important">
+            <button type="submit" class="btn-primary">
               Отримати безкоштовну консультацію
             </button>
           </form>
-
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Модальне вікно -->
+  <!-- МОДАЛЬНЕ ВІКНО -->
+
   <div id="successModal"
-       class="fixed inset-0 z-[150] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
+       class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
        role="dialog" aria-modal="true" aria-labelledby="successTitle">
-    <div class="bg-white p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl text-center">
-      <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+
+    <div class="bg-white p-7 rounded-2xl max-w-md w-full mx-4 text-center shadow-2xl">
+
+      <div class="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center bg-emerald-100 text-emerald-700 text-xl">
         ✓
       </div>
-      <h3 id="successTitle" class="text-xl font-bold mb-2">Заявку прийнято!</h3>
-      <p class="text-slate-500 text-sm mb-6">
-        Форма успішно пройшла клієнтську валідацію.
+
+      <h3 id="successTitle" class="text-xl font-bold mb-3">
+        Форму перевірено
+      </h3>
+
+      <p class="text-sm text-slate-500 mb-5">
+        Дані пройшли перевірку в браузері.
+        Для реального надсилання заявки потрібно підключити
+        сервіс обробки форм.
       </p>
-      <button type="button" id="closeModalBtn"
-              class="w-full py-2.5 bg-agronext-navy rounded-xl text-xs font-semibold"
-              style="color:white !important">
+
+      <button id="closeModalBtn" type="button" class="btn-primary w-full">
         Закрити
       </button>
     </div>
   </div>
 
-  <!-- Футер -->
+  <!-- ФУТЕР -->
+
   <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
     <div class="max-w-[1140px] mx-auto px-5">
+
       <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
         <div class="w-full md:max-w-[340px]">
           <a href="index.html" class="inline-flex items-center gap-3 mb-4">
             <img src="assets/icons/logo.png" alt="AgroNext"
                  class="w-12 h-12 object-contain">
-            <span class="text-xl font-bold" style="color:white !important">
+
+            <span class="font-bold text-xl" style="color:white!important">
               AgroNext
             </span>
           </a>
+
           <p class="text-slate-300 text-sm leading-relaxed">
             Онлайн-платформа для підбору сільськогосподарської техніки,
             перевірки сумісності обладнання та розрахунку державної компенсації.
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+        <div class="flex gap-12 flex-wrap">
+
           <div>
-            <h3 class="font-bold text-base mb-4" style="color:white !important">
-              Компанія
-            </h3>
-            <ul class="space-y-3 text-sm text-slate-300">
+            <h3 class="font-bold mb-3" style="color:white!important">Компанія</h3>
+
+            <ul class="text-sm text-slate-300 space-y-2">
               <li><a href="about.html">Про нас</a></li>
               <li><a href="index.html#lead">Центр підтримки</a></li>
               <li><a href="catalog.html">Каталог техніки</a></li>
@@ -730,10 +895,9 @@
           </div>
 
           <div>
-            <h3 class="font-bold text-base mb-4" style="color:white !important">
-              Ми в соцмережах
-            </h3>
-            <ul class="space-y-3 text-sm text-slate-300">
+            <h3 class="font-bold mb-3" style="color:white!important">Ми в соцмережах</h3>
+
+            <ul class="text-sm text-slate-300 space-y-2">
               <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
               <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a></li>
               <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
@@ -742,212 +906,713 @@
         </div>
       </div>
 
-      <div class="border-t border-white/20 pt-5 text-center">
-        <p class="text-slate-300 text-xs">
-          © 2026 AgroNext. Всі права захищені.
-        </p>
+      <div class="border-t border-white/20 pt-5 text-center text-xs text-slate-300">
+        © 2026 AgroNext. Всі права захищені.
       </div>
     </div>
   </footer>
+
+  <!-- СКРИПТИ -->
 
   <script src="assets/js/validation.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
 
   <script>
-    /* Мобільне меню */
-    document.addEventListener('DOMContentLoaded', function () {
-      const header = document.querySelector('.site-header');
-      const button = document.getElementById('mobile-menu-button');
-      const menu = document.getElementById('agronext-mobile-menu');
-      const icon = document.getElementById('menu-icon');
+  'use strict';
 
-      function setMenu(open) {
-        menu.classList.toggle('is-open', open);
-        button.setAttribute('aria-expanded', String(open));
-        button.setAttribute('aria-label', open ? 'Закрити меню' : 'Відкрити меню');
+  document.addEventListener('DOMContentLoaded', function () {
 
-        icon.innerHTML = open
-          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>'
-          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+    const $ = id => document.getElementById(id);
+
+    /* =========================================
+       1. МОБІЛЬНЕ МЕНЮ
+       ========================================= */
+
+    const menuButton = $('menuButton');
+    const menu = $('mobileNavigation');
+    const menuIcon = $('menuIcon');
+
+    function setMenu(open) {
+      menu.hidden = !open;
+
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute(
+        'aria-label',
+        open ? 'Закрити меню' : 'Відкрити меню'
+      );
+
+      menuIcon.innerHTML = open
+        ? '<path d="M6 6L18 18M18 6L6 18"/>'
+        : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+    }
+
+    menuButton.addEventListener('click', () => setMenu(menu.hidden));
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.site-header')) {
+        setMenu(false);
       }
-
-      button.addEventListener('click', function () {
-        setMenu(!menu.classList.contains('is-open'));
-      });
-
-      menu.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', function () {
-          setMenu(false);
-        });
-      });
-
-      document.addEventListener('click', function (event) {
-        if (!header.contains(event.target)) setMenu(false);
-      });
-
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && menu.classList.contains('is-open')) {
-          setMenu(false);
-          button.focus();
-        }
-      });
-
-      window.addEventListener('resize', function () {
-        if (window.innerWidth >= 768) setMenu(false);
-      });
     });
 
-    /* Відновлення інтерактивності кнопок */
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.pill-options').forEach(function (group) {
-        const buttons = group.querySelectorAll('button');
-
-        buttons.forEach(function (button) {
-          button.setAttribute(
-            'aria-pressed',
-            String(button.classList.contains('active'))
-          );
-
-          button.addEventListener('click', function () {
-            buttons.forEach(function (other) {
-              other.classList.remove('active');
-              other.setAttribute('aria-pressed', 'false');
-            });
-
-            button.classList.add('active');
-            button.setAttribute('aria-pressed', 'true');
-          });
-        });
-      });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        setMenu(false);
+      }
     });
 
-    /* Фотографії товарів */
-    const productPhotos = [
-      'dtz-470bn-gt (1).jpg',
-      'dtz-1304 (1).jpg',
-      'dtz-1204 (1).jpg',
-      'dtz-504kku (1).jpg',
-      'dtz-504bkku (1).jpg',
-      'dtz-504u (1).jpg',
-      'dtz-354u (1).jpg',
-      'dtz-1204-spec (1).jpg'
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        setMenu(false);
+      }
+    });
+
+    /* =========================================
+       2. ТОВАРИ З КАТАЛОГУ
+       ========================================= */
+
+    const products = [
+      {
+        id: '470',
+        name: 'Мотоблок ДТЗ 470БН-GT',
+        price: 20045,
+        image: 'dtz-470bn-gt (1).jpg',
+        url: 'products/dtz-470bn-gt.html',
+        category: 'motoblock',
+        hp: 7,
+        tasks: ['tillage', 'general']
+      },
+      {
+        id: '1304',
+        name: 'Трактор ДТЗ 1304',
+        price: 1610080,
+        image: 'dtz-1304 (1).jpg',
+        url: 'products/dtz-1304.html',
+        category: 'tractor',
+        hp: 130,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '1204',
+        name: 'Трактор ДТЗ 1204',
+        price: 1531200,
+        image: 'dtz-1204 (1).jpg',
+        url: 'products/dtz-1204.html',
+        category: 'tractor',
+        hp: 120,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '504kku',
+        name: 'Трактор ДТЗ 504KKU',
+        price: 626400,
+        image: 'dtz-504kku (1).jpg',
+        url: 'products/dtz-504kku.html',
+        category: 'tractor',
+        hp: 50,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '504bkku',
+        name: 'Трактор ДТЗ 504BKKU',
+        price: 784160,
+        image: 'dtz-504bkku (1).jpg',
+        url: 'products/dtz-504bkku.html',
+        category: 'tractor',
+        hp: 50,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '504u',
+        name: 'Трактор ДТЗ 504U',
+        price: 496480,
+        image: 'dtz-504u (1).jpg',
+        url: 'products/dtz-504u.html',
+        category: 'tractor',
+        hp: 50,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '354u',
+        name: 'Трактор ДТЗ 354U',
+        price: 375840,
+        image: 'dtz-354u (1).jpg',
+        url: 'products/dtz-354u.html',
+        category: 'tractor',
+        hp: 35,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: '1204spec',
+        name: 'Трактор ДТЗ 1204 (Спец)',
+        price: 1531200,
+        image: 'dtz-1204-spec (1).jpg',
+        url: 'products/dtz-1204-spec.html',
+        category: 'tractor',
+        hp: 120,
+        tasks: ['tillage', 'cultivation', 'milling', 'hilling', 'general']
+      },
+      {
+        id: 'borona',
+        name: 'Дискова борона БДН-2.1',
+        price: 40335,
+        image: 'borona-dyskova.jpg',
+        url: 'products/borona-dyskova.html',
+        category: 'soil',
+        tasks: ['tillage'],
+        minHp: 50,
+        allowed: ['354u']
+      },
+      {
+        id: 'kdu16',
+        name: 'Культиватор ДТЗ КДУ-1,6',
+        price: 27700,
+        image: 'kultyvator-kdu-16.jpg',
+        url: 'products/kultyvator-kdu-16.html',
+        category: 'soil',
+        tasks: ['tillage', 'cultivation'],
+        minHp: 24,
+        allowed: ['354u', '504u', '504kku', '504bkku']
+      },
+      {
+        id: 'kdu20',
+        name: 'Культиватор ДТЗ КДУ-2,0',
+        price: 32500,
+        image: 'kultyvator-kdu-20.jpg',
+        url: 'products/kultyvator-kdu-20.html',
+        category: 'soil',
+        tasks: ['tillage', 'cultivation'],
+        minHp: 35,
+        allowed: ['354u', '504u', '504kku', '504bkku']
+      },
+      {
+        id: 'fn20',
+        name: 'Ґрунтофреза ФН-2,0',
+        price: 60549,
+        image: 'gruntofreza-fn-20.jpg',
+        url: 'products/gruntofreza-fn-20.html',
+        category: 'soil',
+        tasks: ['tillage', 'milling'],
+        minHp: 35,
+        maxHp: 50,
+        allowed: ['354u', '504u', '504kku', '504bkku']
+      },
+      {
+        id: 'fn20k',
+        name: 'Ґрунтофреза ДТЗ ФН-2,0К',
+        price: 69825,
+        image: 'gruntofreza-dtz-fn-20k.jpg',
+        url: 'products/gruntofreza-dtz-fn-20k.html',
+        category: 'soil',
+        tasks: ['tillage', 'milling'],
+        minHp: 35,
+        maxHp: 50,
+        allowed: ['354u', '504u', '504kku', '504bkku']
+      },
+      {
+        id: 'fn22',
+        name: 'Ґрунтофреза ФН-2,2',
+        price: 64656,
+        image: 'gruntofreza-fn-22.jpg',
+        url: 'products/gruntofreza-fn-22.html',
+        category: 'soil',
+        tasks: ['tillage', 'milling'],
+        minHp: 45,
+        maxHp: 60,
+        allowed: ['504u', '504kku', '504bkku']
+      },
+      {
+        id: 'strila1',
+        name: 'Підгортальник Стріла-1',
+        price: 780,
+        image: 'pidgortach-strila-1.jpg',
+        url: 'products/pidgortach-strila-1.html',
+        category: 'soil',
+        tasks: ['hilling'],
+        allowed: ['470']
+      },
+      {
+        id: 'strila2',
+        name: 'Підгортальник Стріла-2',
+        price: 830,
+        image: 'pidgortach-strila-2.jpg',
+        url: 'products/pidgortach-strila-2.html',
+        category: 'soil',
+        tasks: ['hilling'],
+        allowed: ['470']
+      }
     ];
 
-    /* Завантаження рекомендованих товарів */
-    async function loadRecommendedProducts() {
-      const wrapper = document.getElementById('recommended-products');
-      const status = document.getElementById('catalog-loading');
+    const machines = products.filter(p => p.category !== 'soil');
+    const equipment = products.filter(p => p.category === 'soil');
 
-      try {
-        const pages = ['catalog.html', 'catalog-2.html'];
-        const responses = await Promise.all(pages.map(page => fetch(page)));
+    const money = value =>
+      new Intl.NumberFormat('uk-UA', { maximumFractionDigits: 0 }).format(value) + ' грн';
 
-        if (responses.some(response => !response.ok)) {
-          throw new Error('Не вдалося завантажити каталоги');
-        }
+    const imagePath = p => 'assets/images/' + p.image;
 
-        const htmlPages = await Promise.all(
-          responses.map(response => response.text())
+    function addOption(select, item) {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.name;
+      select.appendChild(option);
+    }
+
+    /* =========================================
+       3. ПІДБІР НА ГОЛОВНІЙ
+       ========================================= */
+
+    function setupChoices(groupId) {
+      const group = $(groupId);
+
+      group.querySelectorAll('button').forEach(button => {
+        button.setAttribute(
+          'aria-pressed',
+          String(button.classList.contains('active'))
         );
 
-        const parser = new DOMParser();
-        let productIndex = 0;
-
-        htmlPages.forEach(function (html) {
-          const doc = parser.parseFromString(html, 'text/html');
-          const cards = doc.querySelectorAll('.flip-card');
-
-          cards.forEach(function (card) {
-            if (productIndex >= productPhotos.length) return;
-
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-
-            const copy = card.cloneNode(true);
-            const photo = copy.querySelector('.flip-card-front img');
-            const title = copy.querySelector('.flip-card-front h3');
-            const back = copy.querySelector('.flip-card-back');
-
-            const photoPath = 'assets/images/' + productPhotos[productIndex];
-
-            /* Знаходимо справжні сторінки товарів */
-            const frontDetails = copy.querySelector(
-              '.flip-card-front a[href*="products/"]'
-            );
-
-            const backDetails = copy.querySelector(
-              '.flip-card-back a[href*="products/"]'
-            );
-
-            if (frontDetails) {
-              frontDetails.classList.add('product-detail-link');
-            }
-
-            if (backDetails) {
-              backDetails.classList.add('product-back-link');
-            }
-
-            /* Fancybox лише для фотографії */
-            if (photo) {
-              photo.src = photoPath;
-              photo.removeAttribute('onerror');
-              photo.loading = 'lazy';
-
-              const imageLink = document.createElement('a');
-              imageLink.href = photoPath;
-              imageLink.className = 'product-image-link';
-              imageLink.setAttribute('data-fancybox', 'agronext-products');
-              imageLink.setAttribute(
-                'data-caption',
-                title ? title.textContent.trim() : photo.alt
-              );
-              imageLink.setAttribute('aria-label', 'Збільшити фотографію');
-
-              photo.replaceWith(imageLink);
-              imageLink.appendChild(photo);
-
-              if (back) {
-                const photoButton = document.createElement('button');
-                photoButton.type = 'button';
-                photoButton.className = 'product-photo-button';
-                photoButton.textContent = 'Збільшити фото';
-
-                photoButton.addEventListener('click', function (event) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  imageLink.click();
-                });
-
-                if (backDetails) {
-                  backDetails.before(photoButton);
-                } else {
-                  back.appendChild(photoButton);
-                }
-              }
-            }
-
-            [frontDetails, backDetails].forEach(function (link) {
-              if (!link) return;
-              link.addEventListener('click', function (event) {
-                event.stopPropagation();
-              });
-            });
-
-            slide.appendChild(copy);
-            wrapper.appendChild(slide);
-            productIndex++;
+        button.addEventListener('click', () => {
+          group.querySelectorAll('button').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
           });
-        });
 
-        if (productIndex === 0) {
-          throw new Error('У каталогах не знайдено карток .flip-card');
+          button.classList.add('active');
+          button.setAttribute('aria-pressed', 'true');
+
+          $('quickPickResult').hidden = true;
+        });
+      });
+    }
+
+    setupChoices('areaChoices');
+    setupChoices('taskChoices');
+
+    function areaPoints(product, area) {
+      if (area === 'under1' || area === '1-10') {
+        return product.category === 'motoblock'
+          ? 25
+          : product.category === 'tractor' && product.hp <= 50
+            ? 14
+            : 8;
+      }
+
+      if (area === '10-50') {
+        return product.category === 'tractor' && product.hp <= 50
+          ? 24
+          : product.category === 'motoblock'
+            ? -30
+            : 12;
+      }
+
+      return product.category === 'tractor' && product.hp >= 100
+        ? 25
+        : product.category === 'motoblock'
+          ? -40
+          : 9;
+    }
+
+    function parseBudget(text) {
+      const value = String(text)
+        .trim()
+        .replace(/[\s\u00A0\u202F]/g, '')
+        .replace(',', '.');
+
+      if (!/^\d+(?:\.\d{1,2})?$/.test(value)) {
+        return null;
+      }
+
+      const number = Number(value);
+
+      return Number.isFinite(number) &&
+             number >= 0 &&
+             number <= 100000000
+        ? number
+        : null;
+    }
+
+    $('quickPickButton').addEventListener('click', function () {
+
+      const area = $('areaChoices')
+        .querySelector('.active').dataset.area;
+
+      const task = $('taskChoices')
+        .querySelector('.active').dataset.task;
+
+      const min = parseBudget($('budgetFrom').value);
+      const max = parseBudget($('budgetTo').value);
+
+      const output = $('quickPickResult');
+
+      output.hidden = false;
+      output.replaceChildren();
+
+      if (min === null || max === null || min > max) {
+        output.className = 'inline-result error mt-6';
+
+        output.textContent =
+          'Перевірте бюджет: введіть коректні суми, ' +
+          'причому «Від» не може перевищувати «До».';
+
+        return;
+      }
+
+      const result = products
+        .filter(p =>
+          p.price >= min &&
+          p.price <= max &&
+          p.tasks.includes(task)
+        )
+        .filter(p =>
+          !(p.category === 'motoblock' &&
+            ['10-50','50-200','200-500','over500'].includes(area))
+        )
+        .map(p => ({
+          product: p,
+          score: areaPoints(p, area)
+        }))
+        .sort((a, b) =>
+          b.score - a.score ||
+          a.product.price - b.product.price
+        )
+        .slice(0, 3);
+
+      output.className = 'mt-6';
+
+      const heading = document.createElement('h3');
+      heading.className = 'font-bold text-lg mb-3';
+
+      heading.textContent = result.length
+        ? 'Орієнтовно рекомендована техніка'
+        : 'За вибраними умовами товарів немає';
+
+      output.appendChild(heading);
+
+      if (!result.length) {
+        const p = document.createElement('p');
+        p.className = 'inline-result';
+
+        p.textContent =
+          'Спробуйте змінити бюджет або завдання. ' +
+          'У розділі розширеного підбору є більше критеріїв.';
+
+        output.appendChild(p);
+        return;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-1 md:grid-cols-3 gap-4';
+
+      result.forEach(({ product: p }) => {
+
+        const card = document.createElement('article');
+        card.className = 'section-card p-4';
+
+        const img = document.createElement('img');
+        img.src = imagePath(p);
+        img.alt = p.name;
+        img.loading = 'lazy';
+        img.className =
+          'w-full h-32 object-contain bg-slate-50 rounded mb-3';
+
+        const name = document.createElement('h4');
+        name.className = 'text-sm font-bold';
+        name.textContent = p.name;
+
+        const price = document.createElement('p');
+        price.className = 'font-bold text-sm mt-2';
+        price.textContent = money(p.price);
+
+        const text = document.createElement('p');
+        text.className = 'text-[11px] text-slate-500 mt-2';
+        text.textContent =
+          'Орієнтовна рекомендація; сумісність агрегатів перевіряється окремо.';
+
+        const link = document.createElement('a');
+        link.href = p.url;
+        link.className = 'product-link';
+        link.textContent = 'Детальніше';
+
+        card.append(img, name, price, text, link);
+        grid.appendChild(card);
+      });
+
+      output.appendChild(grid);
+    });
+
+    /* =========================================
+       4. ШВИДКА ПЕРЕВІРКА СУМІСНОСТІ
+       ========================================= */
+
+    machines.forEach(p => addOption($('miniMachine'), p));
+    equipment.forEach(p => addOption($('miniEquipment'), p));
+
+    $('miniMachine').value = '504u';
+    $('miniEquipment').value = 'kdu16';
+
+    function checkPair(machine, equip) {
+
+      const listed = equip.allowed.includes(machine.id);
+
+      const powerOk =
+        (equip.minHp == null || machine.hp >= equip.minHp) &&
+        (equip.maxHp == null || machine.hp <= equip.maxHp);
+
+      return {
+        ok: listed && powerOk,
+        listed,
+        powerOk
+      };
+    }
+
+    ['miniMachine', 'miniEquipment'].forEach(id =>
+      $(id).addEventListener('change', () => {
+        $('miniCheckResult').hidden = true;
+      })
+    );
+
+    $('miniCheckButton').addEventListener('click', () => {
+
+      const machine = machines.find(
+        p => p.id === $('miniMachine').value
+      );
+
+      const equip = equipment.find(
+        p => p.id === $('miniEquipment').value
+      );
+
+      const outcome = checkPair(machine, equip);
+      const box = $('miniCheckResult');
+
+      box.hidden = false;
+
+      box.className = 'inline-result mt-3 ' +
+        (outcome.ok ? 'success' : 'error');
+
+      const explanation = outcome.ok
+        ? 'Є у таблиці відповідності, і потужність проходить перевірку.'
+        : !outcome.listed
+          ? 'Цю пару не зазначено як сумісну в таблиці AgroNext.'
+          : 'Потужність не відповідає вимогам агрегата.';
+
+      box.textContent =
+        (outcome.ok
+          ? '✓ Підходить. '
+          : '✕ Не підходить за даними каталогу. ') +
+        explanation;
+    });
+
+    /* =========================================
+       5. МІНІКАЛЬКУЛЯТОР
+       ========================================= */
+
+    $('miniCalcButton').addEventListener('click', () => {
+
+      const text = $('miniPrice')
+        .value
+        .trim()
+        .replace(/[\s\u00A0\u202F]/g, '')
+        .replace(',', '.');
+
+      const box = $('miniCalcResult');
+      box.hidden = false;
+
+      if (
+        !/^\d+(?:\.\d{1,2})?$/.test(text) ||
+        !Number.isFinite(Number(text)) ||
+        Number(text) <= 0 ||
+        Number(text) > 100000000
+      ) {
+        box.className = 'inline-result error mt-3';
+
+        box.textContent =
+          'Введіть правильну ціну від 0,01 до 100 000 000 грн.';
+
+        return;
+      }
+
+      const price = Number(text);
+      const rate = Number($('miniRate').value);
+
+      const comp = Math.min(
+        price / 1.2 * (rate / 100),
+        86000000
+      );
+
+      box.className = 'inline-result success mt-3';
+
+      box.textContent =
+        'Орієнтовна компенсація: ' +
+        money(comp) +
+        '. Власні витрати: ' +
+        money(price - comp) +
+        '. Це не гарантія виплати.';
+    });
+
+    /* =========================================
+       6. КАРУСЕЛЬ РЕКОМЕНДОВАНИХ ТОВАРІВ
+       ========================================= */
+
+    async function loadProducts() {
+
+      try {
+        const response = await fetch('catalog.html');
+
+        if (!response.ok) {
+          throw new Error('Немає catalog.html');
         }
 
-        status.remove();
+        const doc = new DOMParser().parseFromString(
+          await response.text(),
+          'text/html'
+        );
 
-        /* Swiper */
-        const slider = new Swiper('.recommended-swiper', {
+        doc.querySelectorAll('#catalog-products .flip-card')
+          .forEach(card => {
+
+            const href = card.querySelector(
+              '.flip-card-front a[href*="products/"]'
+            )?.getAttribute('href');
+
+            const p = products.find(item => item.url === href);
+
+            if (!p) return;
+
+            const image = card.querySelector(
+              '.flip-card-front img'
+            )?.getAttribute('src');
+
+            const price = Number(card.dataset.price);
+
+            if (image && !/^https?:\/\//i.test(image)) {
+              p.image = image.replace(/^assets\/images\//, '');
+            }
+
+            if (Number.isFinite(price) && price > 0) {
+              p.price = price;
+            }
+          });
+
+      } catch (err) {
+        console.info(
+          'AgroNext: показано резервні дані товарів',
+          err
+        );
+      }
+
+      const wrapper = $('recommended-products');
+
+      products.forEach(p => {
+
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+
+        const card = document.createElement('article');
+        card.className = 'flip-card';
+
+        const inner = document.createElement('div');
+        inner.className = 'flip-card-inner';
+
+        /* Лицьова сторона */
+
+        const front = document.createElement('div');
+        front.className = 'flip-card-front';
+
+        const photo = document.createElement('a');
+        photo.href = imagePath(p);
+        photo.className = 'product-photo';
+
+        photo.setAttribute(
+          'data-fancybox',
+          'agronext-products'
+        );
+
+        photo.setAttribute(
+          'data-caption',
+          p.name
+        );
+
+        photo.setAttribute(
+          'aria-label',
+          'Збільшити фото ' + p.name
+        );
+
+        const img = document.createElement('img');
+        img.src = imagePath(p);
+        img.alt = p.name;
+        img.loading = 'lazy';
+
+        photo.appendChild(img);
+
+        const title = document.createElement('h3');
+        title.className = 'text-sm font-bold mt-3';
+        title.textContent = p.name;
+
+        const subtitle = document.createElement('p');
+        subtitle.className = 'text-[11px] text-slate-500 mt-1';
+
+        subtitle.textContent = p.category === 'soil'
+          ? 'Ґрунтообробна техніка'
+          : p.hp + ' к. с.';
+
+        const cost = document.createElement('p');
+        cost.className = 'font-bold mt-auto pt-2';
+        cost.textContent = money(p.price);
+
+        const details = document.createElement('a');
+        details.href = p.url;
+        details.className = 'product-link';
+        details.textContent = 'Детальніше';
+
+        front.append(
+          photo,
+          title,
+          subtitle,
+          cost,
+          details
+        );
+
+        /* Зворотна сторона */
+
+        const back = document.createElement('div');
+        back.className = 'flip-card-back';
+
+        const backTitle = document.createElement('h3');
+        backTitle.className = 'font-bold text-base mb-3';
+        backTitle.textContent = p.name;
+
+        const specs = document.createElement('p');
+        specs.className = 'text-xs leading-relaxed';
+
+        specs.textContent = p.category === 'soil'
+          ? 'Призначення: ґрунтообробні роботи. Технічну сумісність перевіряйте окремо.'
+          : 'Потужність: ' + p.hp +
+            ' к. с. Для роботи з навіскою перевіряйте сумісність.';
+
+        const backButton = document.createElement('a');
+        backButton.href = p.url;
+        backButton.className = 'product-link';
+        backButton.textContent = 'Детальніше про товар';
+
+        back.append(
+          backTitle,
+          specs,
+          backButton
+        );
+
+        inner.append(front, back);
+        card.appendChild(inner);
+        slide.appendChild(card);
+        wrapper.appendChild(slide);
+      });
+
+      $('catalogLoading').hidden = true;
+
+      /* Swiper — 3 секунди */
+
+      if (typeof Swiper === 'function') {
+
+        const swiper = new Swiper('.recommended-swiper', {
           loop: true,
           speed: 650,
           slidesPerView: 1,
@@ -960,69 +1625,56 @@
           },
 
           navigation: {
-            nextEl: '.recommended-next',
-            prevEl: '.recommended-prev'
+            nextEl: '.recommended-swiper .swiper-button-next',
+            prevEl: '.recommended-swiper .swiper-button-prev'
           },
 
           pagination: {
-            el: '.recommended-pagination',
-            clickable: true,
-            dynamicBullets: true
+            el: '.recommended-swiper .swiper-pagination',
+            clickable: true
           },
 
-          keyboard: {
-            enabled: true,
-            onlyInViewport: true
+          breakpoints: {
+            640: {
+              slidesPerView: 2
+            },
+
+            1024: {
+              slidesPerView: 3
+            }
           },
 
           a11y: {
             enabled: true
           },
 
-          breakpoints: {
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 18
-            },
-            1024: {
-              slidesPerView: 2,
-              spaceBetween: 24
-            }
-          }
-        });
-
-        /* Fancybox */
-        Fancybox.bind('[data-fancybox="agronext-products"]', {
-          groupAll: false,
-
-          Toolbar: {
-            display: {
-              left: ['infobar'],
-              middle: [],
-              right: ['zoomIn', 'zoomOut', 'download', 'close']
-            }
-          },
-
-          on: {
-            init: () => slider.autoplay.stop(),
-            destroy: () => slider.autoplay.start()
+          keyboard: {
+            enabled: true,
+            onlyInViewport: true
           }
         });
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          slider.autoplay.stop();
+          swiper.autoplay.stop();
         }
 
-        console.log('AgroNext: завантажено товарів:', productIndex);
+      } else {
+        document.querySelector('.recommended-swiper')
+          .classList.add('no-swiper');
+      }
 
-      } catch (error) {
-        console.error(error);
-        status.textContent =
-          'Не вдалося завантажити товари. Перевірте каталоги та Live Server.';
+      /* Fancybox — збільшення фотографії */
+
+      if (window.Fancybox?.bind) {
+        window.Fancybox.bind(
+          '[data-fancybox="agronext-products"]',
+          {}
+        );
       }
     }
 
-    document.addEventListener('DOMContentLoaded', loadRecommendedProducts);
+    loadProducts();
+  });
   </script>
 </body>
 </html>
