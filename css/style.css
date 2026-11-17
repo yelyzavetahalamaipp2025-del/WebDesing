@@ -909,3 +909,56 @@ main {
     }
 }
 
+
+/* ==========================================
+   AGRONEXT — ВИПРАВЛЕННЯ ГОЛОВНОЇ СТОРІНКИ
+   ========================================== */
+
+/* Прибираємо подвійний відступ між хедером і відео */
+body.home-page > main {
+    padding-top: var(--agronext-header-height, 70px) !important;
+    margin-top: 0 !important;
+}
+
+body.home-page > main > .home-hero {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Темно-синє підсвічування карток */
+body.home-page .section-card:hover,
+body.home-page .section-card:focus-within {
+    border-color: #1E3A8A !important;
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.22) !important;
+}
+
+/* Підсвічування звичайних полів */
+body.home-page .field-input:hover:not([aria-invalid="true"]):not(.border-red-500),
+body.home-page .field-input:focus:not([aria-invalid="true"]):not(.border-red-500) {
+    border-color: #1E3A8A !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.24) !important;
+}
+
+/* Помилки валідації — червоний */
+body.home-page #feedbackForm .field-input.border-red-500,
+body.home-page #feedbackForm .field-input[aria-invalid="true"] {
+    border: 2px solid #DC2626 !important;
+    background: #FFF7F7 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.25) !important;
+}
+
+/* Успішно перевірені поля — темно-синій */
+body.home-page #feedbackForm .field-input.border-emerald-500,
+body.home-page #feedbackForm .field-input[aria-invalid="false"] {
+    border-color: #1E3A8A !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.24) !important;
+}
+
+/* Повідомлення про помилки */
+body.home-page #feedbackForm p[id$="Error"]:not(.hidden) {
+    color: #B91C1C !important;
+    background: #FEF2F2 !important;
+    border-left: 3px solid #DC2626;
+    padding: 6px 9px;
+    border-radius: 4px;
+}
