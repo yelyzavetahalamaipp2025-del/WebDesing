@@ -1,525 +1,2023 @@
+
 <!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Про компанію — AgroNext</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+  <meta name="description"
+    content="Про платформу AgroNext: підбір агротехніки, перевірка сумісності, розрахунок компенсацій та зворотний зв’язок.">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'agronext-navy': '#1E3A8A',
-                        'agronext-navy-hover': '#172554',
-                        'agronext-orange': '#D97706',
-                        'agronext-bg-light': '#F8FAFC'
-                    },
-                    fontFamily: {
-                        heading: ["'Space Grotesk'", 'sans-serif'],
-                        body: ["'Plus Jakarta Sans'", 'sans-serif'],
-                        btn: ["'Inter'", 'sans-serif']
-                    }
-                }
-            }
+  <title>Про компанію — AgroNext</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Typed.js: друк заголовка -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"
+    defer>
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'agronext-navy': '#1E3A8A',
+            'agronext-navy-hover': '#172554',
+            'agronext-orange': '#D97706',
+            'agronext-bg-light': '#F8FAFC'
+          },
+          fontFamily: {
+            heading: ["'Space Grotesk'", 'sans-serif'],
+            body: ["'Plus Jakarta Sans'", 'sans-serif'],
+            btn: ["'Inter'", 'sans-serif']
+          }
         }
-    </script>
-    <style>
-        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif !important; color: #1E3A8A !important; }
-        .text-white, .logo-text, .site-header * { color: #FFFFFF; }
-        
-        .star-rating button {
-            color: #CBD5E1;
-            transition: color 0.2s ease-in-out;
-        }
-        .star-rating button.active,
-        .star-rating button:hover,
-        .star-rating button:hover ~ button {
-            color: #F59E0B;
-        }
-    </style>
+      }
+    };
+  </script>
+
+  <style>
+
+    /* ====================================
+       ОСНОВНІ СТИЛІ
+       ==================================== */
+
+    h1, h2, h3, h4, h5, h6,
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif !important;
+      color: #1E3A8A !important;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .site-header {
+      background: #1E3A8A !important;
+      z-index: 1000 !important;
+    }
+
+    .site-header .main-navigation a {
+      color: #FFFFFF !important;
+    }
+
+    .site-header .main-navigation a:hover {
+      color: #FFFFFF !important;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .site-header .search-input {
+      background: #FFFFFF !important;
+      color: #1E3A8A !important;
+    }
+
+    .site-header .logo-text {
+      color: #FFFFFF !important;
+    }
+
+    /* ====================================
+       TYPED.JS — ЗАГОЛОВОК ВІДГУКІВ
+       ==================================== */
+
+    #reviewsTitle {
+      min-height: 1.5em;
+    }
+
+    #reviewsTitle .typed-cursor {
+      color: #1E3A8A;
+      font-weight: 600;
+    }
+
+    /* ====================================
+       КАРТКИ ВІДГУКІВ
+       ==================================== */
+
+    #reviews-grid > article,
+    #review-form-panel,
+    #review-stats {
+      border: 1.5px solid #E2E8F0 !important;
+
+      transition:
+        border-color .22s ease,
+        box-shadow .22s ease,
+        transform .22s ease;
+    }
+
+    #reviews-grid > article:hover,
+    #reviews-grid > article:focus-within,
+    #review-form-panel:hover,
+    #review-form-panel:focus-within,
+    #review-stats:hover {
+      border-color: #1E3A8A !important;
+
+      box-shadow:
+        0 0 0 2px rgba(30,58,138,.12),
+        0 9px 26px rgba(30,58,138,.24) !important;
+
+      transform: translateY(-3px);
+    }
+
+    /* ====================================
+       ФОРМА ДОДАВАННЯ ВІДГУКУ
+       ==================================== */
+
+    #add-review-form #review-author,
+    #add-review-form #review-text {
+      border: 1.5px solid #CBD5E1 !important;
+      background: #F8FAFC;
+
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+    }
+
+    #add-review-form #review-author:hover,
+    #add-review-form #review-author:focus,
+    #add-review-form #review-text:hover,
+    #add-review-form #review-text:focus {
+      border: 2px solid #1E3A8A !important;
+      outline: none !important;
+
+      background: #FFFFFF !important;
+
+      box-shadow:
+        0 0 0 3px rgba(30,58,138,.22) !important;
+    }
+
+    .star-rating button {
+      color: #CBD5E1;
+
+      transition:
+        color .2s,
+        transform .2s;
+
+      cursor: pointer;
+    }
+
+    .star-rating button.active {
+      color: #F59E0B;
+    }
+
+    .star-rating button:hover {
+      transform: scale(1.09);
+    }
+
+    #star-rating-buttons button:focus-visible {
+      outline: 2px solid #1E3A8A !important;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    #add-review-form button[type="submit"]:hover,
+    #add-review-form button[type="submit"]:focus-visible {
+      background: #1E3A8A !important;
+
+      box-shadow:
+        0 0 0 3px rgba(30,58,138,.20),
+        0 6px 16px rgba(30,58,138,.20) !important;
+    }
+
+    /* ====================================
+       АНКЕТА «ПОЧНІТЬ СЬОГОДНІ»
+       ==================================== */
+
+    #lead .lead-panel {
+      border: 2px solid #CBD5E1 !important;
+      border-radius: 13px;
+
+      box-shadow:
+        0 3px 12px rgba(30,58,138,.06) !important;
+
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .2s;
+    }
+
+    /* Підсвічування всієї анкети */
+
+    #lead .lead-panel:hover,
+    #lead .lead-panel:focus-within {
+      border-color: #1E3A8A !important;
+
+      box-shadow:
+        0 0 0 3px rgba(30,58,138,.16),
+        0 10px 24px rgba(30,58,138,.20) !important;
+
+      transform: translateY(-2px);
+    }
+
+    #lead .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    /* Звичайні поля */
+
+    #lead #feedbackForm .field-input {
+      display: block;
+
+      width: 100%;
+      min-width: 0;
+      min-height: 38px;
+
+      padding: 8px 10px;
+
+      background: #F8FAFC !important;
+      color: #1E3A8A !important;
+
+      border: 1.5px solid #CBD5E1 !important;
+      border-radius: 7px;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+    }
+
+    #lead #feedbackForm textarea.field-input {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    /* Синє підсвічування полів */
+
+    #lead #feedbackForm .field-input:hover:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input:focus:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input:focus-visible:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input[aria-invalid="false"] {
+      outline: none !important;
+
+      border: 2px solid #1E3A8A !important;
+
+      background: #FFFFFF !important;
+
+      box-shadow:
+        0 0 0 3px rgba(30,58,138,.25) !important;
+    }
+
+    /* Червоне підсвічування помилок */
+
+    #lead #feedbackForm .field-input[aria-invalid="true"],
+    #lead #feedbackForm .field-input[aria-invalid="true"]:hover,
+    #lead #feedbackForm .field-input[aria-invalid="true"]:focus {
+      outline: none !important;
+
+      border: 2px solid #DC2626 !important;
+
+      background: #FFF7F7 !important;
+
+      box-shadow:
+        0 0 0 3px rgba(220,38,38,.25) !important;
+    }
+
+    /* Повідомлення про помилки */
+
+    #lead #feedbackForm .form-error:not([hidden]) {
+      display: block !important;
+
+      padding: 6px 8px;
+      margin-top: 6px;
+
+      color: #B91C1C !important;
+      background: #FEF2F2;
+
+      border-left: 3px solid #DC2626;
+      border-radius: 4px;
+
+      font-size: 11px;
+    }
+
+    /* Checkbox */
+
+    #lead #agreement {
+      accent-color: #1E3A8A;
+    }
+
+    #lead .agreement-row {
+      padding: 6px;
+      border-radius: 7px;
+
+      transition:
+        background .2s,
+        box-shadow .2s;
+    }
+
+    #lead .agreement-row:hover,
+    #lead .agreement-row:focus-within {
+      background: #EFF6FF;
+
+      box-shadow:
+        0 0 0 2px rgba(30,58,138,.25);
+    }
+
+    #lead .agreement-row[data-invalid="true"] {
+      background: #FFF7F7 !important;
+      outline: 2px solid #DC2626 !important;
+
+      box-shadow:
+        0 0 0 3px rgba(220,38,38,.18) !important;
+    }
+
+    #lead .agreement-row[data-invalid="false"] {
+      background: #EFF6FF;
+      outline: 2px solid #1E3A8A;
+    }
+
+    /* Кнопка консультації */
+
+    #lead .submit-btn {
+      background: #1E3A8A !important;
+      color: #FFFFFF !important;
+
+      transition:
+        background .2s,
+        box-shadow .2s;
+    }
+
+    #lead .submit-btn:hover {
+      background: #172554 !important;
+
+      box-shadow:
+        0 6px 18px rgba(30,58,138,.25) !important;
+    }
+
+    #successModal h3 {
+      color: #1E3A8A !important;
+    }
+
+    /* ====================================
+       МОБІЛЬНЕ МЕНЮ
+       ==================================== */
+
+    #mobileNavigation {
+      position: absolute;
+
+      top: 100%;
+      left: 0;
+      right: 0;
+
+      z-index: 1100;
+
+      padding: 12px 20px;
+
+      background: #FFFFFF;
+
+      box-shadow:
+        0 12px 25px rgba(0,0,0,.16);
+    }
+
+    #mobileNavigation a {
+      display: block;
+
+      padding: 11px;
+
+      color: #1E3A8A !important;
+
+      border-bottom: 1px solid #E2E8F0;
+
+      font-size: 13px;
+    }
+
+    #mobileNavigation a:hover {
+      background: #1E3A8A !important;
+      color: #FFFFFF !important;
+    }
+
+    /* ====================================
+       ФУТЕР
+       ==================================== */
+
+    .site-footer h3 {
+      color: #FFFFFF !important;
+    }
+
+    .site-footer a:hover {
+      color: #FFFFFF !important;
+      text-decoration: underline;
+    }
+
+    /* ====================================
+       АДАПТИВНІСТЬ
+       ==================================== */
+
+    @media (min-width: 768px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #lead .lead-panel {
+        transition: none;
+      }
+
+      #lead .lead-panel:hover {
+        transform: none;
+      }
+
+      #reviewsTitle .typed-cursor {
+        display: none;
+      }
+    }
+
+  </style>
 </head>
-<body class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- ХЕДЕР -->
-    <header class="site-header fixed top-0 left-0 w-full z-50 shadow-md py-2 sm:py-3" style="background-color: #1E3A8A !important;">
-        <div class="header-container max-w-[1140px] mx-auto px-5 flex flex-row items-center justify-between">
-            
-            <!-- ЛОГОТИП ТА НАЗВА -->
-            <a href="index.html" style="display: flex !important; align-items: center !important; gap: 10px !important; text-decoration: none !important;" aria-label="Головна AgroNext">
-                <img id="logo" 
-                    src="assets/icons/logo.png" 
-                    alt="AgroNext Logo" 
-                    class="h-12 w-auto object-contain flex-shrink-0"
-                    onerror="if (!this.getAttribute('data-tried-root')) { this.setAttribute('data-tried-root', 'true'); this.src='assets/icons/logo.png'; } else { this.onerror=null; this.src='https://placehold.co/120x48/1E3A8A/FFFFFF?text=AgroNext'; }">
-                <span style="display: inline-block !important; color: #ffffff !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1 !important; white-space: nowrap !important;">AgroNext</span>
-            </a>
+<body
+  class="font-body bg-[#F8FAFC] text-agronext-navy antialiased min-h-screen flex flex-col justify-between">
 
-            <!-- НАВІГАЦІЯ -->
-            <nav class="main-navigation hidden md:flex items-center gap-5">
-                <ul class="nav-list flex gap-5 text-xs font-medium" style="color: #ffffff !important;">
-                    <li><a href="catalog.html" class="hover:underline" style="color: #ffffff !important;">Каталог</a></li>
-                    <li><a href="selection.html" class="hover:underline" style="color: #ffffff !important;">Підбір техніки</a></li>
-                    <li><a href="compatibility.html" class="hover:underline" style="color: #ffffff !important;">Сумісність</a></li>
-                    <li><a href="calculator.html" class="hover:underline" style="color: #ffffff !important;">Компенсація 25–40%</a></li>
-                    <li><a href="about.html" class="hover:underline" style="color: #ffffff !important;">Про компанію</a></li>
-                </ul>
-            </nav>
+  <!-- ====================================
+       ХЕДЕР
+       ==================================== -->
 
-            <!-- ПОШУК -->
-            <div class="header-search hidden sm:block">
-                <form class="search-form" role="search" action="catalog.html" method="GET">
-                    <input type="search" name="q" placeholder="Пошук..." class="font-body px-3 py-1 rounded text-xs w-[180px] outline-none" style="color: #1E3A8A !important; background-color: #ffffff !important;">
-                </form>
-            </div>
+  <header
+    class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
 
-            <!-- МОБІЛЬНА КНОПКА -->
-            <button type="button" class="md:hidden text-white p-1 rounded focus:outline-none hover:bg-white/10 transition-colors" aria-label="Відкрити меню">
-                <svg class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-    </header>
+    <div
+      class="header-container max-w-[1140px] mx-auto px-5 flex items-center justify-between gap-4">
 
-    <main class="max-w-[1140px] mx-auto px-5 py-8 pt-24 w-full flex-grow">
-        <div class="text-xs text-slate-400 mb-3 flex gap-1">
-            <a href="index.html" class="hover:underline hover:text-agronext-navy transition-colors">Головна</a> 
-            <span>/</span> 
-            <span class="text-slate-600 font-medium">Про компанію</span>
-        </div>
+      <a
+        href="index.html"
+        class="flex items-center gap-3"
+        aria-label="Головна AgroNext">
 
-        <h1 class="font-heading text-4xl font-bold text-agronext-navy mb-3">Про платформу AgroNext</h1>
-        <p class="text-base text-agronext-navy font-semibold max-w-3xl mb-2">Інноваційний маркетплейс сільськогосподарської техніки, навісного обладнання та запчастин.</p>
-        <p class="text-xs text-slate-500 max-w-3xl mb-12 leading-relaxed">AgroNext — це цифрова екосистема, яка об'єднує українських агровиробників та перевірених дилерів. Ми вирішуємо ключові проблеми підбору агротехніки, надаючи інтерактивні інструменти перевірки сумісності та автоматизований розрахунок державних компенсацій (25–40%).</p>
+        <img
+          src="assets/icons/logo.png"
+          alt="Логотип AgroNext"
+          class="h-12 w-auto object-contain">
 
-        <!-- Статистика -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
-            <div class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <p class="font-heading text-3xl font-bold text-agronext-navy">100%</p>
-                <p class="text-xs text-slate-500 mt-1">Офіційні дилери</p>
-            </div>
-            <div class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <p class="font-heading text-3xl font-bold text-agronext-navy">500+</p>
-                <p class="text-xs text-slate-500 mt-1">Перевірених моделей</p>
-            </div>
-            <div class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                <p class="font-heading text-3xl font-bold text-agronext-navy">24/7</p>
-                <p class="text-xs text-slate-500 mt-1">Онлайн-підбір та КП</p>
-            </div>
-            <div class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-orange">
-                <p class="font-heading text-3xl font-bold text-agronext-orange">25–40%</p>
-                <p class="text-xs text-slate-500 mt-1">Державна компенсація</p>
-            </div>
-        </div>
+        <span class="logo-text font-semibold text-base">
+          AgroNext
+        </span>
+      </a>
 
-        <!-- Концепція та місія -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-            <div class="font-heading font-bold text-xl text-agronext-navy">
-                Прозорий агробізнес та розумна агрегація
-            </div>
-            <div class="md:col-span-2 text-xs text-slate-600 leading-relaxed space-y-3">
-                <p><strong>Наша місія</strong> — зробити оновлення агропарку простим, швидким та економічно вигідним за рахунок цифровізації та підтримки державних програм відшкодування.</p>
-                <p>Ми співпрацюємо з провідними брендами та дистриб'юторами (ДТЗ, KENTAVR, HANWO, HORST, JMT та ін.), надаючи гарантію якості, юридичну чистоту угод та швидку доставку по всій Україні.</p>
-            </div>
-        </div>
+      <nav
+        class="main-navigation hidden md:flex items-center gap-5"
+        aria-label="Основна навігація">
 
-        <!-- Цільова аудиторія -->
-        <div class="mb-12">
-            <h2 class="font-heading font-bold text-xl text-agronext-navy mb-6">Для кого створено AgroNext</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-                <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                    <div class="font-heading font-bold text-base text-agronext-navy mb-2">Приватні фермери та ОСГ (B2C)</div>
-                    <p class="text-slate-500 leading-relaxed mb-3">Швидкий пошук нової та вживаної техніки, підбір навісного обладнання під потужність трактора та допомога в оформленні 25–40% державної компенсації без зайвої бюрократії.</p>
-                    <ul class="list-disc list-inside text-slate-600 space-y-1">
-                        <li>Підбір за площею ділянки та бюджетом</li>
-                        <li>Оформлення замовлення в 1 клік</li>
-                    </ul>
-                </div>
+        <ul class="flex gap-5 text-xs font-medium">
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="selection.html">Підбір техніки</a></li>
+          <li><a href="compatibility.html">Сумісність</a></li>
+          <li><a href="calculator.html">Компенсація 25–40%</a></li>
+          <li><a href="about.html">Про компанію</a></li>
+        </ul>
 
-                <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                    <div class="font-heading font-bold text-base text-agronext-navy mb-2">Агрохолдинги та B2B-закупівельники</div>
-                    <p class="text-slate-500 leading-relaxed mb-3">Комплексне забезпечення агропідприємств запчастинами та технікою, формування комерційних пропозицій з ПДВ, безготівковий розрахунок та персональний менеджер.</p>
-                    <ul class="list-disc list-inside text-slate-600 space-y-1">
-                        <li>Автоматична перевірка сумісності вузлів</li>
-                        <li>Швидке формування КП на e-mail</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      </nav>
 
-        <!-- Переваги платформи -->
-        <div class="mb-12">
-            <h2 class="font-heading font-bold text-xl text-agronext-navy mb-6">Ключові сервіси AgroNext</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
-                <div class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy group">
-                    <h4 class="font-bold text-sm text-agronext-navy mb-2 group-hover:text-blue-600 transition-colors">Розумний підбір</h4>
-                    <p class="text-slate-500 leading-relaxed">Алгоритм враховує площу землі, завдання (посів, обробіток) та бюджет для вибору моделі.</p>
-                </div>
+      <form
+        action="catalog.html"
+        method="GET"
+        role="search"
+        class="hidden sm:block">
 
-                <div class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy group">
-                    <h4 class="font-bold text-sm text-agronext-navy mb-2 group-hover:text-blue-600 transition-colors">Модуль сумісності</h4>
-                    <p class="text-slate-500 leading-relaxed">Автоматична перевірка тягового класу та зчіпних пристроїв трактора й агрегату.</p>
-                </div>
+        <label class="sr-only" for="headerSearch">
+          Пошук техніки
+        </label>
 
-                <div class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy group">
-                    <h4 class="font-bold text-sm text-agronext-navy mb-2 group-hover:text-blue-600 transition-colors">Калькулятор компенсацій</h4>
-                    <p class="text-slate-500 leading-relaxed">Миттєвий розрахунок суми повернення коштів за держпрограмою підтримки аграріїв.</p>
-                </div>
+        <input
+          id="headerSearch"
+          type="search"
+          name="q"
+          placeholder="Пошук..."
+          class="search-input px-3 py-1 rounded text-xs w-[180px]">
 
-                <div class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy group">
-                    <h4 class="font-bold text-sm text-agronext-navy mb-2 group-hover:text-blue-600 transition-colors">Гарантія та сервіс</h4>
-                    <p class="text-slate-500 leading-relaxed">Офіційне обслуговування від виробників та швидке постачання оригінальних запчастин.</p>
-                </div>
-            </div>
-        </div>
+      </form>
 
-        <!-- РОЗДІЛ ВІДГУКІВ ТА ІНТЕРАКТИВНОЇ ФОРМИ -->
-        <div class="mb-12">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-2">
-                <div>
-                    <h3 class="font-heading font-bold text-2xl text-agronext-navy">Відгуки клієнтів</h3>
-                    <p class="text-xs text-slate-500">Реальні враження українських аграріїв від роботи з платформою</p>
-                </div>
-                <div class="bg-white px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold text-agronext-navy flex items-center gap-2 shadow-sm">
-                    <span class="text-amber-500 text-sm">★</span>
-                    <span>Середня оцінка: <strong id="avg-rating">5.0</strong> / 5 (<span id="total-reviews">2</span> відгуки)</span>
-                </div>
-            </div>
+      <button
+        id="menuButton"
+        type="button"
+        class="md:hidden text-white p-2 rounded hover:bg-white/10"
+        aria-label="Відкрити меню"
+        aria-expanded="false"
+        aria-controls="mobileNavigation">
 
-            <!-- Список відгуків -->
-            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <!-- Відгук 1 -->
-                <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm text-xs space-y-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                    <div class="flex justify-between items-center">
-                        <div class="text-amber-500 text-sm">★★★★★</div>
-                        <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-semibold border border-emerald-200">Перевірений покупець</span>
-                    </div>
-                    <p class="text-slate-600 leading-relaxed">«AgroNext допомогли підібрати сівалку під наш трактор та оформити компенсацію на суму 150 000 грн. Дуже зручний сервіс!»</p>
-                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-slate-400">
-                        <span class="font-bold text-slate-700">Іван К., Власник ОСГ</span>
-                        <span class="text-[10px]">12.05.2025</span>
-                    </div>
-                </div>
+        <svg
+          id="menuIcon"
+          class="w-6 h-6"
+          fill="none"
+          stroke="white"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
 
-                <!-- Відгук 2 -->
-                <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm text-xs space-y-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
-                    <div class="flex justify-between items-center">
-                        <div class="text-amber-500 text-sm">★★★★★</div>
-                        <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-semibold border border-emerald-200">Перевірений покупець</span>
-                    </div>
-                    <p class="text-slate-600 leading-relaxed">«Перевірка сумісності підтвердила, що наше обладнання підійде, що дуже зберегло час і гроші. Дякую команді за оперативність!»</p>
-                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-slate-400">
-                        <span class="font-bold text-slate-700">Ігор М., Голова ФГ</span>
-                        <span class="text-[10px]">28.09.2025</span>
-                    </div>
-                </div>
-            </div>
+          <path d="M4 6h16M4 12h16M4 18h16"/>
 
-            <!-- ІНТЕРАКТИВНА ФОРМА ДОДАВАННЯ ВІДГУКУ -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-agronext-navy">
-                <h4 class="font-heading font-bold text-xl text-agronext-navy mb-1">Поділіться вашим досвідом</h4>
-                <p class="text-xs text-slate-500 mb-6">Залиште свій відгук про роботу AgroNext, щоб допомогти іншим фермерам зробити правильний вибір.</p>
+        </svg>
 
-                <form id="add-review-form" class="space-y-4 text-xs">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block font-semibold text-slate-700 mb-1">Ваше ім'я або назва господарства *</label>
-                            <input type="text" id="review-author" placeholder="Наприклад: Олексій П., ФГ «Світанок»" required class="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-700 mb-1">Ваша оцінка *</label>
-                            <div class="star-rating flex items-center gap-1 py-1" id="star-rating-buttons">
-                                <button type="button" data-value="1" class="text-xl focus:outline-none">★</button>
-                                <button type="button" data-value="2" class="text-xl focus:outline-none">★</button>
-                                <button type="button" data-value="3" class="text-xl focus:outline-none">★</button>
-                                <button type="button" data-value="4" class="text-xl focus:outline-none">★</button>
-                                <button type="button" data-value="5" class="text-xl focus:outline-none text-amber-500 active">★</button>
-                            </div>
-                            <input type="hidden" id="review-rating" value="5">
-                        </div>
-                    </div>
+      </button>
 
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1">Текст відгуку *</label>
-                        <textarea id="review-text" rows="3" placeholder="Опишіть ваші враження від вибору техніки, консультування або компенсацій..." required class="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-agronext-navy transition-all"></textarea>
-                    </div>
-
-                    <div class="flex items-center justify-between pt-2">
-                        <span id="review-success-msg" class="text-xs text-emerald-600 font-semibold hidden">✓ Дякуємо! Ваш відгук успішно додано.</span>
-                        <button type="submit" class="bg-agronext-orange text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-amber-600 transition-all shadow-md ml-auto">
-                            Опублікувати відгук
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- ВАЛІДОВАНА ФОРМА КОНСУЛЬТАЦІЇ (CTA) -->
-       <!-- Форма лідогенерації -->
-        <section class="lead-generation-section py-16 bg-slate-50/70 border-t border-slate-200" id="lead">
-            <div class="section-container max-w-[1140px] mx-auto px-5">
-                <div class="lead-flex grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
-                    <div class="lead-text">
-                        <h2 class="text-2xl font-bold font-heading text-agronext-navy">Почніть сьогодні</h2>
-                        <p class="text-slate-500 text-sm mt-2 leading-relaxed">Поговоріть з експертом AgroNext, щоб підібрати потрібну техніку під ваш агрокалендар та вигідно оформити компенсацію.</p>
-                    </div>
-                    
-                    <form id="feedbackForm" class="lead-form-stacked flex flex-col gap-3" novalidate>
-                        <!-- Ім'я -->
-                        <div>
-                            <label for="username" class="block text-xs font-semibold text-agronext-navy mb-1">Ваше ім'я *</label>
-                            <input type="text" id="username" name="username" placeholder="Іван Петренко" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="nameError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-xs font-semibold text-agronext-navy mb-1">Електронна пошта *</label>
-                            <input type="email" id="email" name="email" placeholder="example@mail.com" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="emailError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Телефон -->
-                        <div>
-                            <label for="phone" class="block text-xs font-semibold text-agronext-navy mb-1">Номер телефону *</label>
-                            <input type="tel" id="phone" name="phone" value="+380" placeholder="+380501234567" class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all">
-                            <p id="phoneError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Повідомлення -->
-                        <div>
-                            <label for="message" class="block text-xs font-semibold text-agronext-navy mb-1">Повідомлення *</label>
-                            <textarea id="message" name="message" rows="3" placeholder="Опишіть ваше запитання..." class="form-input font-body w-full p-2.5 border border-slate-200 rounded text-xs bg-slate-50 text-agronext-navy outline-none transition-all"></textarea>
-                            <p id="messageError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        <!-- Згода -->
-                        <div>
-                            <label class="flex items-center gap-2 cursor-pointer mt-1">
-                                <input type="checkbox" id="agreement" name="agreement" class="w-4 h-4 text-agronext-navy rounded border-slate-300">
-                                <span class="text-xs text-slate-600">Я погоджуюся з політикою конфіденційності</span>
-                            </label>
-                            <p id="agreementError" class="hidden text-[11px] text-red-500 font-medium mt-1"></p>
-                        </div>
-
-                        
-<button type="submit"
-        class="bg-agronext-navy text-white px-6 py-2.5 rounded-lg text-xs font-semibold hover:bg-agronext-navy-hover transition-all shadow-md"
-        style="color: #ffffff !important;">
-    Отримати безкоштовну консультацію
-</button>
-
-                    </form>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- МОДАЛЬНЕ ВІКНО УСПІХУ -->
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
-        <div class="bg-white p-6 md:p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-100 text-center relative">
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">✓</div>
-            <h3 class="text-xl font-bold font-heading text-agronext-navy mb-2">Заявку прийнято!</h3>
-            <p class="text-slate-500 text-sm mb-6">Форма успішно пройшла клієнтську валідацію. Ми зв'яжемося з вами найближчим часом.</p>
-            <button type="button" id="closeModalBtn" class="w-full py-2.5 px-4 bg-agronext-navy text-white text-xs font-semibold rounded-xl hover:bg-agronext-navy-hover transition-all">
-                Закрити
-            </button>
-        </div>
     </div>
 
-    <!-- ФУТЕР -->
-    
-<!-- ФУТЕР AGRO NEXT -->
-<footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+    <nav
+      id="mobileNavigation"
+      hidden
+      aria-label="Мобільна навігація">
+
+      <a href="index.html">Головна</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="selection.html">Підбір техніки</a>
+      <a href="compatibility.html">Сумісність</a>
+      <a href="calculator.html">Компенсація 25–40%</a>
+      <a href="about.html">Про компанію</a>
+
+    </nav>
+
+  </header>
+
+  <!-- ====================================
+       ОСНОВНИЙ ВМІСТ
+       ==================================== -->
+
+  <main
+    class="max-w-[1140px] mx-auto px-5 py-8 pt-24 w-full flex-grow">
+
+    <!-- Навігація -->
+
+    <div class="text-xs text-slate-400 mb-3 flex gap-1">
+
+      <a href="index.html" class="hover:underline">
+        Головна
+      </a>
+
+      <span>/</span>
+
+      <span class="text-slate-600 font-medium">
+        Про компанію
+      </span>
+
+    </div>
+
+    <!-- Про платформу -->
+
+    <h1 class="font-heading text-4xl font-bold mb-3">
+      Про платформу AgroNext
+    </h1>
+
+    <p class="text-base font-semibold max-w-3xl mb-2">
+      Інноваційний маркетплейс сільськогосподарської техніки,
+      навісного обладнання та запчастин.
+    </p>
+
+    <p class="text-xs text-slate-500 max-w-3xl mb-12 leading-relaxed">
+      AgroNext — це цифрова екосистема, яка об'єднує українських
+      агровиробників та перевірених дилерів. Ми вирішуємо ключові
+      проблеми підбору агротехніки, надаючи інтерактивні інструменти
+      перевірки сумісності та автоматизований розрахунок
+      державних компенсацій (25–40%).
+    </p>
+
+    <!-- ====================================
+         СТАТИСТИКА ПЛАТФОРМИ
+         ==================================== -->
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
+
+      <div
+        class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+        <p class="font-heading text-3xl font-bold">
+          100%
+        </p>
+
+        <p class="text-xs text-slate-500 mt-1">
+          Офіційні дилери
+        </p>
+
+      </div>
+
+      <div
+        class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+        <p class="font-heading text-3xl font-bold">
+          500+
+        </p>
+
+        <p class="text-xs text-slate-500 mt-1">
+          Перевірених моделей
+        </p>
+
+      </div>
+
+      <div
+        class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+        <p class="font-heading text-3xl font-bold">
+          24/7
+        </p>
+
+        <p class="text-xs text-slate-500 mt-1">
+          Онлайн-підбір та КП
+        </p>
+
+      </div>
+
+      <div
+        class="bg-white p-5 border border-slate-200 rounded-2xl shadow-sm text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+        <p class="font-heading text-3xl font-bold text-agronext-orange">
+          25–40%
+        </p>
+
+        <p class="text-xs text-slate-500 mt-1">
+          Державна компенсація
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- ====================================
+         КОНЦЕПЦІЯ ТА МІСІЯ
+         ==================================== -->
+
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+      <div class="font-heading font-bold text-xl">
+        Прозорий агробізнес та розумна агрегація
+      </div>
+
+      <div class="md:col-span-2 text-xs text-slate-600 leading-relaxed space-y-3">
+
+        <p>
+          <strong>Наша місія</strong> — зробити оновлення агропарку
+          простим, швидким та економічно вигідним за рахунок
+          цифровізації та підтримки державних програм відшкодування.
+        </p>
+
+        <p>
+          Ми співпрацюємо з провідними брендами та дистриб'юторами
+          (ДТЗ, KENTAVR, HANWO, HORST, JMT та ін.), надаючи гарантію
+          якості, юридичну чистоту угод та швидку доставку по всій Україні.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- ====================================
+         ЦІЛЬОВА АУДИТОРІЯ
+         ==================================== -->
+
+    <section class="mb-12" aria-labelledby="audienceTitle">
+
+      <h2
+        id="audienceTitle"
+        class="font-heading font-bold text-xl mb-6">
+
+        Для кого створено AgroNext
+
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+
+        <div
+          class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-heading font-bold text-base mb-2">
+            Приватні фермери та ОСГ (B2C)
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed mb-3">
+            Швидкий пошук нової та вживаної техніки, підбір
+            навісного обладнання під потужність трактора та допомога
+            в оформленні 25–40% державної компенсації без зайвої бюрократії.
+          </p>
+
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            <li>Підбір за площею ділянки та бюджетом</li>
+            <li>Оформлення замовлення в 1 клік</li>
+          </ul>
+
+        </div>
+
+        <div
+          class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-heading font-bold text-base mb-2">
+            Агрохолдинги та B2B-закупівельники
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed mb-3">
+            Комплексне забезпечення агропідприємств запчастинами та технікою,
+            формування комерційних пропозицій з ПДВ, безготівковий
+            розрахунок та персональний менеджер.
+          </p>
+
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            <li>Автоматична перевірка сумісності вузлів</li>
+            <li>Швидке формування КП на e-mail</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================
+         КЛЮЧОВІ СЕРВІСИ
+         ==================================== -->
+
+    <section class="mb-12" aria-labelledby="featuresTitle">
+
+      <h2
+        id="featuresTitle"
+        class="font-heading font-bold text-xl mb-6">
+
+        Ключові сервіси AgroNext
+
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+
+        <div
+          class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-bold text-sm mb-2">
+            Розумний підбір
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed">
+            Алгоритм враховує площу землі, завдання (посів, обробіток)
+            та бюджет для вибору моделі.
+          </p>
+
+        </div>
+
+        <div
+          class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-bold text-sm mb-2">
+            Модуль сумісності
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed">
+            Автоматична перевірка тягового класу та зчіпних
+            пристроїв трактора й агрегату.
+          </p>
+
+        </div>
+
+        <div
+          class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-bold text-sm mb-2">
+            Калькулятор компенсацій
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed">
+            Миттєвий розрахунок суми повернення коштів
+            за держпрограмою підтримки аграріїв.
+          </p>
+
+        </div>
+
+        <div
+          class="bg-white p-5 border border-slate-200 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <h3 class="font-bold text-sm mb-2">
+            Гарантія та сервіс
+          </h3>
+
+          <p class="text-slate-500 leading-relaxed">
+            Офіційне обслуговування від виробників
+            та швидке постачання оригінальних запчастин.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================
+         ВІДГУКИ КЛІЄНТІВ
+         ==================================== -->
+
+    <section
+      id="reviews"
+      class="mb-12"
+      aria-labelledby="reviewsTitle">
+
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-2">
+
+        <div>
+
+          <!-- ЗАГОЛОВОК ІЗ ЕФЕКТОМ ДРУКУ -->
+
+          <h2
+            id="reviewsTitle"
+            class="font-heading font-bold text-2xl"
+            aria-label="Відгуки клієнтів">
+
+            <span id="typedReviewsTitle" aria-hidden="true">
+              Відгуки клієнтів
+            </span>
+
+          </h2>
+
+          <p class="text-xs text-slate-500">
+            Демонстраційні відгуки для навчальної версії платформи
+          </p>
+
+        </div>
+
+        <div
+          id="review-stats"
+          class="bg-white px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm">
+
+          <span class="text-amber-500 text-sm">★</span>
+
+          <span>
+            Середня оцінка:
+            <strong id="avg-rating">5.0</strong> / 5
+            (<span id="total-reviews">2</span> відгуки)
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Картки відгуків -->
+
+      <div
+        id="reviews-grid"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+        <article
+          class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm text-xs space-y-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <div class="flex justify-between items-center">
+
+            <div class="text-amber-500 text-sm">
+              ★★★★★
+            </div>
+
+            <span
+              class="text-[10px] bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
+
+              Приклад відгуку
+
+            </span>
+
+          </div>
+
+          <p class="text-slate-600 leading-relaxed">
+            «AgroNext допомогли підібрати сівалку під наш трактор
+            та оформити компенсацію на суму 150 000 грн.
+            Дуже зручний сервіс!»
+          </p>
+
+          <div
+            class="pt-2 border-t border-slate-100 flex justify-between text-slate-400">
+
+            <span class="font-bold text-slate-700">
+              Іван К., Власник ОСГ
+            </span>
+
+            <span>12.05.2025</span>
+
+          </div>
+
+        </article>
+
+        <article
+          class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm text-xs space-y-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy">
+
+          <div class="flex justify-between items-center">
+
+            <div class="text-amber-500 text-sm">
+              ★★★★★
+            </div>
+
+            <span
+              class="text-[10px] bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
+
+              Приклад відгуку
+
+            </span>
+
+          </div>
+
+          <p class="text-slate-600 leading-relaxed">
+            «Перевірка сумісності підтвердила, що наше обладнання
+            підійде, що дуже зберегло час і гроші.
+            Дякую команді за оперативність!»
+          </p>
+
+          <div
+            class="pt-2 border-t border-slate-100 flex justify-between text-slate-400">
+
+            <span class="font-bold text-slate-700">
+              Ігор М., Голова ФГ
+            </span>
+
+            <span>28.09.2025</span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <!-- ====================================
+           ДОДАВАННЯ ВІДГУКУ
+           ==================================== -->
+
+      <div
+        id="review-form-panel"
+        class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-agronext-navy">
+
+        <h3 class="font-heading font-bold text-xl mb-1">
+          Поділіться вашим досвідом
+        </h3>
+
+        <p class="text-xs text-slate-500 mb-6">
+          Залиште свій відгук про роботу AgroNext,
+          щоб допомогти іншим фермерам зробити правильний вибір.
+        </p>
+
+        <form id="add-review-form" class="space-y-4 text-xs">
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <div>
+
+              <label
+                for="review-author"
+                class="block font-semibold text-slate-700 mb-1">
+
+                Ваше ім'я або назва господарства *
+
+              </label>
+
+              <input
+                type="text"
+                id="review-author"
+                maxlength="80"
+                placeholder="Наприклад: Олексій П., ФГ «Світанок»"
+                required
+                class="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-agronext-navy transition-all">
+
+            </div>
+
+            <div>
+
+              <span
+                class="block font-semibold text-slate-700 mb-1">
+
+                Ваша оцінка *
+
+              </span>
+
+              <div
+                class="star-rating flex items-center gap-1 py-1"
+                id="star-rating-buttons"
+                role="group"
+                aria-label="Оцінка у зірках">
+
+                <button
+                  type="button"
+                  data-value="1"
+                  aria-label="1 зірка"
+                  class="text-xl">★</button>
+
+                <button
+                  type="button"
+                  data-value="2"
+                  aria-label="2 зірки"
+                  class="text-xl">★</button>
+
+                <button
+                  type="button"
+                  data-value="3"
+                  aria-label="3 зірки"
+                  class="text-xl">★</button>
+
+                <button
+                  type="button"
+                  data-value="4"
+                  aria-label="4 зірки"
+                  class="text-xl">★</button>
+
+                <button
+                  type="button"
+                  data-value="5"
+                  aria-label="5 зірок"
+                  class="text-xl active">★</button>
+
+              </div>
+
+              <input
+                type="hidden"
+                id="review-rating"
+                value="5">
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <label
+              for="review-text"
+              class="block font-semibold text-slate-700 mb-1">
+
+              Текст відгуку *
+
+            </label>
+
+            <textarea
+              id="review-text"
+              rows="3"
+              maxlength="600"
+              placeholder="Опишіть ваші враження від вибору техніки, консультування або компенсацій..."
+              required
+              class="w-full p-2.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-agronext-navy transition-all"></textarea>
+
+          </div>
+
+          <div
+            class="flex items-center justify-between pt-2 gap-3">
+
+            <span
+              id="review-success-msg"
+              class="text-xs text-emerald-600 font-semibold hidden"
+              role="status">
+
+              ✓ Дякуємо! Ваш відгук додано на сторінку.
+
+            </span>
+
+            <button
+              type="submit"
+              class="bg-agronext-orange text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-amber-600 transition-all shadow-md ml-auto"
+              style="color:#fff!important">
+
+              Опублікувати відгук
+
+            </button>
+
+          </div>
+
+        </form>
+
+        <p class="text-[11px] text-slate-500 mt-2">
+          У навчальній версії новий відгук з’являється лише
+          в поточному браузері й не зберігається на сервері.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================
+         АНКЕТА «ПОЧНІТЬ СЬОГОДНІ»
+         ==================================== -->
+
+    <section
+      class="lead-generation-section py-9 bg-slate-50/70 border-t border-slate-200"
+      id="lead">
+
+      <div class="max-w-[1140px] mx-auto px-5">
+
+        <div
+          class="lead-panel grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-5 lg:gap-7 items-center bg-white p-5 md:p-6">
+
+          <div>
+
+            <h2 class="text-xl font-bold mb-2">
+              Почніть сьогодні
+            </h2>
+
+            <p class="text-sm text-slate-500 leading-relaxed">
+              Поговоріть з експертом AgroNext, щоб підібрати
+              потрібну техніку під ваш агрокалендар
+              та вигідно оформити компенсацію.
+            </p>
+
+          </div>
+
+          <form
+            id="feedbackForm"
+            class="grid grid-cols-1 sm:grid-cols-2 gap-3"
+            novalidate>
+
+            <!-- Ім'я -->
+
+            <div>
+
+              <label for="username" class="field-label">
+                Ваше ім'я *
+              </label>
+
+              <input
+                id="username"
+                name="username"
+                type="text"
+                class="field-input"
+                autocomplete="name"
+                maxlength="60"
+                placeholder="Іван Петренко">
+
+              <p
+                id="nameError"
+                class="form-error"
+                hidden></p>
+
+            </div>
+
+            <!-- Email -->
+
+            <div>
+
+              <label for="email" class="field-label">
+                Електронна пошта *
+              </label>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                class="field-input"
+                autocomplete="email"
+                maxlength="120"
+                placeholder="example@mail.com">
+
+              <p
+                id="emailError"
+                class="form-error"
+                hidden></p>
+
+            </div>
+
+            <!-- Телефон -->
+
+            <div>
+
+              <label for="phone" class="field-label">
+                Номер телефону *
+              </label>
+
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                class="field-input"
+                autocomplete="tel"
+                maxlength="13"
+                value="+380"
+                placeholder="+380501234567">
+
+              <p
+                id="phoneError"
+                class="form-error"
+                hidden></p>
+
+            </div>
+
+            <!-- Повідомлення -->
+
+            <div>
+
+              <label for="message" class="field-label">
+                Повідомлення *
+              </label>
+
+              <textarea
+                id="message"
+                name="message"
+                rows="2"
+                maxlength="500"
+                class="field-input"
+                placeholder="Опишіть ваше запитання..."></textarea>
+
+              <p
+                id="messageError"
+                class="form-error"
+                hidden></p>
+
+            </div>
+
+            <!-- Згода -->
+
+            <div class="agreement-row sm:col-span-2">
+
+              <label
+                class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
+
+                <input
+                  id="agreement"
+                  name="agreement"
+                  type="checkbox">
+
+                Я погоджуюся з політикою конфіденційності
+
+              </label>
+
+              <p
+                id="agreementError"
+                class="form-error"
+                hidden></p>
+
+            </div>
+
+            <button
+              type="submit"
+              class="submit-btn sm:col-span-2 px-6 py-2.5 rounded-lg text-xs font-semibold shadow-md">
+
+              Отримати безкоштовну консультацію
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ====================================
+       МОДАЛЬНЕ ВІКНО
+       ==================================== -->
+
+  <div
+    id="successModal"
+    class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="successTitle">
+
+    <div
+      class="bg-white p-7 rounded-2xl max-w-md w-full mx-4 text-center shadow-2xl">
+
+      <div
+        class="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center bg-emerald-100 text-emerald-700 text-xl">
+
+        ✓
+
+      </div>
+
+      <h3
+        id="successTitle"
+        class="text-xl font-bold mb-3">
+
+        Форму перевірено
+
+      </h3>
+
+      <p class="text-sm text-slate-500 mb-5">
+        Дані пройшли перевірку в браузері.
+        Для реального надсилання заявки потрібно
+        підключити сервіс обробки форм.
+      </p>
+
+      <button
+        type="button"
+        id="closeModalBtn"
+        class="w-full py-2.5 bg-agronext-navy text-white rounded-xl text-xs font-semibold"
+        style="color:#fff!important">
+
+        Закрити
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ====================================
+       ФУТЕР
+       ==================================== -->
+
+  <footer
+    class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5">
+
     <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="flex flex-col md:flex-row justify-between
-                    items-start gap-10 pb-8">
+      <div
+        class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
-            <!-- Логотип та опис -->
-            <div class="w-full md:max-w-[340px]">
-                <a href="index.html"
-                   class="inline-flex items-center gap-3 mb-4">
-                    <img src="assets/icons/logo.png"
-                         alt="Логотип AgroNext"
-                         class="w-12 h-12 object-contain">
+        <div class="w-full md:max-w-[340px]">
 
-                    <span class="text-white text-xl font-bold"
-                          style="color: #ffffff !important;">
-                        AgroNext
-                    </span>
+          <a
+            href="index.html"
+            class="inline-flex items-center gap-3 mb-4">
+
+            <img
+              src="assets/icons/logo.png"
+              alt="Логотип AgroNext"
+              class="w-12 h-12 object-contain">
+
+            <span
+              class="text-xl font-bold"
+              style="color:#fff!important">
+
+              AgroNext
+
+            </span>
+
+          </a>
+
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Онлайн-платформа для підбору сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
+          </p>
+
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+
+          <div>
+
+            <h3
+              class="font-bold text-base mb-4"
+              style="color:#fff!important">
+
+              Компанія
+
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+
+              <li><a href="about.html">Про нас</a></li>
+              <li><a href="index.html#lead">Центр підтримки</a></li>
+              <li><a href="catalog.html">Каталог техніки</a></li>
+
+            </ul>
+
+          </div>
+
+          <div>
+
+            <h3
+              class="font-bold text-base mb-4"
+              style="color:#fff!important">
+
+              Ми в соцмережах
+
+            </h3>
+
+            <ul class="space-y-3 text-sm text-slate-300">
+
+              <li>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer">
+
+                  Instagram
+
                 </a>
+              </li>
 
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Онлайн-платформа для підбору
-                    сільськогосподарської техніки,
-                    перевірки сумісності обладнання
-                    та розрахунку державної компенсації.
-                </p>
-            </div>
+              <li>
+                <a
+                  href="https://tiktok.com"
+                  target="_blank"
+                  rel="noopener noreferrer">
 
-            <!-- Навігація -->
-            <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+                  TikTok
 
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Компанія
-                    </h3>
+                </a>
+              </li>
 
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="about.html"
-                               class="hover:text-white hover:underline">
-                                Про нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#lead"
-                               class="hover:text-white hover:underline">
-                                Центр підтримки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="catalog.html"
-                               class="hover:text-white hover:underline">
-                                Каталог техніки
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+              <li>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer">
 
-                <!-- Соціальні мережі -->
-                <div>
-                    <h3 class="font-bold text-base mb-4"
-                        style="color: #ffffff !important;">
-                        Ми в соцмережах
-                    </h3>
+                  Facebook
 
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li>
-                            <a href="https://instagram.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://tiktok.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                TikTok
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com"
-                               target="_blank" rel="noopener noreferrer"
-                               class="hover:text-white hover:underline">
-                                Facebook
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
         </div>
 
-        <!-- Нижній рядок -->
-        <div class="border-t border-white/20 pt-5 text-center">
-            <p class="text-slate-300 text-xs">
-                © 2026 AgroNext. Всі права захищені.
-            </p>
-        </div>
+      </div>
+
+      <div class="border-t border-white/20 pt-5 text-center">
+
+        <p class="text-slate-300 text-xs">
+          © 2026 AgroNext. Всі права захищені.
+        </p>
+
+      </div>
 
     </div>
-</footer>
 
-    <!-- ІНТЕРАКТИВНИЙ СКРИПТ ДЛЯ ФОРМИ ВІДГУКІВ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const starButtons = document.querySelectorAll('#star-rating-buttons button');
-            const ratingInput = document.getElementById('review-rating');
-            const reviewForm = document.getElementById('add-review-form');
-            const reviewsGrid = document.getElementById('reviews-grid');
-            const successMsg = document.getElementById('review-success-msg');
-            const totalReviewsEl = document.getElementById('total-reviews');
+  </footer>
 
-            let currentSelectedRating = 5;
+  <!-- ====================================
+       JAVASCRIPT
+       ==================================== -->
 
-            // Вибір кількості зірочок
-            starButtons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    currentSelectedRating = parseInt(btn.getAttribute('data-value'));
-                    ratingInput.value = currentSelectedRating;
+  <script>
+    'use strict';
 
-                    starButtons.forEach((b, index) => {
-                        if (index < currentSelectedRating) {
-                            b.classList.add('text-amber-500');
-                            b.classList.remove('text-slate-300');
-                        } else {
-                            b.classList.remove('text-amber-500');
-                            b.classList.add('text-slate-300');
-                        }
-                    });
-                });
-            });
+    document.addEventListener('DOMContentLoaded', () => {
 
-            // Відправка форми та динамічне додавання картки відгуку
-            reviewForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+      const $ = id => document.getElementById(id);
 
-                const author = document.getElementById('review-author').value.trim();
-                const text = document.getElementById('review-text').value.trim();
-                const rating = parseInt(ratingInput.value);
+      /* ====================================
+         ЕФЕКТ TYPED.JS
+         ==================================== */
 
-                if (!author || !text) return;
+      const typedHeading = $('typedReviewsTitle');
 
-                const starsHTML = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-                const today = new Date();
-                const formattedDate = `${String(today.getDate()).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`;
+      let typingStarted = false;
 
-                const newReviewHTML = `
-                    <div class="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm text-xs space-y-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-agronext-navy animate-fade-in">
-                        <div class="flex justify-between items-center">
-                            <div class="text-amber-500 text-sm">${starsHTML}</div>
-                            <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold border border-blue-200">Новий відгук</span>
-                        </div>
-                        <p class="text-slate-600 leading-relaxed">«${text}»</p>
-                        <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-slate-400">
-                            <span class="font-bold text-slate-700">${author}</span>
-                            <span class="text-[10px]">${formattedDate}</span>
-                        </div>
-                    </div>
-                `;
+      function startTypedReviews() {
 
-                // Додаємо новий відгук на початок списку
-                reviewsGrid.insertAdjacentHTML('afterbegin', newReviewHTML);
+        if (typingStarted || !typedHeading) {
+          return;
+        }
 
-                // Оновлюємо лічильник
-                const currentTotal = parseInt(totalReviewsEl.textContent);
-                totalReviewsEl.textContent = currentTotal + 1;
+        typingStarted = true;
 
-                // Показуємо повідомлення про успіх
-                successMsg.classList.remove('hidden');
+        // Для користувачів зі зменшенням анімації
+        // заголовок залишається звичайним текстом.
 
-                // Очищаємо форму
-                reviewForm.reset();
-                ratingInput.value = 5;
-                starButtons.forEach(b => b.classList.add('text-amber-500'));
+        if (
+          window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+          ).matches
+        ) {
+          return;
+        }
 
-                setTimeout(() => {
-                    successMsg.classList.add('hidden');
-                }, 4000);
-            });
+        typedHeading.textContent = '';
+
+        if (typeof window.Typed === 'function') {
+
+          new window.Typed('#typedReviewsTitle', {
+
+            strings: ['Відгуки клієнтів'],
+
+            typeSpeed: 80,
+
+            startDelay: 150,
+
+            backSpeed: 0,
+
+            loop: false,
+
+            showCursor: true,
+
+            cursorChar: '|'
+
+          });
+
+        } else {
+
+          // Якщо Typed.js не завантажиться,
+          // текст однаково надрукується через JS.
+
+          const text = 'Відгуки клієнтів';
+
+          let index = 0;
+
+          const timer = window.setInterval(() => {
+
+            typedHeading.textContent += text[index++];
+
+            if (index >= text.length) {
+              window.clearInterval(timer);
+            }
+
+          }, 80);
+
+        }
+
+      }
+
+      /* Запуск анімації при прокручуванні */
+
+      if ('IntersectionObserver' in window) {
+
+        const reviewsObserver =
+          new IntersectionObserver(entries => {
+
+            if (entries.some(entry => entry.isIntersecting)) {
+
+              startTypedReviews();
+
+              reviewsObserver.disconnect();
+
+            }
+
+          }, {
+            threshold: 0.3
+          });
+
+        reviewsObserver.observe($('reviewsTitle'));
+
+      } else {
+
+        startTypedReviews();
+
+      }
+
+      /* ====================================
+         ГАМБУРГЕР-МЕНЮ
+         ==================================== */
+
+      const menuButton = $('menuButton');
+
+      const mobileMenu = $('mobileNavigation');
+
+      const menuIcon = $('menuIcon');
+
+      function setMenu(open) {
+
+        mobileMenu.hidden = !open;
+
+        menuButton.setAttribute(
+          'aria-expanded',
+          String(open)
+        );
+
+        menuButton.setAttribute(
+          'aria-label',
+          open ? 'Закрити меню' : 'Відкрити меню'
+        );
+
+        menuIcon.innerHTML = open
+          ? '<path d="M6 6L18 18M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+
+      }
+
+      menuButton.addEventListener('click', () => {
+
+        setMenu(mobileMenu.hidden);
+
+      });
+
+      document.addEventListener('click', event => {
+
+        if (!event.target.closest('.site-header')) {
+          setMenu(false);
+        }
+
+      });
+
+      document.addEventListener('keydown', event => {
+
+        if (event.key === 'Escape') {
+          setMenu(false);
+        }
+
+      });
+
+      window.addEventListener('resize', () => {
+
+        if (window.innerWidth >= 768) {
+          setMenu(false);
+        }
+
+      });
+
+      /* ====================================
+         ВАЛІДАЦІЯ АНКЕТИ «ПОЧНІТЬ СЬОГОДНІ»
+         ==================================== */
+
+      const contactForm = $('feedbackForm');
+
+      const fields = {
+
+        username: {
+
+          error: 'nameError',
+
+          validate: value => {
+
+            const clean = value.trim();
+
+            if (clean.length < 2) {
+              return 'Введіть ім’я (щонайменше 2 символи).';
+            }
+
+            if (!/^[\p{L}\s’'\-]+$/u.test(clean)) {
+              return 'Ім’я може містити лише літери, пробіли та дефіс.';
+            }
+
+            return '';
+
+          }
+
+        },
+
+        email: {
+
+          error: 'emailError',
+
+          validate: value =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
+              ? ''
+              : 'Укажіть коректну електронну адресу.'
+
+        },
+
+        phone: {
+
+          error: 'phoneError',
+
+          validate: value =>
+            /^\+380\d{9}$/.test(
+              value.replace(/[\s()\-]/g, '')
+            )
+              ? ''
+              : 'Введіть номер у форматі +380XXXXXXXXX.'
+
+        },
+
+        message: {
+
+          error: 'messageError',
+
+          validate: value =>
+            value.trim().length >= 10
+              ? ''
+              : 'Напишіть повідомлення щонайменше із 10 символів.'
+
+        }
+
+      };
+
+      function markField(id, showError) {
+
+        const field = $(id);
+
+        const error = $(fields[id].error);
+
+        const message = fields[id].validate(field.value);
+
+        if (showError) {
+
+          field.setAttribute(
+            'aria-invalid',
+            String(Boolean(message))
+          );
+
+          error.textContent = message;
+
+          error.hidden = !message;
+
+        }
+
+        return !message;
+
+      }
+
+      /* Перевірка при виході з поля */
+
+      Object.keys(fields).forEach(id => {
+
+        const field = $(id);
+
+        field.addEventListener('blur', () => {
+
+          markField(id, true);
+
         });
-    </script>
 
-    <!-- ПІДКЛЮЧЕННЯ СКРИПТА КЛІЄНТСЬКОЇ ВАЛІДАЦІЇ -->
-    <script src="assets/js/validation.js"></script>
+        field.addEventListener('input', () => {
+
+          if (field.hasAttribute('aria-invalid')) {
+
+            markField(id, true);
+
+          }
+
+        });
+
+      });
+
+      /* ====================================
+         CHECKBOX
+         ==================================== */
+
+      const agreementRow =
+        contactForm.querySelector('.agreement-row');
+
+      function markAgreement(showError) {
+
+        const valid = $('agreement').checked;
+
+        if (showError) {
+
+          agreementRow.dataset.invalid = String(!valid);
+
+          $('agreementError').textContent = valid
+            ? ''
+            : 'Підтвердьте згоду перед відправленням.';
+
+          $('agreementError').hidden = valid;
+
+        }
+
+        return valid;
+
+      }
+
+      $('agreement').addEventListener('change', () => {
+
+        markAgreement(true);
+
+      });
+
+      /* ====================================
+         ПЕРЕВІРКА ПРИ НАДСИЛАННІ
+         ==================================== */
+
+      contactForm.addEventListener('submit', event => {
+
+        event.preventDefault();
+
+        const result = Object.keys(fields).map(id => [
+
+          id,
+
+          markField(id, true)
+
+        ]);
+
+        const validAgreement = markAgreement(true);
+
+        const firstError = result.find(
+          ([id, valid]) => !valid
+        );
+
+        if (firstError) {
+
+          $(firstError[0]).focus();
+
+          return;
+
+        }
+
+        if (!validAgreement) {
+
+          $('agreement').focus();
+
+          return;
+
+        }
+
+        $('successModal').classList.remove('hidden');
+
+        $('closeModalBtn').focus();
+
+      });
+
+      /* ====================================
+         МОДАЛЬНЕ ВІКНО
+         ==================================== */
+
+      function closeSuccess() {
+
+        $('successModal').classList.add('hidden');
+
+        contactForm.reset();
+
+        $('phone').value = '+380';
+
+        Object.keys(fields).forEach(id => {
+
+          $(id).removeAttribute('aria-invalid');
+
+          $(fields[id].error).hidden = true;
+
+          $(fields[id].error).textContent = '';
+
+        });
+
+        delete agreementRow.dataset.invalid;
+
+        $('agreementError').hidden = true;
+
+        $('agreementError').textContent = '';
+
+      }
+
+      $('closeModalBtn').addEventListener(
+        'click',
+        closeSuccess
+      );
+
+      $('successModal').addEventListener('click', event => {
+
+        if (event.target === $('successModal')) {
+
+          closeSuccess();
+
+        }
+
+      });
+
+      document.addEventListener('keydown', event => {
+
+        if (
+          event.key === 'Escape' &&
+          !$('successModal').classList.contains('hidden')
+        ) {
+
+          closeSuccess();
+
+        }
+
+      });
+
+      /* ====================================
+         ДОДАВАННЯ ВІДГУКІВ
+         ==================================== */
+
+      const starButtons = [
+        ...document.querySelectorAll(
+          '#star-rating-buttons button'
+        )
+      ];
+
+      const ratingInput = $('review-rating');
+
+      let currentRating = 5;
+
+      function showStars() {
+
+        starButtons.forEach((button, index) => {
+
+          button.classList.toggle(
+            'active',
+            index < currentRating
+          );
+
+          button.setAttribute(
+            'aria-pressed',
+            String(index + 1 === currentRating)
+          );
+
+        });
+
+      }
+
+      starButtons.forEach(button => {
+
+        button.addEventListener('click', () => {
+
+          currentRating = Number(button.dataset.value);
+
+          ratingInput.value = String(currentRating);
+
+          showStars();
+
+        });
+
+      });
+
+      showStars();
+
+      /* ====================================
+         ПУБЛІКАЦІЯ ВІДГУКУ
+         ==================================== */
+
+      const reviewForm = $('add-review-form');
+
+      reviewForm.addEventListener('submit', event => {
+
+        event.preventDefault();
+
+        const author = $('review-author').value.trim();
+
+        const comment = $('review-text').value.trim();
+
+        if (!author || !comment) {
+          return;
+        }
+
+        const card = document.createElement('article');
+
+        card.className =
+          'bg-white p-6 border border-slate-200 ' +
+          'rounded-2xl shadow-sm text-xs space-y-3 ' +
+          'transition-all duration-300 hover:-translate-y-2 ' +
+          'hover:shadow-xl hover:border-agronext-navy';
+
+        /* Верхній рядок */
+
+        const head = document.createElement('div');
+
+        head.className =
+          'flex justify-between items-center';
+
+        const stars = document.createElement('span');
+
+        stars.className = 'text-amber-500 text-sm';
+
+        stars.textContent =
+          '★'.repeat(currentRating) +
+          '☆'.repeat(5 - currentRating);
+
+        const mark = document.createElement('span');
+
+        mark.className =
+          'text-[10px] bg-blue-50 text-blue-700 ' +
+          'px-2 py-0.5 rounded font-semibold ' +
+          'border border-blue-200';
+
+        mark.textContent = 'Новий відгук';
+
+        head.append(stars, mark);
+
+        /* Текст відгуку */
+
+        const body = document.createElement('p');
+
+        body.className =
+          'text-slate-600 leading-relaxed';
+
+        body.textContent = '«' + comment + '»';
+
+        /* Автор і дата */
+
+        const foot = document.createElement('div');
+
+        foot.className =
+          'pt-2 border-t border-slate-100 ' +
+          'flex justify-between items-center text-slate-400';
+
+        const person = document.createElement('strong');
+
+        person.className = 'text-slate-700';
+
+        person.textContent = author;
+
+        const date = document.createElement('span');
+
+        date.textContent =
+          new Date().toLocaleDateString('uk-UA');
+
+        foot.append(person, date);
+
+        /* Додавання до сторінки */
+
+        card.append(head, body, foot);
+
+        $('reviews-grid').prepend(card);
+
+        $('total-reviews').textContent = String(
+          Number($('total-reviews').textContent) + 1
+        );
+
+        $('review-success-msg').classList.remove('hidden');
+
+        reviewForm.reset();
+
+        currentRating = 5;
+
+        ratingInput.value = '5';
+
+        showStars();
+
+      });
+
+    });
+  </script>
+
+  <!-- Старий validation.js не підключається,
+       щоб валідація не виконувалася двічі. -->
+
 </body>
 </html>
