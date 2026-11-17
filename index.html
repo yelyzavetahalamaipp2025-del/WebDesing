@@ -4,8 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AgroNext — каталог сільгосптехніки, підбір, перевірка сумісності та калькулятор держкомпенсації.">
+  <meta name="description" content="AgroNext — каталог сільгосптехніки ДТЗ, швидкий підбір, перевірка сумісності та калькулятор держкомпенсації.">
   <title>AgroNext — Зважений підхід до оновлення вашого агропарку</title>
+
+  <!-- Favicon — логотип AgroNext -->
+  <link rel="icon" type="image/png" href="assets/icons/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,17 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css">
 
   <style>
-    /* ЗАГАЛЬНЕ ОФОРМЛЕННЯ */
-
     body {
       margin: 0;
-      background: #FFFFFF;
+      background: #fff;
       color: #1E3A8A;
-      font-family: "Plus Jakarta Sans", sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     h1, h2, h3 {
-      font-family: "Space Grotesk", sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       color: #1E3A8A;
     }
 
@@ -35,23 +36,25 @@
       display: none !important;
     }
 
-    /* ХЕДЕР І ВІДСТУП */
+    /* Хедер */
 
     .site-header {
       background: #1E3A8A !important;
-      z-index: 1000 !important;
+      z-index: 1000;
     }
 
     .site-header .main-navigation a {
-      color: #FFFFFF !important;
+      color: #fff !important;
       transition: color .2s;
     }
 
     .site-header .main-navigation a:hover {
-      color: #FFFFFF !important;
+      color: #fff !important;
       text-decoration: underline;
       text-underline-offset: 5px;
     }
+
+    /* Прибираємо зайвий відступ над відео */
 
     body > main {
       padding-top: var(--agronext-header-height, 70px) !important;
@@ -63,7 +66,7 @@
       padding-top: 0 !important;
     }
 
-    /* ВІДЕОБАНЕР */
+    /* Відеобанер */
 
     .hero-video {
       display: block;
@@ -91,52 +94,59 @@
       width: min(480px, calc(100% - 48px));
     }
 
-    /* КНОПКИ */
+    /* Кнопки */
 
     .btn-primary,
     .btn-outline {
       display: inline-flex;
-      align-items: center;
       justify-content: center;
-      padding: 11px 20px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
+      align-items: center;
       text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .2s, box-shadow .2s, color .2s;
       cursor: pointer;
-      transition: background .2s, color .2s, box-shadow .2s;
     }
 
     .btn-primary {
-      background: #1E3A8A !important;
+      background: #1E3A8A;
+      color: #fff !important;
       border: 1px solid #1E3A8A;
-      color: #FFFFFF !important;
     }
 
     .btn-primary:hover {
-      background: #172554 !important;
-      box-shadow: 0 5px 17px rgba(30,58,138,.25);
+      background: #172554;
+      box-shadow: 0 6px 18px rgba(30,58,138,.19);
     }
 
     .btn-outline {
-      background: #FFFFFF;
-      border: 1px solid #1E3A8A;
+      background: #fff;
       color: #1E3A8A !important;
+      border: 1px solid #1E3A8A;
     }
 
     .btn-outline:hover {
-      background: #1E3A8A !important;
-      color: #FFFFFF !important;
-      box-shadow: 0 5px 15px rgba(30,58,138,.23);
+      background: #1E3A8A;
+      color: #fff !important;
+      box-shadow: 0 5px 15px rgba(30,58,138,.2);
     }
 
-    /* ТЕМНО-СИНЄ ПІДСВІЧУВАННЯ КАРТОК */
+    .btn-primary:focus-visible,
+    .btn-outline:focus-visible,
+    .product-link:focus-visible {
+      outline: 3px solid #1E3A8A;
+      outline-offset: 3px;
+    }
+
+    /* Картки */
 
     .section-card {
-      background: #FFFFFF;
       border: 1px solid #E2E8F0;
-      border-radius: 13px;
-      box-shadow: 0 3px 12px rgba(30,58,138,.05);
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 3px 13px rgba(30,58,138,.05);
       transition: border-color .2s, box-shadow .2s, transform .2s;
     }
 
@@ -147,14 +157,14 @@
       transform: translateY(-2px);
     }
 
-    /* ПАРАМЕТРИ ПІДБОРУ */
+    /* Варіанти вибору */
 
     .choice-btn {
-      padding: 8px 11px;
       border: 1px solid #CBD5E1;
-      border-radius: 7px;
+      background: #fff;
       color: #1E3A8A;
-      background: #FFFFFF;
+      padding: 8px 11px;
+      border-radius: 7px;
       font-size: 11px;
       cursor: pointer;
       transition: background .2s, color .2s, box-shadow .2s;
@@ -162,77 +172,75 @@
 
     .choice-btn.active,
     .choice-btn[aria-pressed="true"] {
-      color: #FFFFFF !important;
-      background: #1E3A8A !important;
-      border-color: #1E3A8A !important;
+      background: #1E3A8A;
+      border-color: #1E3A8A;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(30,58,138,.2);
     }
 
     .choice-btn:hover:not(.active),
     .choice-btn:focus-visible:not(.active) {
-      color: #FFFFFF !important;
-      background: #1E3A8A !important;
       border-color: #1E3A8A !important;
-      box-shadow: 0 0 0 3px rgba(30,58,138,.20);
+      background: #1E3A8A !important;
+      color: #fff !important;
+      box-shadow: 0 0 0 3px rgba(30,58,138,.18) !important;
     }
 
-    /* ЗВИЧАЙНІ ПОЛЯ */
+    /* Поля */
 
     .field-label {
       display: block;
-      margin-bottom: 7px;
       font-size: 12px;
       font-weight: 700;
       color: #334155;
+      margin-bottom: 7px;
     }
 
     .field-input {
-      display: block;
       width: 100%;
       min-width: 0;
-      padding: 10px 11px;
-      background: #F8FAFC;
-      border: 1.5px solid #CBD5E1;
+      border: 1px solid #CBD5E1;
       border-radius: 8px;
+      background: #F8FAFC;
       color: #1E3A8A;
-      font-size: 12px;
-      transition: border-color .2s, box-shadow .2s;
+      font-size: 13px;
+      padding: 11px 12px;
+      transition: border-color .2s, box-shadow .2s, background .2s;
     }
 
     .field-input:hover:not([aria-invalid="true"]),
-    .field-input:focus:not([aria-invalid="true"]) {
-      outline: none !important;
+    .field-input:focus:not([aria-invalid="true"]),
+    .field-input:focus-visible:not([aria-invalid="true"]),
+    .field-input[aria-invalid="false"] {
       border-color: #1E3A8A !important;
-      box-shadow: 0 0 0 3px rgba(30,58,138,.23) !important;
-      background: #FFFFFF !important;
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(30,58,138,.24) !important;
+      background: #fff !important;
     }
 
-    /* РЕЗУЛЬТАТИ ІНСТРУМЕНТІВ */
-
     .inline-result {
-      padding: 13px;
       background: #EFF6FF;
       border: 1px solid #1E3A8A;
-      border-radius: 9px;
+      border-radius: 10px;
+      padding: 14px;
       color: #334155;
       font-size: 12px;
       line-height: 1.65;
     }
 
     .inline-result.error {
-      background: #FEF2F2;
       color: #991B1B;
-      border-color: #FCA5A5;
+      background: #FEF2F2;
+      border-color: #FECACA;
     }
 
     .inline-result.success {
-      background: #F0FDF4;
       color: #166534;
+      background: #F0FDF4;
       border-color: #86EFAC;
     }
 
-    /* =====================================
-       КОМПАКТНІ 3D-КАРТКИ
-       ===================================== */
+    /* Карусель рекомендованих товарів */
 
     .recommended-swiper {
       padding: 12px 35px 50px;
@@ -241,141 +249,6 @@
 
     .recommended-swiper .swiper-slide {
       height: auto;
-    }
-
-    .flip-card {
-      height: 350px;
-      perspective: 1100px;
-    }
-
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform .65s;
-      transform-style: preserve-3d;
-    }
-
-    .flip-card:hover .flip-card-inner,
-    .flip-card:focus-within .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card-front,
-    .flip-card-back {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      overflow: hidden;
-    }
-
-    .flip-card-front {
-      padding: 14px;
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ЗВОРОТНИЙ БІК — КОМЕНТАРІ */
-
-    .flip-card-back {
-      transform: rotateY(180deg);
-      padding: 18px;
-      background: #1E3A8A;
-      color: #FFFFFF;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .flip-card-back .back-caption {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: #BFDBFE !important;
-    }
-
-    .flip-card-back .back-title {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.4;
-      font-weight: 700;
-      color: #FFFFFF !important;
-    }
-
-    .flip-card-back .back-comment {
-      margin: 0;
-      font-size: 12px;
-      line-height: 1.7;
-      color: #FFFFFF !important;
-    }
-
-    .flip-card-back .back-price {
-      margin-top: auto;
-      font-size: 15px;
-      font-weight: 700;
-      color: #FFFFFF !important;
-    }
-
-    .product-photo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 150px;
-      width: 100%;
-      padding: 7px;
-      border-radius: 10px;
-      background: #F8FAFC;
-    }
-
-    .product-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .product-photo:hover,
-    .product-photo:focus-visible {
-      outline: 2px solid #1E3A8A;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 3px rgba(30,58,138,.20);
-    }
-
-    .product-link {
-      display: block;
-      width: 100%;
-      margin-top: 10px;
-      padding: 9px 11px;
-      border-radius: 8px;
-      border: 1px solid #1E3A8A;
-      background: #FFFFFF;
-      color: #1E3A8A !important;
-      text-decoration: none;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .product-link:hover {
-      color: #FFFFFF !important;
-      background: #1E3A8A;
-    }
-
-    .flip-card-back .product-link {
-      margin-top: 0;
-      background: #D97706;
-      border-color: #D97706;
-      color: #FFFFFF !important;
-    }
-
-    .flip-card-back .product-link:hover {
-      background: #B45309;
     }
 
     .recommended-swiper .swiper-button-next,
@@ -391,6 +264,143 @@
     .recommended-swiper .swiper-pagination-bullet-active {
       background: #1E3A8A;
     }
+
+    /* 3D-картки */
+
+    .flip-card {
+      height: 350px;
+      perspective: 1100px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .65s;
+    }
+
+    .flip-card:hover .flip-card-inner,
+    .flip-card:focus-within .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 13px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    .flip-card-front {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background: #1E3A8A;
+      color: #fff;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .flip-card-back .back-caption {
+      color: #BFDBFE !important;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .flip-card-back .back-title {
+      color: #fff !important;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .flip-card-back .back-comment {
+      color: #fff !important;
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .flip-card-back .back-price {
+      margin-top: auto;
+      color: #fff !important;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .product-photo {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px;
+      border-radius: 10px;
+      background: #F8FAFC;
+    }
+
+    .product-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .product-photo:hover,
+    .product-photo:focus-visible {
+      outline: 2px solid #1E3A8A;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(30,58,138,.18);
+    }
+
+    .product-link {
+      display: block;
+      width: 100%;
+      text-align: center;
+      border-radius: 8px;
+      padding: 9px;
+      margin-top: 10px;
+      border: 1px solid #1E3A8A;
+      color: #1E3A8A !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .product-link:hover {
+      color: #fff !important;
+      background: #1E3A8A;
+    }
+
+    .flip-card-back .product-link {
+      background: #D97706;
+      border-color: #D97706;
+      color: #fff !important;
+      margin-top: 0;
+    }
+
+    .flip-card-back .product-link:hover {
+      background: #B45309;
+    }
+
+    /* Резервне відображення без Swiper */
 
     .recommended-swiper.no-swiper {
       overflow: visible;
@@ -413,34 +423,32 @@
       display: none;
     }
 
-    /* =====================================
-       АНКЕТА «ПОЧНІТЬ СЬОГОДНІ»
-       ===================================== */
+    /* Анкета «Почніть сьогодні» */
 
     #lead .lead-panel {
       border: 2px solid #CBD5E1 !important;
       border-radius: 13px;
       box-shadow: 0 3px 12px rgba(30,58,138,.06) !important;
-      transition: border-color .2s, box-shadow .2s, transform .2s;
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .2s;
     }
-
-    /* СВІТІННЯ ВСІЄЇ АНКЕТИ */
 
     #lead .lead-panel:hover,
     #lead .lead-panel:focus-within {
       border-color: #1E3A8A !important;
       box-shadow:
-        0 0 0 3px rgba(30,58,138,.16),
-        0 10px 24px rgba(30,58,138,.20) !important;
+        0 0 0 3px rgba(30,58,138,.15),
+        0 10px 24px rgba(30,58,138,.18) !important;
       transform: translateY(-2px);
     }
 
-    /* СИНІ ПОЛЯ */
-
     #feedbackForm .field-input {
-      padding: 8px 10px;
       min-height: 38px;
+      padding: 8px 10px;
       border: 1.5px solid #CBD5E1 !important;
+      border-radius: 7px;
       background: #F8FAFC;
     }
 
@@ -449,40 +457,38 @@
       resize: vertical;
     }
 
-    #feedbackForm .field-input:hover:not([aria-invalid="true"]),
-    #feedbackForm .field-input:focus:not([aria-invalid="true"]),
-    #feedbackForm .field-input:focus-visible:not([aria-invalid="true"]),
-    #feedbackForm .field-input[aria-invalid="false"] {
+    /* Синій: наведення, фокус, правильні дані */
+
+    #lead #feedbackForm .field-input:hover:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input:focus:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input:focus-visible:not([aria-invalid="true"]),
+    #lead #feedbackForm .field-input[aria-invalid="false"] {
       border: 2px solid #1E3A8A !important;
       outline: none !important;
-      background: #FFFFFF !important;
       box-shadow: 0 0 0 3px rgba(30,58,138,.25) !important;
+      background: #fff !important;
     }
 
-    /* ЧЕРВОНІ ПОМИЛКИ */
+    /* Червоний: неправильні дані */
 
-    #feedbackForm .field-input[aria-invalid="true"],
-    #feedbackForm .field-input[aria-invalid="true"]:hover,
-    #feedbackForm .field-input[aria-invalid="true"]:focus {
+    #lead #feedbackForm .field-input[aria-invalid="true"],
+    #lead #feedbackForm .field-input[aria-invalid="true"]:hover,
+    #lead #feedbackForm .field-input[aria-invalid="true"]:focus {
       border: 2px solid #DC2626 !important;
       outline: none !important;
-      background: #FFF7F7 !important;
       box-shadow: 0 0 0 3px rgba(220,38,38,.25) !important;
+      background: #FFF7F7 !important;
     }
 
-    #feedbackForm .form-error[hidden] {
-      display: none !important;
-    }
-
-    #feedbackForm .form-error:not([hidden]) {
+    #lead #feedbackForm .form-error:not([hidden]) {
       display: block !important;
-      padding: 6px 8px;
-      margin-top: 6px;
       color: #B91C1C !important;
-      background: #FEF2F2;
+      background: #FEF2F2 !important;
       border-left: 3px solid #DC2626;
       border-radius: 4px;
       font-size: 11px;
+      padding: 6px 8px;
+      margin-top: 6px;
     }
 
     #feedbackForm #agreement {
@@ -490,20 +496,21 @@
     }
 
     #feedbackForm .agreement-row {
-      padding: 6px;
       border-radius: 7px;
+      padding: 5px 7px;
+      transition: box-shadow .2s, background .2s;
     }
 
     #feedbackForm .agreement-row:hover,
     #feedbackForm .agreement-row:focus-within {
-      background: #EFF6FF;
       box-shadow: 0 0 0 2px rgba(30,58,138,.25);
+      background: #EFF6FF;
     }
 
     #feedbackForm .agreement-row[data-invalid="true"] {
       background: #FFF7F7 !important;
       outline: 2px solid #DC2626 !important;
-      box-shadow: 0 0 0 3px rgba(220,38,38,.18) !important;
+      box-shadow: 0 0 0 3px rgba(220,38,38,.17) !important;
     }
 
     #feedbackForm .agreement-row[data-invalid="false"] {
@@ -511,7 +518,11 @@
       outline: 2px solid #1E3A8A;
     }
 
-    /* МОБІЛЬНЕ МЕНЮ */
+    #lead #feedbackForm .btn-primary {
+      padding: 10px 16px;
+    }
+
+    /* Мобільне меню */
 
     #mobileNavigation {
       position: absolute;
@@ -519,34 +530,37 @@
       left: 0;
       right: 0;
       z-index: 1100;
+      background: #fff;
       padding: 12px 20px;
-      background: #FFFFFF;
       box-shadow: 0 12px 25px rgba(0,0,0,.16);
     }
 
     #mobileNavigation a {
       display: block;
       padding: 11px;
-      border-bottom: 1px solid #E2E8F0;
       color: #1E3A8A !important;
+      border-bottom: 1px solid #E2E8F0;
       font-size: 13px;
     }
 
     #mobileNavigation a:hover {
       background: #1E3A8A !important;
-      color: #FFFFFF !important;
+      color: #fff !important;
+    }
+
+    .site-header input[type="search"]:focus-visible {
+      outline: 2px solid #fff !important;
+      outline-offset: 3px;
     }
 
     .site-footer h3 {
-      color: #FFFFFF !important;
+      color: #fff !important;
     }
 
     .site-footer a:hover {
-      color: #FFFFFF !important;
+      color: #fff !important;
       text-decoration: underline;
     }
-
-    /* АДАПТИВНІСТЬ */
 
     @media (max-width: 1023px) {
       .hero-content {
@@ -588,8 +602,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .section-card,
       .flip-card-inner,
+      .section-card,
       #lead .lead-panel {
         transition: none;
       }
@@ -611,13 +625,10 @@
 
       <a href="index.html" class="flex items-center gap-3" aria-label="Головна AgroNext">
         <img src="assets/icons/logo.png" alt="AgroNext" class="h-12 w-auto object-contain">
-        <span class="font-semibold text-base" style="color:white!important">
-          AgroNext
-        </span>
+        <span class="font-semibold text-base" style="color:white!important">AgroNext</span>
       </a>
 
-      <nav class="main-navigation hidden lg:flex items-center gap-5"
-           aria-label="Основна навігація">
+      <nav class="main-navigation hidden lg:flex items-center gap-5" aria-label="Основна навігація">
         <a href="catalog.html" class="text-xs">Каталог</a>
         <a href="selection.html" class="text-xs">Підбір техніки</a>
         <a href="compatibility.html" class="text-xs">Сумісність</a>
@@ -627,21 +638,25 @@
 
       <form action="catalog.html" method="get" role="search" class="hidden sm:block">
         <label class="sr-only" for="headerSearch">Пошук техніки</label>
-        <input id="headerSearch" type="search" name="q"
-               placeholder="Пошук..."
-               class="px-3 py-2 rounded-lg text-xs w-[190px]"
-               style="background:white;color:#1E3A8A">
+        <input
+          id="headerSearch"
+          type="search"
+          name="q"
+          placeholder="Пошук..."
+          class="px-3 py-2 rounded-lg text-xs w-[190px]"
+          style="background:white;color:#1E3A8A">
       </form>
 
-      <button id="menuButton" type="button"
-              class="lg:hidden p-2 rounded hover:bg-white/10"
-              aria-label="Відкрити меню"
-              aria-expanded="false"
-              aria-controls="mobileNavigation">
-        <svg id="menuIcon" width="26" height="26"
-             viewBox="0 0 24 24" fill="none"
-             stroke="white" stroke-width="2"
-             aria-hidden="true">
+      <button
+        id="menuButton"
+        class="lg:hidden p-2 rounded hover:bg-white/10"
+        type="button"
+        aria-label="Відкрити меню"
+        aria-expanded="false"
+        aria-controls="mobileNavigation">
+
+        <svg id="menuIcon" width="26" height="26" viewBox="0 0 24 24"
+             fill="none" stroke="white" stroke-width="2" aria-hidden="true">
           <path d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
@@ -657,9 +672,12 @@
 
       <form action="catalog.html" method="get" role="search" class="py-3">
         <label class="sr-only" for="mobileSearch">Пошук товару</label>
-        <input id="mobileSearch" type="search" name="q"
-               placeholder="Знайти техніку..."
-               class="field-input">
+        <input
+          id="mobileSearch"
+          type="search"
+          name="q"
+          placeholder="Знайти техніку..."
+          class="field-input">
       </form>
     </nav>
   </header>
@@ -668,9 +686,7 @@
 
     <!-- ГОЛОВНИЙ БАНЕР -->
 
-    <section class="home-hero relative bg-slate-100"
-             aria-labelledby="heroTitle">
-
+    <section class="home-hero relative bg-slate-100" aria-labelledby="heroTitle">
       <div class="relative h-[804px] max-md:h-auto">
 
         <video class="hero-video" autoplay muted loop playsinline
@@ -694,7 +710,6 @@
             Переглянути каталог
           </a>
         </div>
-
       </div>
     </section>
 
@@ -704,54 +719,41 @@
       <div class="max-w-[1140px] mx-auto px-5">
 
         <div class="flex items-center gap-3 mb-2">
-          <img src="assets/icons/settings.svg" alt=""
-               class="w-11 h-11 object-contain">
-
-          <h2 class="text-2xl font-bold">
-            Розумний підбір техніки
-          </h2>
+          <img src="assets/icons/settings.svg" alt="" class="w-11 h-11 object-contain">
+          <h2 class="text-2xl font-bold">Розумний підбір техніки</h2>
         </div>
 
         <p class="text-sm text-slate-500 mb-7">
           Оберіть площу, роботу та бюджет — ми покажемо кілька товарів
-          із вашого каталогу, а кнопка «Детальніше» відкриє сторінку товару.
+          із вашого каталогу, а кнопка «Детальніше» відкриє потрібну сторінку.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
           <div class="section-card p-5">
-            <h3 class="font-bold text-base mb-3">
-              1. Площа господарства
-            </h3>
+            <h3 class="font-bold text-base mb-3">1. Площа господарства</h3>
 
             <div id="areaChoices" class="flex flex-wrap gap-2"
                  role="group" aria-label="Площа господарства">
-              <button type="button" class="choice-btn"
-                      data-area="under1">До 1 га</button>
-              <button type="button" class="choice-btn"
-                      data-area="1-10">1–10 га</button>
-              <button type="button" class="choice-btn active"
-                      data-area="10-50" aria-pressed="true">10–50 га</button>
-              <button type="button" class="choice-btn"
-                      data-area="50-200">50–200 га</button>
-              <button type="button" class="choice-btn"
-                      data-area="200-500">200–500 га</button>
-              <button type="button" class="choice-btn"
-                      data-area="over500">500+ га</button>
+
+              <button type="button" class="choice-btn" data-area="under1">До 1 га</button>
+              <button type="button" class="choice-btn" data-area="1-10">1–10 га</button>
+              <button type="button" class="choice-btn active" data-area="10-50" aria-pressed="true">10–50 га</button>
+              <button type="button" class="choice-btn" data-area="50-200">50–200 га</button>
+              <button type="button" class="choice-btn" data-area="200-500">200–500 га</button>
+              <button type="button" class="choice-btn" data-area="over500">500+ га</button>
+
             </div>
           </div>
 
           <div class="section-card p-5">
-            <h3 class="font-bold text-base mb-3">
-              2. Основне завдання
-            </h3>
+            <h3 class="font-bold text-base mb-3">2. Основне завдання</h3>
 
             <div id="taskChoices" class="flex flex-wrap gap-2"
                  role="group" aria-label="Основний вид робіт">
 
               <button type="button" class="choice-btn active"
-                      data-task="tillage"
-                      aria-pressed="true">Обробіток ґрунту</button>
+                      data-task="tillage" aria-pressed="true">Обробіток ґрунту</button>
 
               <button type="button" class="choice-btn"
                       data-task="cultivation">Культивація</button>
@@ -764,27 +766,24 @@
 
               <button type="button" class="choice-btn"
                       data-task="general">Господарські роботи</button>
+
             </div>
           </div>
 
           <div class="section-card p-5">
-            <h3 class="font-bold text-base mb-3">
-              3. Бюджет, грн
-            </h3>
+            <h3 class="font-bold text-base mb-3">3. Бюджет, грн</h3>
 
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label class="field-label" for="budgetFrom">Від</label>
-                <input id="budgetFrom" class="field-input"
-                       type="text" inputmode="numeric"
-                       value="0" placeholder="0">
+                <input id="budgetFrom" class="field-input" type="text"
+                       inputmode="numeric" value="0" placeholder="0">
               </div>
 
               <div>
                 <label class="field-label" for="budgetTo">До</label>
-                <input id="budgetTo" class="field-input"
-                       type="text" inputmode="numeric"
-                       value="2000000" placeholder="2000000">
+                <input id="budgetTo" class="field-input" type="text"
+                       inputmode="numeric" value="2000000" placeholder="2000000">
               </div>
             </div>
 
@@ -799,7 +798,7 @@
             Підібрати оптимальну техніку
           </button>
 
-          <a href="selection.html" class="btn-outline">
+          <a class="btn-outline" href="selection.html">
             Розширений підбір
           </a>
         </div>
@@ -811,29 +810,22 @@
 
     <!-- ІНТЕРАКТИВНІ ІНСТРУМЕНТИ -->
 
-    <section id="tools"
-             class="py-12 bg-slate-50/70 border-y border-slate-200">
-
+    <section id="tools" class="py-12 bg-slate-50/70 border-y border-slate-200">
       <div class="max-w-[1140px] mx-auto px-5">
+
         <h2 class="text-2xl font-bold mb-6">
           Інтерактивні інструменти
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-          <!-- СУМІСНІСТЬ -->
-
           <article class="section-card p-6">
-
             <div class="flex items-center gap-3 mb-4">
-              <img src="assets/icons/shield-check.svg"
-                   alt="" class="w-9 h-9">
+
+              <img src="assets/icons/shield-check.svg" alt="" class="w-9 h-9">
 
               <div>
-                <h3 class="font-bold text-lg">
-                  Перевірка сумісності
-                </h3>
-
+                <h3 class="font-bold text-lg">Перевірка сумісності</h3>
                 <p class="text-xs text-slate-500">
                   Виберіть трактор або мотоблок і навісне обладнання
                 </p>
@@ -857,8 +849,7 @@
               Перевірити сумісність
             </button>
 
-            <div id="miniCheckResult"
-                 class="inline-result mt-3"
+            <div id="miniCheckResult" class="inline-result mt-3"
                  hidden aria-live="polite"></div>
 
             <a href="compatibility.html"
@@ -867,18 +858,16 @@
             </a>
           </article>
 
-          <!-- КАЛЬКУЛЯТОР -->
-
           <article class="section-card p-6" id="compensation">
-
             <div class="flex items-center gap-3 mb-4">
-              <img src="assets/icons/calculator.svg"
-                   alt="" class="w-9 h-9">
+
+              <img src="assets/icons/calculator.svg" alt="" class="w-9 h-9">
 
               <div>
                 <h3 class="font-bold text-lg">
                   Калькулятор держкомпенсації 25–40%
                 </h3>
+
                 <p class="text-xs text-slate-500">
                   Орієнтовний математичний розрахунок
                 </p>
@@ -889,9 +878,9 @@
               Ціна техніки з ПДВ, грн
             </label>
 
-            <input id="miniPrice" class="field-input mb-3"
-                   type="text" inputmode="decimal"
-                   value="496480" placeholder="Наприклад, 496480">
+            <input id="miniPrice" type="text" class="field-input mb-3"
+                   inputmode="decimal" value="496480"
+                   placeholder="Наприклад, 496480">
 
             <label for="miniRate" class="field-label">
               Орієнтовна ставка
@@ -907,8 +896,7 @@
               Розрахувати
             </button>
 
-            <div id="miniCalcResult"
-                 class="inline-result mt-3"
+            <div id="miniCalcResult" class="inline-result mt-3"
                  hidden aria-live="polite"></div>
 
             <p class="text-[11px] leading-relaxed text-slate-500 mt-2">
@@ -921,6 +909,7 @@
               Відкрити повний калькулятор
             </a>
           </article>
+
         </div>
       </div>
     </section>
@@ -932,50 +921,39 @@
 
         <div class="flex justify-between items-center gap-3 flex-wrap mb-5">
           <div class="flex gap-3 items-center">
-
-            <img src="assets/icons/tractor.svg"
-                 alt="" class="w-7 h-7 object-contain">
-
-            <h2 class="text-2xl font-bold">
-              Рекомендовані товари
-            </h2>
+            <img src="assets/icons/tractor.svg" alt=""
+                 class="w-7 h-7 object-contain">
+            <h2 class="text-2xl font-bold">Рекомендовані товари</h2>
           </div>
 
-          <a href="catalog.html"
-             class="text-xs font-bold underline">
+          <a href="catalog.html" class="text-xs font-bold underline">
             Переглянути весь каталог
           </a>
         </div>
 
         <div class="swiper recommended-swiper"
              aria-label="Товари AgroNext">
-
-          <div id="recommended-products"
-               class="swiper-wrapper"></div>
-
+          <div id="recommended-products" class="swiper-wrapper"></div>
           <div class="swiper-pagination"></div>
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
         </div>
 
-        <p id="catalogLoading"
-           class="text-xs text-slate-500 text-center">
+        <p id="catalogLoading" class="text-xs text-slate-500 text-center">
           Завантаження товарів...
         </p>
       </div>
     </section>
 
-    <!-- ВІДГУКИ -->
+    <!-- КОМЕНТАРІ КОРИСТУВАЧІВ -->
 
     <section class="py-8 bg-white border-t border-slate-200">
       <div class="max-w-[1140px] mx-auto px-5">
 
-        <h2 class="text-xl font-bold mb-3">
-          Коментарі користувачів
-        </h2>
+        <h2 class="text-xl font-bold mb-3">Коментарі користувачів</h2>
 
         <p class="text-xs text-slate-500 mb-5">
-          Демонстраційні відгуки навчального макета,
+          Нижче демонстраційні відгуки для навчального макета,
           не підтверджені відгуки покупців.
         </p>
 
@@ -1006,25 +984,22 @@
               Ігор М., приклад відгуку
             </span>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- =====================================
-         КОМПАКТНА АНКЕТА
-         ===================================== -->
+    <!-- АНКЕТА «ПОЧНІТЬ СЬОГОДНІ» -->
 
     <section id="lead"
              class="py-9 bg-slate-50/70 border-t border-slate-200">
 
       <div class="max-w-[1140px] mx-auto px-5">
 
-        <div class="lead-panel grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-5 lg:gap-7 items-center bg-white p-5 md:p-6">
+        <div class="lead-panel grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-5 lg:gap-7 items-center bg-white p-5 md:p-6 rounded-xl">
 
           <div>
-            <h2 class="text-xl font-bold mb-2">
-              Почніть сьогодні
-            </h2>
+            <h2 class="text-xl font-bold mb-2">Почніть сьогодні</h2>
 
             <p class="text-sm text-slate-500 leading-relaxed">
               Підберіть техніку для свого господарства
@@ -1034,7 +1009,7 @@
           </div>
 
           <form id="feedbackForm"
-                class="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                class="lead-form-stacked compact-form grid grid-cols-1 sm:grid-cols-2 gap-3"
                 novalidate>
 
             <div>
@@ -1042,13 +1017,9 @@
                 Ваше ім'я *
               </label>
 
-              <input id="username"
-                     name="username"
-                     type="text"
-                     class="field-input"
-                     autocomplete="name"
-                     maxlength="60"
-                     placeholder="Іван Петренко">
+              <input id="username" name="username" type="text"
+                     class="field-input" autocomplete="name"
+                     maxlength="60" placeholder="Іван Петренко">
 
               <p id="nameError" class="form-error" hidden></p>
             </div>
@@ -1058,13 +1029,9 @@
                 Електронна пошта *
               </label>
 
-              <input id="email"
-                     name="email"
-                     type="email"
-                     class="field-input"
-                     autocomplete="email"
-                     maxlength="120"
-                     placeholder="example@mail.com">
+              <input id="email" name="email" type="email"
+                     class="field-input" autocomplete="email"
+                     maxlength="120" placeholder="example@mail.com">
 
               <p id="emailError" class="form-error" hidden></p>
             </div>
@@ -1074,13 +1041,9 @@
                 Номер телефону *
               </label>
 
-              <input id="phone"
-                     name="phone"
-                     type="tel"
-                     class="field-input"
-                     autocomplete="tel"
-                     maxlength="13"
-                     value="+380"
+              <input id="phone" name="phone" type="tel"
+                     class="field-input" autocomplete="tel"
+                     maxlength="13" value="+380"
                      placeholder="+380501234567">
 
               <p id="phoneError" class="form-error" hidden></p>
@@ -1091,11 +1054,8 @@
                 Повідомлення *
               </label>
 
-              <textarea id="message"
-                        name="message"
-                        rows="2"
-                        maxlength="500"
-                        class="field-input"
+              <textarea id="message" name="message" rows="2"
+                        class="field-input" maxlength="500"
                         placeholder="Опишіть ваше запитання..."></textarea>
 
               <p id="messageError" class="form-error" hidden></p>
@@ -1145,10 +1105,10 @@
         сервіс обробки форм.
       </p>
 
-      <button id="closeModalBtn" type="button"
-              class="btn-primary w-full">
+      <button id="closeModalBtn" type="button" class="btn-primary w-full">
         Закрити
       </button>
+
     </div>
   </div>
 
@@ -1160,13 +1120,9 @@
       <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
 
         <div class="w-full md:max-w-[340px]">
-          <a href="index.html"
-             class="inline-flex items-center gap-3 mb-4">
-
-            <img src="assets/icons/logo.png"
-                 alt="AgroNext"
+          <a href="index.html" class="inline-flex items-center gap-3 mb-4">
+            <img src="assets/icons/logo.png" alt="AgroNext"
                  class="w-12 h-12 object-contain">
-
             <span class="font-bold text-xl" style="color:white!important">
               AgroNext
             </span>
@@ -1174,8 +1130,7 @@
 
           <p class="text-slate-300 text-sm leading-relaxed">
             Онлайн-платформа для підбору сільськогосподарської техніки,
-            перевірки сумісності обладнання
-            та розрахунку державної компенсації.
+            перевірки сумісності обладнання та розрахунку державної компенсації.
           </p>
         </div>
 
@@ -1211,6 +1166,7 @@
       <div class="border-t border-white/20 pt-5 text-center text-xs text-slate-300">
         © 2026 AgroNext. Всі права захищені.
       </div>
+
     </div>
   </footer>
 
@@ -1219,125 +1175,75 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
 
-  <!-- УСЯ ЛОГІКА ГОЛОВНОЇ СТОРІНКИ -->
+  <!-- JAVASCRIPT -->
 
   <script>
-  "use strict";
+  'use strict';
 
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
     const $ = id => document.getElementById(id);
 
-    /* =====================================
-       1. ВІДСТУП ВІД ХЕДЕРА
-       ===================================== */
+    /* ВИСОТА ХЕДЕРА */
 
     function syncHeaderOffset() {
-      const header = document.querySelector(".site-header");
+      const header = document.querySelector('.site-header');
 
       if (header) {
         document.documentElement.style.setProperty(
-          "--agronext-header-height",
-          header.getBoundingClientRect().height + "px"
+          '--agronext-header-height',
+          header.getBoundingClientRect().height + 'px'
         );
       }
     }
 
     syncHeaderOffset();
-    window.addEventListener("resize", syncHeaderOffset);
+    window.addEventListener('resize', syncHeaderOffset);
 
-    /* =====================================
-       2. МОБІЛЬНЕ МЕНЮ
-       ===================================== */
+    /* ВАЛІДАЦІЯ ФОРМИ */
 
-    const menuButton = $("menuButton");
-    const mobileMenu = $("mobileNavigation");
-    const menuIcon = $("menuIcon");
-
-    function setMenu(open) {
-      mobileMenu.hidden = !open;
-      menuButton.setAttribute("aria-expanded", String(open));
-      menuButton.setAttribute(
-        "aria-label",
-        open ? "Закрити меню" : "Відкрити меню"
-      );
-
-      menuIcon.innerHTML = open
-        ? '<path d="M6 6L18 18M18 6L6 18"/>'
-        : '<path d="M4 6h16M4 12h16M4 18h16"/>';
-    }
-
-    menuButton.addEventListener("click", function () {
-      setMenu(mobileMenu.hidden);
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!event.target.closest(".site-header")) {
-        setMenu(false);
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        setMenu(false);
-      }
-    });
-
-    window.addEventListener("resize", function () {
-      if (window.innerWidth >= 1024) {
-        setMenu(false);
-      }
-    });
-
-    /* =====================================
-       3. ВАЛІДАЦІЯ АНКЕТИ
-       ===================================== */
-
-    const contactForm = $("feedbackForm");
+    const contactForm = $('feedbackForm');
 
     const validationFields = {
       username: {
-        error: "nameError",
-        validate: function (value) {
-          if (value.trim().length < 2) {
-            return "Введіть ім’я (щонайменше 2 символи).";
+        error: 'nameError',
+        validate: value => {
+          const text = value.trim();
+
+          if (text.length < 2) {
+            return 'Введіть ім’я (щонайменше 2 символи).';
           }
 
-          if (!/^[\p{L}\s’'\-]+$/u.test(value.trim())) {
-            return "Ім’я може містити лише літери, пробіли та дефіс.";
+          if (!/^[\p{L}\s’'\-]+$/u.test(text)) {
+            return 'Ім’я може містити лише літери, пробіли та дефіс.';
           }
 
-          return "";
+          return '';
         }
       },
 
       email: {
-        error: "emailError",
-        validate: function (value) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
-            ? ""
-            : "Укажіть коректну електронну адресу.";
-        }
+        error: 'emailError',
+        validate: value =>
+          /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
+            ? ''
+            : 'Укажіть коректну електронну адресу.'
       },
 
       phone: {
-        error: "phoneError",
-        validate: function (value) {
-          const cleaned = value.replace(/[\s()\-]/g, "");
-
-          return /^\+380\d{9}$/.test(cleaned)
-            ? ""
-            : "Введіть номер у форматі +380XXXXXXXXX.";
-        }
+        error: 'phoneError',
+        validate: value =>
+          /^\+380\d{9}$/.test(value.replace(/[\s()\-]/g, ''))
+            ? ''
+            : 'Введіть номер у форматі +380XXXXXXXXX.'
       },
 
       message: {
-        error: "messageError",
-        validate: function (value) {
-          return value.trim().length >= 10
-            ? ""
-            : "Напишіть повідомлення щонайменше із 10 символів.";
-        }
+        error: 'messageError',
+        validate: value =>
+          value.trim().length >= 10
+            ? ''
+            : 'Напишіть повідомлення щонайменше із 10 символів.'
       }
     };
 
@@ -1347,7 +1253,7 @@
       const message = validationFields[id].validate(input.value);
 
       if (showError) {
-        input.setAttribute("aria-invalid", String(Boolean(message)));
+        input.setAttribute('aria-invalid', String(Boolean(message)));
         errorBox.textContent = message;
         errorBox.hidden = !message;
       }
@@ -1355,59 +1261,50 @@
       return !message;
     }
 
-    Object.keys(validationFields).forEach(function (id) {
+    Object.keys(validationFields).forEach(id => {
       const input = $(id);
 
-      input.addEventListener("blur", function () {
+      input.addEventListener('blur', () => {
         validateField(id, true);
       });
 
-      input.addEventListener("input", function () {
-        if (input.hasAttribute("aria-invalid")) {
+      input.addEventListener('input', () => {
+        if (input.hasAttribute('aria-invalid')) {
           validateField(id, true);
         }
       });
     });
 
-    const agreementRow = contactForm.querySelector(".agreement-row");
+    const agreementRow = contactForm.querySelector('.agreement-row');
 
     function validateAgreement(showError) {
-      const valid = $("agreement").checked;
+      const valid = $('agreement').checked;
 
       if (showError) {
         agreementRow.dataset.invalid = String(!valid);
-
-        $("agreementError").textContent = valid
-          ? ""
-          : "Підтвердьте згоду перед відправленням.";
-
-        $("agreementError").hidden = valid;
+        $('agreementError').textContent = valid
+          ? ''
+          : 'Підтвердьте згоду перед відправленням.';
+        $('agreementError').hidden = valid;
       }
 
       return valid;
     }
 
-    $("agreement").addEventListener("change", function () {
+    $('agreement').addEventListener('change', () => {
       validateAgreement(true);
     });
 
-    contactForm.addEventListener("submit", function (event) {
+    contactForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const validationResults = Object.keys(validationFields).map(
-        function (id) {
-          return {
-            id: id,
-            valid: validateField(id, true)
-          };
-        }
-      );
+      const results = Object.keys(validationFields).map(id => ({
+        id,
+        valid: validateField(id, true)
+      }));
 
       const agreementValid = validateAgreement(true);
-
-      const firstInvalid = validationResults.find(
-        item => !item.valid
-      );
+      const firstInvalid = results.find(item => !item.valid);
 
       if (firstInvalid) {
         $(firstInvalid.id).focus();
@@ -1415,295 +1312,330 @@
       }
 
       if (!agreementValid) {
-        $("agreement").focus();
+        $('agreement').focus();
         return;
       }
 
-      $("successModal").classList.remove("hidden");
-      $("closeModalBtn").focus();
+      $('successModal').classList.remove('hidden');
+      $('closeModalBtn').focus();
     });
 
     function closeSuccessModal() {
-      $("successModal").classList.add("hidden");
-
+      $('successModal').classList.add('hidden');
       contactForm.reset();
-      $("phone").value = "+380";
+      $('phone').value = '+380';
 
-      Object.keys(validationFields).forEach(function (id) {
-        $(id).removeAttribute("aria-invalid");
+      Object.keys(validationFields).forEach(id => {
+        $(id).removeAttribute('aria-invalid');
 
         const errorBox = $(validationFields[id].error);
         errorBox.hidden = true;
-        errorBox.textContent = "";
+        errorBox.textContent = '';
       });
 
       delete agreementRow.dataset.invalid;
-
-      $("agreementError").hidden = true;
-      $("agreementError").textContent = "";
+      $('agreementError').hidden = true;
+      $('agreementError').textContent = '';
     }
 
-    $("closeModalBtn").addEventListener("click", closeSuccessModal);
+    $('closeModalBtn').addEventListener('click', closeSuccessModal);
 
-    $("successModal").addEventListener("click", function (event) {
-      if (event.target === $("successModal")) {
+    $('successModal').addEventListener('click', event => {
+      if (event.target === $('successModal')) {
         closeSuccessModal();
       }
     });
 
-    document.addEventListener("keydown", function (event) {
+    document.addEventListener('keydown', event => {
       if (
-        event.key === "Escape" &&
-        !$("successModal").classList.contains("hidden")
+        event.key === 'Escape' &&
+        !$('successModal').classList.contains('hidden')
       ) {
         closeSuccessModal();
       }
     });
 
-    /* =====================================
-       4. ТОВАРИ AGRONEXT
-       ===================================== */
+    /* МОБІЛЬНЕ МЕНЮ */
+
+    const menuButton = $('menuButton');
+    const menu = $('mobileNavigation');
+    const menuIcon = $('menuIcon');
+
+    function setMenu(open) {
+      menu.hidden = !open;
+
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute(
+        'aria-label',
+        open ? 'Закрити меню' : 'Відкрити меню'
+      );
+
+      menuIcon.innerHTML = open
+        ? '<path d="M6 6L18 18M18 6L6 18"/>'
+        : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+    }
+
+    menuButton.addEventListener('click', () => {
+      setMenu(menu.hidden);
+    });
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.site-header')) {
+        setMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        setMenu(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        setMenu(false);
+      }
+    });
+
+    /* ДАНІ ТОВАРІВ */
 
     const products = [
       {
-        id: "470",
-        name: "Мотоблок ДТЗ 470БН-GT",
+        id: '470',
+        name: 'Мотоблок ДТЗ 470БН-GT',
         price: 20045,
-        image: "dtz-470bn-gt (1).jpg",
-        url: "products/dtz-470bn-gt.html",
-        category: "motoblock",
+        image: 'dtz-470bn-gt (1).jpg',
+        url: 'products/dtz-470bn-gt.html',
+        category: 'motoblock',
         hp: 7,
-        tasks: ["tillage", "general"]
+        tasks: ['tillage','general']
       },
       {
-        id: "1304",
-        name: "Трактор ДТЗ 1304",
+        id: '1304',
+        name: 'Трактор ДТЗ 1304',
         price: 1610080,
-        image: "dtz-1304 (1).jpg",
-        url: "products/dtz-1304.html",
-        category: "tractor",
+        image: 'dtz-1304 (1).jpg',
+        url: 'products/dtz-1304.html',
+        category: 'tractor',
         hp: 130,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "1204",
-        name: "Трактор ДТЗ 1204",
+        id: '1204',
+        name: 'Трактор ДТЗ 1204',
         price: 1531200,
-        image: "dtz-1204 (1).jpg",
-        url: "products/dtz-1204.html",
-        category: "tractor",
+        image: 'dtz-1204 (1).jpg',
+        url: 'products/dtz-1204.html',
+        category: 'tractor',
         hp: 120,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "504kku",
-        name: "Трактор ДТЗ 504KKU",
+        id: '504kku',
+        name: 'Трактор ДТЗ 504KKU',
         price: 626400,
-        image: "dtz-504kku (1).jpg",
-        url: "products/dtz-504kku.html",
-        category: "tractor",
+        image: 'dtz-504kku (1).jpg',
+        url: 'products/dtz-504kku.html',
+        category: 'tractor',
         hp: 50,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "504bkku",
-        name: "Трактор ДТЗ 504BKKU",
+        id: '504bkku',
+        name: 'Трактор ДТЗ 504BKKU',
         price: 784160,
-        image: "dtz-504bkku (1).jpg",
-        url: "products/dtz-504bkku.html",
-        category: "tractor",
+        image: 'dtz-504bkku (1).jpg',
+        url: 'products/dtz-504bkku.html',
+        category: 'tractor',
         hp: 50,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "504u",
-        name: "Трактор ДТЗ 504U",
+        id: '504u',
+        name: 'Трактор ДТЗ 504U',
         price: 496480,
-        image: "dtz-504u (1).jpg",
-        url: "products/dtz-504u.html",
-        category: "tractor",
+        image: 'dtz-504u (1).jpg',
+        url: 'products/dtz-504u.html',
+        category: 'tractor',
         hp: 50,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "354u",
-        name: "Трактор ДТЗ 354U",
+        id: '354u',
+        name: 'Трактор ДТЗ 354U',
         price: 375840,
-        image: "dtz-354u (1).jpg",
-        url: "products/dtz-354u.html",
-        category: "tractor",
+        image: 'dtz-354u (1).jpg',
+        url: 'products/dtz-354u.html',
+        category: 'tractor',
         hp: 35,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "1204spec",
-        name: "Трактор ДТЗ 1204 (Спец)",
+        id: '1204spec',
+        name: 'Трактор ДТЗ 1204 (Спец)',
         price: 1531200,
-        image: "dtz-1204-spec (1).jpg",
-        url: "products/dtz-1204-spec.html",
-        category: "tractor",
+        image: 'dtz-1204-spec (1).jpg',
+        url: 'products/dtz-1204-spec.html',
+        category: 'tractor',
         hp: 120,
-        tasks: ["tillage", "cultivation", "milling", "hilling", "general"]
+        tasks: ['tillage','cultivation','milling','hilling','general']
       },
       {
-        id: "borona",
-        name: "Дискова борона БДН-2.1",
+        id: 'borona',
+        name: 'Дискова борона БДН-2.1',
         price: 40335,
-        image: "borona-dyskova.jpg",
-        url: "products/borona-dyskova.html",
-        category: "soil",
-        tasks: ["tillage"],
+        image: 'borona-dyskova.jpg',
+        url: 'products/borona-dyskova.html',
+        category: 'soil',
+        tasks: ['tillage'],
         minHp: 50,
-        allowed: ["354u"]
+        allowed: ['354u']
       },
       {
-        id: "kdu16",
-        name: "Культиватор ДТЗ КДУ-1,6",
+        id: 'kdu16',
+        name: 'Культиватор ДТЗ КДУ-1,6',
         price: 27700,
-        image: "kultyvator-kdu-16.jpg",
-        url: "products/kultyvator-kdu-16.html",
-        category: "soil",
-        tasks: ["tillage", "cultivation"],
+        image: 'kultyvator-kdu-16.jpg',
+        url: 'products/kultyvator-kdu-16.html',
+        category: 'soil',
+        tasks: ['tillage','cultivation'],
         minHp: 24,
-        allowed: ["354u", "504u", "504kku", "504bkku"]
+        allowed: ['354u','504u','504kku','504bkku']
       },
       {
-        id: "kdu20",
-        name: "Культиватор ДТЗ КДУ-2,0",
+        id: 'kdu20',
+        name: 'Культиватор ДТЗ КДУ-2,0',
         price: 32500,
-        image: "kultyvator-kdu-20.jpg",
-        url: "products/kultyvator-kdu-20.html",
-        category: "soil",
-        tasks: ["tillage", "cultivation"],
+        image: 'kultyvator-kdu-20.jpg',
+        url: 'products/kultyvator-kdu-20.html',
+        category: 'soil',
+        tasks: ['tillage','cultivation'],
         minHp: 35,
-        allowed: ["354u", "504u", "504kku", "504bkku"]
+        allowed: ['354u','504u','504kku','504bkku']
       },
       {
-        id: "fn20",
-        name: "Ґрунтофреза ФН-2,0",
+        id: 'fn20',
+        name: 'Ґрунтофреза ФН-2,0',
         price: 60549,
-        image: "gruntofreza-fn-20.jpg",
-        url: "products/gruntofreza-fn-20.html",
-        category: "soil",
-        tasks: ["tillage", "milling"],
+        image: 'gruntofreza-fn-20.jpg',
+        url: 'products/gruntofreza-fn-20.html',
+        category: 'soil',
+        tasks: ['tillage','milling'],
         minHp: 35,
         maxHp: 50,
-        allowed: ["354u", "504u", "504kku", "504bkku"]
+        allowed: ['354u','504u','504kku','504bkku']
       },
       {
-        id: "fn20k",
-        name: "Ґрунтофреза ДТЗ ФН-2,0К",
+        id: 'fn20k',
+        name: 'Ґрунтофреза ДТЗ ФН-2,0К',
         price: 69825,
-        image: "gruntofreza-dtz-fn-20k.jpg",
-        url: "products/gruntofreza-dtz-fn-20k.html",
-        category: "soil",
-        tasks: ["tillage", "milling"],
+        image: 'gruntofreza-dtz-fn-20k.jpg',
+        url: 'products/gruntofreza-dtz-fn-20k.html',
+        category: 'soil',
+        tasks: ['tillage','milling'],
         minHp: 35,
         maxHp: 50,
-        allowed: ["354u", "504u", "504kku", "504bkku"]
+        allowed: ['354u','504u','504kku','504bkku']
       },
       {
-        id: "fn22",
-        name: "Ґрунтофреза ФН-2,2",
+        id: 'fn22',
+        name: 'Ґрунтофреза ФН-2,2',
         price: 64656,
-        image: "gruntofreza-fn-22.jpg",
-        url: "products/gruntofreza-fn-22.html",
-        category: "soil",
-        tasks: ["tillage", "milling"],
+        image: 'gruntofreza-fn-22.jpg',
+        url: 'products/gruntofreza-fn-22.html',
+        category: 'soil',
+        tasks: ['tillage','milling'],
         minHp: 45,
         maxHp: 60,
-        allowed: ["504u", "504kku", "504bkku"]
+        allowed: ['504u','504kku','504bkku']
       },
       {
-        id: "strila1",
-        name: "Підгортальник Стріла-1",
+        id: 'strila1',
+        name: 'Підгортальник Стріла-1',
         price: 780,
-        image: "pidgortach-strila-1.jpg",
-        url: "products/pidgortach-strila-1.html",
-        category: "soil",
-        tasks: ["hilling"],
-        allowed: ["470"]
+        image: 'pidgortach-strila-1.jpg',
+        url: 'products/pidgortach-strila-1.html',
+        category: 'soil',
+        tasks: ['hilling'],
+        allowed: ['470']
       },
       {
-        id: "strila2",
-        name: "Підгортальник Стріла-2",
+        id: 'strila2',
+        name: 'Підгортальник Стріла-2',
         price: 830,
-        image: "pidgortach-strila-2.jpg",
-        url: "products/pidgortach-strila-2.html",
-        category: "soil",
-        tasks: ["hilling"],
-        allowed: ["470"]
+        image: 'pidgortach-strila-2.jpg',
+        url: 'products/pidgortach-strila-2.html',
+        category: 'soil',
+        tasks: ['hilling'],
+        allowed: ['470']
       }
     ];
 
-    const machines = products.filter(p => p.category !== "soil");
-    const equipment = products.filter(p => p.category === "soil");
+    const machines = products.filter(p => p.category !== 'soil');
+    const equipment = products.filter(p => p.category === 'soil');
 
     const money = value =>
-      new Intl.NumberFormat("uk-UA", {
+      new Intl.NumberFormat('uk-UA', {
         maximumFractionDigits: 0
-      }).format(value) + " грн";
+      }).format(value) + ' грн';
 
-    const imagePath = product =>
-      "assets/images/" + product.image;
+    const imagePath = p => 'assets/images/' + p.image;
 
     function addOption(select, item) {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = item.id;
       option.textContent = item.name;
       select.appendChild(option);
     }
 
-    /* =====================================
-       5. РОЗУМНИЙ ПІДБІР
-       ===================================== */
+    /* ШВИДКИЙ ПІДБІР */
 
     function setupChoices(groupId) {
       const group = $(groupId);
 
-      group.querySelectorAll("button").forEach(button => {
+      group.querySelectorAll('button').forEach(button => {
         button.setAttribute(
-          "aria-pressed",
-          String(button.classList.contains("active"))
+          'aria-pressed',
+          String(button.classList.contains('active'))
         );
 
-        button.addEventListener("click", function () {
-          group.querySelectorAll("button").forEach(other => {
-            other.classList.remove("active");
-            other.setAttribute("aria-pressed", "false");
+        button.addEventListener('click', () => {
+          group.querySelectorAll('button').forEach(other => {
+            other.classList.remove('active');
+            other.setAttribute('aria-pressed', 'false');
           });
 
-          button.classList.add("active");
-          button.setAttribute("aria-pressed", "true");
+          button.classList.add('active');
+          button.setAttribute('aria-pressed', 'true');
 
-          $("quickPickResult").hidden = true;
+          $('quickPickResult').hidden = true;
         });
       });
     }
 
-    setupChoices("areaChoices");
-    setupChoices("taskChoices");
+    setupChoices('areaChoices');
+    setupChoices('taskChoices');
 
     function areaPoints(product, area) {
-      if (area === "under1" || area === "1-10") {
-        return product.category === "motoblock"
+      if (area === 'under1' || area === '1-10') {
+        return product.category === 'motoblock'
           ? 25
-          : product.category === "tractor" && product.hp <= 50
+          : product.category === 'tractor' && product.hp <= 50
             ? 14
             : 8;
       }
 
-      if (area === "10-50") {
-        return product.category === "tractor" && product.hp <= 50
+      if (area === '10-50') {
+        return product.category === 'tractor' && product.hp <= 50
           ? 24
-          : product.category === "motoblock"
+          : product.category === 'motoblock'
             ? -30
             : 12;
       }
 
-      return product.category === "tractor" && product.hp >= 100
+      return product.category === 'tractor' && product.hp >= 100
         ? 25
-        : product.category === "motoblock"
+        : product.category === 'motoblock'
           ? -40
           : 9;
     }
@@ -1711,8 +1643,8 @@
     function parseBudget(text) {
       const value = String(text)
         .trim()
-        .replace(/[\s\u00A0\u202F]/g, "")
-        .replace(",", ".");
+        .replace(/[\s\u00A0\u202F]/g, '')
+        .replace(',', '.');
 
       if (!/^\d+(?:\.\d{1,2})?$/.test(value)) {
         return null;
@@ -1727,25 +1659,24 @@
         : null;
     }
 
-    $("quickPickButton").addEventListener("click", function () {
-      const area = $("areaChoices")
-        .querySelector(".active").dataset.area;
+    $('quickPickButton').addEventListener('click', function () {
+      const area = $('areaChoices')
+        .querySelector('.active').dataset.area;
 
-      const task = $("taskChoices")
-        .querySelector(".active").dataset.task;
+      const task = $('taskChoices')
+        .querySelector('.active').dataset.task;
 
-      const min = parseBudget($("budgetFrom").value);
-      const max = parseBudget($("budgetTo").value);
+      const min = parseBudget($('budgetFrom').value);
+      const max = parseBudget($('budgetTo').value);
+      const output = $('quickPickResult');
 
-      const output = $("quickPickResult");
       output.hidden = false;
       output.replaceChildren();
 
       if (min === null || max === null || min > max) {
-        output.className = "inline-result error mt-6";
+        output.className = 'inline-result error mt-6';
         output.textContent =
-          "Перевірте бюджет: введіть коректні суми. " +
-          "«Від» не може перевищувати «До».";
+          'Перевірте бюджет: введіть коректні суми, причому «Від» не може перевищувати «До».';
         return;
       }
 
@@ -1757,8 +1688,8 @@
         )
         .filter(p =>
           !(
-            p.category === "motoblock" &&
-            ["10-50", "50-200", "200-500", "over500"].includes(area)
+            p.category === 'motoblock' &&
+            ['10-50','50-200','200-500','over500'].includes(area)
           )
         )
         .map(p => ({
@@ -1771,74 +1702,72 @@
         )
         .slice(0, 3);
 
-      output.className = "mt-6";
+      output.className = 'mt-6';
 
-      const heading = document.createElement("h3");
-      heading.className = "font-bold text-lg mb-3";
+      const heading = document.createElement('h3');
+      heading.className = 'font-bold text-lg mb-3';
       heading.textContent = result.length
-        ? "Орієнтовно рекомендована техніка"
-        : "За вибраними умовами товарів немає";
+        ? 'Орієнтовно рекомендована техніка'
+        : 'За вибраними умовами товарів немає';
 
       output.appendChild(heading);
 
       if (!result.length) {
-        const message = document.createElement("p");
-        message.className = "inline-result";
+        const message = document.createElement('p');
+        message.className = 'inline-result';
         message.textContent =
-          "Спробуйте змінити бюджет або завдання. " +
-          "У розширеному підборі є більше критеріїв.";
+          'Спробуйте змінити бюджет або завдання. У розділі розширеного підбору є більше критеріїв.';
+
         output.appendChild(message);
         return;
       }
 
-      const grid = document.createElement("div");
-      grid.className = "grid grid-cols-1 md:grid-cols-3 gap-4";
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-1 md:grid-cols-3 gap-4';
 
-      result.forEach(({ product: p }) => {
-        const card = document.createElement("article");
-        card.className = "section-card p-4";
+      result.forEach(({product: p}) => {
+        const card = document.createElement('article');
+        card.className = 'section-card p-4';
 
-        const img = document.createElement("img");
+        const img = document.createElement('img');
         img.src = imagePath(p);
         img.alt = p.name;
-        img.loading = "lazy";
+        img.loading = 'lazy';
         img.className =
-          "w-full h-32 object-contain bg-slate-50 rounded mb-3";
+          'w-full h-32 object-contain bg-slate-50 rounded mb-3';
 
-        const name = document.createElement("h4");
-        name.className = "text-sm font-bold";
+        const name = document.createElement('h4');
+        name.className = 'text-sm font-bold';
         name.textContent = p.name;
 
-        const price = document.createElement("p");
-        price.className = "font-bold text-sm mt-2";
+        const price = document.createElement('p');
+        price.className = 'font-bold text-sm mt-2';
         price.textContent = money(p.price);
 
-        const text = document.createElement("p");
-        text.className = "text-[11px] text-slate-500 mt-2";
-        text.textContent =
-          "Орієнтовна рекомендація. Сумісність перевіряється окремо.";
+        const description = document.createElement('p');
+        description.className = 'text-[11px] text-slate-500 mt-2';
+        description.textContent =
+          'Орієнтовна рекомендація; сумісність агрегатів перевіряється окремо.';
 
-        const link = document.createElement("a");
+        const link = document.createElement('a');
         link.href = p.url;
-        link.className = "product-link";
-        link.textContent = "Детальніше";
+        link.className = 'product-link';
+        link.textContent = 'Детальніше';
 
-        card.append(img, name, price, text, link);
+        card.append(img, name, price, description, link);
         grid.appendChild(card);
       });
 
       output.appendChild(grid);
     });
 
-    /* =====================================
-       6. ШВИДКА ПЕРЕВІРКА СУМІСНОСТІ
-       ===================================== */
+    /* СУМІСНІСТЬ */
 
-    machines.forEach(p => addOption($("miniMachine"), p));
-    equipment.forEach(p => addOption($("miniEquipment"), p));
+    machines.forEach(p => addOption($('miniMachine'), p));
+    equipment.forEach(p => addOption($('miniEquipment'), p));
 
-    $("miniMachine").value = "504u";
-    $("miniEquipment").value = "kdu16";
+    $('miniMachine').value = '504u';
+    $('miniEquipment').value = 'kdu16';
 
     function checkPair(machine, equip) {
       const listed = equip.allowed.includes(machine.id);
@@ -1849,133 +1778,128 @@
 
       return {
         ok: listed && powerOk,
-        listed: listed,
-        powerOk: powerOk
+        listed,
+        powerOk
       };
     }
 
-    ["miniMachine", "miniEquipment"].forEach(id => {
-      $(id).addEventListener("change", function () {
-        $("miniCheckResult").hidden = true;
+    ['miniMachine', 'miniEquipment'].forEach(id => {
+      $(id).addEventListener('change', () => {
+        $('miniCheckResult').hidden = true;
       });
     });
 
-    $("miniCheckButton").addEventListener("click", function () {
+    $('miniCheckButton').addEventListener('click', () => {
       const machine = machines.find(
-        p => p.id === $("miniMachine").value
+        p => p.id === $('miniMachine').value
       );
 
       const equip = equipment.find(
-        p => p.id === $("miniEquipment").value
+        p => p.id === $('miniEquipment').value
       );
 
-      if (!machine || !equip) return;
-
-      const outcome = checkPair(machine, equip);
-      const box = $("miniCheckResult");
-
-      box.hidden = false;
-      box.className = "inline-result mt-3 " +
-        (outcome.ok ? "success" : "error");
-
-      const explanation = outcome.ok
-        ? "Є в таблиці відповідності, потужність проходить перевірку."
-        : !outcome.listed
-          ? "Цю пару не зазначено як сумісну в таблиці AgroNext."
-          : "Потужність не відповідає вимогам агрегата.";
-
-      box.textContent =
-        (outcome.ok
-          ? "✓ Підходить. "
-          : "✕ Не підходить за даними каталогу. ") +
-        explanation;
-    });
-
-    /* =====================================
-       7. МІНІКАЛЬКУЛЯТОР
-       ===================================== */
-
-    $("miniCalcButton").addEventListener("click", function () {
-      const value = $("miniPrice")
-        .value
-        .trim()
-        .replace(/[\s\u00A0\u202F]/g, "")
-        .replace(",", ".");
-
-      const box = $("miniCalcResult");
-      box.hidden = false;
-
-      if (
-        !/^\d+(?:\.\d{1,2})?$/.test(value) ||
-        !Number.isFinite(Number(value)) ||
-        Number(value) <= 0 ||
-        Number(value) > 100000000
-      ) {
-        box.className = "inline-result error mt-3";
-        box.textContent =
-          "Введіть правильну ціну від 0,01 до 100 000 000 грн.";
+      if (!machine || !equip) {
         return;
       }
 
-      const price = Number(value);
-      const rate = Number($("miniRate").value);
+      const outcome = checkPair(machine, equip);
+      const box = $('miniCheckResult');
+
+      box.hidden = false;
+      box.className = 'inline-result mt-3 ' +
+        (outcome.ok ? 'success' : 'error');
+
+      const explanation = outcome.ok
+        ? 'Є у таблиці відповідності, і потужність проходить перевірку.'
+        : !outcome.listed
+          ? 'Цю пару не зазначено як сумісну в таблиці AgroNext.'
+          : 'Потужність не відповідає вимогам агрегата.';
+
+      box.textContent =
+        (outcome.ok
+          ? '✓ Підходить. '
+          : '✕ Не підходить за даними каталогу. ') +
+        explanation;
+    });
+
+    /* МІНІКАЛЬКУЛЯТОР */
+
+    $('miniCalcButton').addEventListener('click', () => {
+      const text = $('miniPrice').value
+        .trim()
+        .replace(/[\s\u00A0\u202F]/g, '')
+        .replace(',', '.');
+
+      const box = $('miniCalcResult');
+      box.hidden = false;
+
+      if (
+        !/^\d+(?:\.\d{1,2})?$/.test(text) ||
+        !Number.isFinite(Number(text)) ||
+        Number(text) <= 0 ||
+        Number(text) > 100000000
+      ) {
+        box.className = 'inline-result error mt-3';
+        box.textContent =
+          'Введіть правильну ціну від 0,01 до 100 000 000 грн.';
+        return;
+      }
+
+      const price = Number(text);
+      const rate = Number($('miniRate').value);
 
       const compensation = Math.min(
         price / 1.2 * (rate / 100),
         86000000
       );
 
-      box.className = "inline-result success mt-3";
+      box.className = 'inline-result success mt-3';
 
       box.textContent =
-        "Орієнтовна компенсація: " +
+        'Орієнтовна компенсація: ' +
         money(compensation) +
-        ". Власні витрати: " +
+        '. Власні витрати: ' +
         money(price - compensation) +
-        ". Це не гарантія виплати.";
+        '. Це не гарантія виплати.';
     });
 
-    /* =====================================
-       8. РЕКОМЕНДОВАНІ ТОВАРИ ТА КОМЕНТАРІ
-       ===================================== */
+    /* РЕКОМЕНДОВАНІ ТОВАРИ */
 
     async function loadProducts() {
-
       try {
-        const response = await fetch("catalog.html");
+        const response = await fetch('catalog.html');
 
         if (!response.ok) {
-          throw new Error("Не вдалося завантажити catalog.html");
+          throw new Error('Не вдалося відкрити catalog.html');
         }
 
         const doc = new DOMParser().parseFromString(
           await response.text(),
-          "text/html"
+          'text/html'
         );
 
-        doc.querySelectorAll("#catalog-products .flip-card")
+        doc.querySelectorAll('#catalog-products .flip-card')
           .forEach(card => {
-
             const href = card.querySelector(
               '.flip-card-front a[href*="products/"]'
-            )?.getAttribute("href");
+            )?.getAttribute('href');
 
-            const product = products.find(
-              p => p.url === href
-            );
+            const product = products.find(item => item.url === href);
 
-            if (!product) return;
+            if (!product) {
+              return;
+            }
 
             const image = card.querySelector(
-              ".flip-card-front img"
-            )?.getAttribute("src");
+              '.flip-card-front img'
+            )?.getAttribute('src');
 
             const price = Number(card.dataset.price);
 
             if (image && !/^https?:\/\//i.test(image)) {
               product.image = image.replace(
                 /^assets\/images\//,
-                ""
+                ''
               );
             }
 
@@ -1986,124 +1910,110 @@
 
       } catch (error) {
         console.info(
-          "AgroNext: використовуються резервні дані товарів",
+          'AgroNext: показано резервні дані товарів',
           error
         );
       }
 
-      const wrapper = $("recommended-products");
-      wrapper.replaceChildren();
+      const wrapper = $('recommended-products');
 
       products.forEach(p => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
 
-        const slide = document.createElement("div");
-        slide.className = "swiper-slide";
+        const card = document.createElement('article');
+        card.className = 'flip-card';
 
-        const card = document.createElement("article");
-        card.className = "flip-card";
+        const inner = document.createElement('div');
+        inner.className = 'flip-card-inner';
 
-        const inner = document.createElement("div");
-        inner.className = "flip-card-inner";
+        /* Передній бік */
 
-        /* ПЕРЕДНІЙ БІК */
+        const front = document.createElement('div');
+        front.className = 'flip-card-front';
 
-        const front = document.createElement("div");
-        front.className = "flip-card-front";
-
-        const photo = document.createElement("a");
+        const photo = document.createElement('a');
         photo.href = imagePath(p);
-        photo.className = "product-photo";
-
-        photo.setAttribute("data-fancybox", "agronext-products");
-        photo.setAttribute("data-caption", p.name);
+        photo.className = 'product-photo';
+        photo.setAttribute('data-fancybox', 'agronext-products');
+        photo.setAttribute('data-caption', p.name);
         photo.setAttribute(
-          "aria-label",
-          "Збільшити фото " + p.name
+          'aria-label',
+          'Збільшити фото ' + p.name
         );
 
-        const img = document.createElement("img");
+        const img = document.createElement('img');
         img.src = imagePath(p);
         img.alt = p.name;
-        img.loading = "lazy";
-
+        img.loading = 'lazy';
         photo.appendChild(img);
 
-        const title = document.createElement("h3");
-        title.className = "text-sm font-bold mt-3";
+        const title = document.createElement('h3');
+        title.className = 'text-sm font-bold mt-3';
         title.textContent = p.name;
 
-        const subtitle = document.createElement("p");
-        subtitle.className = "text-[11px] text-slate-500 mt-1";
-        subtitle.textContent = p.category === "soil"
-          ? "Ґрунтообробна техніка"
-          : p.hp + " к. с.";
+        const subtitle = document.createElement('p');
+        subtitle.className = 'text-[11px] text-slate-500 mt-1';
+        subtitle.textContent = p.category === 'soil'
+          ? 'Ґрунтообробна техніка'
+          : p.hp + ' к. с.';
 
-        const price = document.createElement("p");
-        price.className = "font-bold mt-auto pt-2";
-        price.textContent = money(p.price);
+        const cost = document.createElement('p');
+        cost.className = 'font-bold mt-auto pt-2';
+        cost.textContent = money(p.price);
 
-        const details = document.createElement("a");
+        const details = document.createElement('a');
         details.href = p.url;
-        details.className = "product-link";
-        details.textContent = "Детальніше";
+        details.className = 'product-link';
+        details.textContent = 'Детальніше';
 
-        front.append(
-          photo,
-          title,
-          subtitle,
-          price,
-          details
-        );
+        front.append(photo, title, subtitle, cost, details);
 
-        /* ЗВОРОТНИЙ БІК — КОМПАКТНИЙ КОМЕНТАР */
+        /* Зворотний бік із коментарем */
 
-        const back = document.createElement("div");
-        back.className = "flip-card-back";
+        const back = document.createElement('div');
+        back.className = 'flip-card-back';
 
-        const caption = document.createElement("p");
-        caption.className = "back-caption";
-        caption.textContent = "Коментар AgroNext";
+        const caption = document.createElement('p');
+        caption.className = 'back-caption';
+        caption.textContent = 'Коментар AgroNext';
 
-        const backTitle = document.createElement("h3");
-        backTitle.className = "back-title";
+        const backTitle = document.createElement('h3');
+        backTitle.className = 'back-title';
         backTitle.textContent = p.name;
 
-        const comment = document.createElement("p");
-        comment.className = "back-comment";
+        const comment = document.createElement('p');
+        comment.className = 'back-comment';
 
-        if (p.category === "motoblock") {
+        if (p.category === 'motoblock') {
           comment.textContent =
-            "Для невеликих ділянок і нескладних господарських " +
-            "завдань. Враховуйте розмір господарства.";
-        } else if (
-          p.id === "strila1" ||
-          p.id === "strila2"
-        ) {
+            'Для невеликих ділянок та нескладних господарських завдань. Зверніть увагу на розміри ділянки.';
+
+        } else if (p.id === 'strila1' || p.id === 'strila2') {
           comment.textContent =
-            "У таблиці AgroNext цей підгортальник пов’язаний " +
-            "із мотоблоком ДТЗ 470БН-GT. Кріплення слід перевірити.";
-        } else if (p.category === "soil") {
+            'У таблиці AgroNext цей підгортальник пов’язаний із мотоблоком ДТЗ 470БН-GT. Кріплення слід перевірити.';
+
+        } else if (p.category === 'soil') {
           comment.textContent =
-            "Обирайте за видом обробітку. Перед купівлею " +
-            "перевірте сумісність із конкретним трактором.";
+            'Обирайте за видом обробітку. Перед купівлею перевірте сумісність із конкретним трактором.';
+
         } else if (p.hp >= 100) {
           comment.textContent =
-            "Один із потужніших тракторів каталогу. " +
-            "Навісне обладнання підбирається окремо.";
+            'Один із потужніших тракторів каталогу. Вибір навісних агрегатів потребує окремої перевірки.';
+
         } else {
           comment.textContent =
-            "Варіант для різних господарських завдань. " +
-            "Сумісність навіски можна перевірити на сайті.";
+            'Варіант для різних господарських завдань. Підібрати навісне обладнання допоможе перевірка сумісності.';
         }
 
-        const backPrice = document.createElement("p");
-        backPrice.className = "back-price";
+        const backPrice = document.createElement('p');
+        backPrice.className = 'back-price';
         backPrice.textContent = money(p.price);
 
-        const backButton = document.createElement("a");
+        const backButton = document.createElement('a');
         backButton.href = p.url;
-        backButton.className = "product-link";
-        backButton.textContent = "Детальніше";
+        backButton.className = 'product-link';
+        backButton.textContent = 'Детальніше';
 
         back.append(
           caption,
@@ -2119,13 +2029,12 @@
         wrapper.appendChild(slide);
       });
 
-      $("catalogLoading").hidden = true;
+      $('catalogLoading').hidden = true;
 
-      /* SWIPER */
+      /* Swiper */
 
-      if (typeof Swiper === "function") {
-
-        const swiper = new Swiper(".recommended-swiper", {
+      if (typeof Swiper === 'function') {
+        const swiper = new Swiper('.recommended-swiper', {
           loop: true,
           speed: 650,
           slidesPerView: 1,
@@ -2138,23 +2047,18 @@
           },
 
           navigation: {
-            nextEl: ".recommended-swiper .swiper-button-next",
-            prevEl: ".recommended-swiper .swiper-button-prev"
+            nextEl: '.recommended-swiper .swiper-button-next',
+            prevEl: '.recommended-swiper .swiper-button-prev'
           },
 
           pagination: {
-            el: ".recommended-swiper .swiper-pagination",
+            el: '.recommended-swiper .swiper-pagination',
             clickable: true
           },
 
           breakpoints: {
-            640: {
-              slidesPerView: 2
-            },
-
-            1024: {
-              slidesPerView: 3
-            }
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
           },
 
           a11y: {
@@ -2168,17 +2072,17 @@
         });
 
         if (
-          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
         ) {
           swiper.autoplay.stop();
         }
 
       } else {
-        document.querySelector(".recommended-swiper")
-          .classList.add("no-swiper");
+        document.querySelector('.recommended-swiper')
+          .classList.add('no-swiper');
       }
 
-      /* FANCYBOX */
+      /* Fancybox */
 
       if (window.Fancybox?.bind) {
         window.Fancybox.bind(
