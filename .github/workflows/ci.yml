@@ -1,0 +1,107 @@
+
+name: AgroNext CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-check:
+    name: Build and check AgroNext
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        run: |
+          npx tailwindcss \
+            -i ./css/tailwind-input.css \
+            -o ./css/tailwind-built.css \
+            --minify
+
+      - name: Check required website files
+        shell: bash
+        run: |
+          set -e
+
+          test -f index.html
+          test -f about.html
+          test -f catalog.html
+          test -f selection.html
+          test -f compatibility.html
+          test -f calculator.html
+
+          test -f css/style.css
+          test -s css/tailwind-built.css
+
+          test -d products
+          test -d assets/images
+
+          echo "All required AgroNext files exist."
+
+      - name: Check product pages
+        shell: bash
+        run: |
+          set -e
+
+          count=$(find products -maxdepth 1 \
+            -type f -name "*.html" | wc -l)
+
+          echo "Product pages found: $count"
+
+          if [ "$count" -lt 16 ]; then
+            echo "Error: expected at least 16 product pages."
+            exit 1
+          fi
+
+      - name: Check HTML structure
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+
+          class HTMLCheck(HTMLParser):
+              def error(self, message):
+                  raise ValueError(message)
+
+          files = list(Path(".").glob("*.html"))
+          files += list(Path("products").glob("*.html"))
+
+          for path in files:
+              content = path.read_text(encoding="utf-8")
+
+              if "<html" not in content.lower():
+                  raise ValueError(f"No html tag: {path}")
+
+              if "</html>" not in content.lower():
+                  raise ValueError(f"No closing html tag: {path}")
+
+              if "<title>" not in content.lower():
+                  raise ValueError(f"No title: {path}")
+
+              parser = HTMLCheck()
+              parser.feed(content)
+              parser.close()
+
+              print(f"Checked: {path}")
+
+          print(f"HTML files checked: {len(files)}")
+          PY
+
+      - name: CI completed
+        run: echo "AgroNext CI checks completed successfully!"
