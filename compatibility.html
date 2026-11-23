@@ -1,238 +1,894 @@
 
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgroNext — перевірка сумісності тракторів, мотоблоків та навісного обладнання.">
+  <meta name="theme-color" content="#1E3A8A">
   <title>Сумісність техніки — AgroNext</title>
-  <meta name="description" content="Перевірка сумісності тракторів і мотоблоків ДТЗ з ґрунтообробним обладнанням із каталогу AgroNext.">
 
+  <!-- Логотип у браузері -->
+  <link rel="icon" type="image/png" href="assets/icons/logo.png">
+  <link rel="apple-touch-icon" href="assets/icons/logo.png">
+
+  <!-- Шрифти -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Збережена тема -->
+  <script>
+    (function () {
+      let saved = null;
+
+      try {
+        saved = localStorage.getItem("agronext-theme");
+      } catch (error) {}
+
+      const systemDark = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      document.documentElement.dataset.theme =
+        saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+    })();
+  </script>
+
   <style>
+    /* ==========================================
+       1. КОЛЬОРОВА СИСТЕМА
+       ========================================== */
+
+    :root {
+      color-scheme: light;
+
+      --page: #F8FAFC;
+      --page-alt: #F1F5F9;
+      --surface: #FFFFFF;
+
+      --text: #1E293B;
+      --heading: #1E3A8A;
+      --muted: #475569;
+
+      --border: #CBD5E1;
+
+      --accent: #1E3A8A;
+      --accent-hover: #172554;
+      --accent-text: #FFFFFF;
+
+      --header: #1E3A8A;
+      --footer: #1E3A8A;
+
+      --input-bg: #F8FAFC;
+      --input-text: #1E3A8A;
+
+      --glow: rgba(30,58,138,.20);
+      --shadow: rgba(30,58,138,.11);
+
+      --positive-bg: #F0FDF4;
+      --positive-border: #86EFAC;
+      --positive-heading: #166534;
+      --positive-text: #14532D;
+
+      --negative-bg: #FEF2F2;
+      --negative-border: #FCA5A5;
+      --negative-heading: #991B1B;
+      --negative-text: #7F1D1D;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+
+      --page: #091321;
+      --page-alt: #0D1B2D;
+      --surface: #16263A;
+
+      --text: #EDF4FF;
+      --heading: #F2F7FF;
+      --muted: #B8C8DB;
+
+      --border: #3B5068;
+
+      --accent: #93C5FD;
+      --accent-hover: #BFDBFE;
+      --accent-text: #091321;
+
+      --header: #071629;
+      --footer: #07111F;
+
+      --input-bg: #0C1B2C;
+      --input-text: #FFFFFF;
+
+      --glow: rgba(147,197,253,.25);
+      --shadow: rgba(0,0,0,.30);
+
+      --positive-bg: #123B35;
+      --positive-border: #34D399;
+      --positive-heading: #86EFAC;
+      --positive-text: #D1FAE5;
+
+      --negative-bg: #4C1D2A;
+      --negative-border: #FB7185;
+      --negative-heading: #FDA4AF;
+      --negative-text: #FFE4E6;
+    }
+
+    /* ==========================================
+       2. ЗАГАЛЬНІ СТИЛІ
+       ========================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
     body {
       margin: 0;
-      background: #F8FAFC;
-      color: #1E3A8A;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--page) !important;
+      color: var(--text);
+
+      font-family: "Plus Jakarta Sans", sans-serif;
+
+      transition: background-color .25s, color .25s;
     }
 
-    .compat-page {
-      padding-top: 105px;
-      padding-bottom: 60px;
+    h1, h2, h3, h4 {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--heading) !important;
     }
 
-    .compat-page h1,
-    .compat-page h2,
-    .compat-page h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: #1E3A8A;
+    html[data-theme="dark"] main .text-slate-500,
+    html[data-theme="dark"] main .text-slate-600,
+    html[data-theme="dark"] main .text-slate-700 {
+      color: var(--muted) !important;
     }
 
-    /* ХЕДЕР */
+    a, button, select {
+      transition:
+        background-color .2s,
+        color .2s,
+        border-color .2s,
+        box-shadow .2s;
+    }
+
+    /* ==========================================
+       3. ХЕДЕР
+       ========================================== */
 
     .site-header {
-      background: #1E3A8A !important;
-      z-index: 100 !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      background: var(--header) !important;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 4px 14px rgba(0,0,0,.14);
     }
 
-    .site-header .main-navigation a {
-      color: white !important;
-      transition: color .2s;
+    .header-shell {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      gap: 12px;
+      max-width: 1380px;
+      min-height: 70px;
+
+      margin: 0 auto;
+      padding: 8px 20px;
     }
 
-    .site-header .main-navigation a:hover {
-      color: #FBBF24 !important;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+
+      gap: 8px;
+      color: #FFFFFF !important;
+
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    /* ЦЕНТРАЛЬНА КАРТКА */
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .brand-label {
+      color: #FFFFFF !important;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       4. НАВІГАЦІЯ
+       ========================================== */
+
+    .main-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      flex: 0 1 auto;
+      min-width: 0;
+      gap: 1px;
+      margin-left: 0;
+    }
+
+    .main-navigation a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 9px 7px;
+      border-radius: 7px;
+      border-bottom: 2px solid transparent;
+
+      color: #FFFFFF !important;
+      font-family: "Inter", sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .main-navigation a:hover {
+      background: rgba(255,255,255,.10);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .main-navigation a[aria-current="page"] {
+      background: rgba(255,255,255,.17);
+      border-bottom-color: #FBBF24;
+      font-weight: 700;
+    }
+
+    /* Відступ 75 px після логотипа */
+
+    @media (min-width: 1280px) {
+      .site-header .header-shell > .brand {
+        margin-right: 75px !important;
+      }
+
+      .site-header .main-navigation {
+        margin-left: 0 !important;
+        gap: 1px;
+      }
+
+      .site-header .header-search {
+        margin-left: auto !important;
+      }
+    }
+
+    /* ==========================================
+       5. ПОШУК
+       ========================================== */
+
+    .header-search {
+      display: flex;
+      align-items: center;
+
+      width: 190px;
+      height: 39px;
+      flex: 0 0 190px;
+
+      margin-left: auto;
+      overflow: hidden;
+
+      background: #FFFFFF !important;
+      border: 1px solid rgba(255,255,255,.60);
+      border-radius: 9px;
+    }
+
+    .header-search:focus-within {
+      outline: 2px solid #FBBF24;
+      outline-offset: 2px;
+    }
+
+    .header-search input {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+
+      padding: 0 0 0 12px;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+
+      background: #FFFFFF !important;
+      color: #1E3A8A !important;
+      font-size: 12px;
+    }
+
+    .header-search input::placeholder {
+      color: #64748B !important;
+    }
+
+    .header-search button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 39px;
+      height: 100%;
+
+      color: #1E3A8A;
+      cursor: pointer;
+    }
+
+    .header-search button:hover {
+      background: #E2E8F0;
+    }
+
+    /* ==========================================
+       6. ПЕРЕМИКАЧ ТЕМИ
+       ========================================== */
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 auto;
+      gap: 9px;
+      min-height: 40px;
+      padding: 9px 12px;
+
+      border: 1px solid rgba(255,255,255,.40);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.10);
+      color: #FFFFFF;
+
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,.20);
+      border-color: rgba(255,255,255,.75);
+    }
+
+    .theme-toggle-text {
+      color: #FFFFFF !important;
+    }
+
+    .theme-switch {
+      display: inline-flex;
+      align-items: center;
+
+      flex: 0 0 29px;
+      width: 29px;
+      height: 17px;
+      padding: 2px;
+
+      border: 1px solid rgba(255,255,255,.40);
+      border-radius: 999px;
+      background: rgba(255,255,255,.35);
+    }
+
+    .theme-switch::after {
+      content: "";
+      display: block;
+
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+
+      background: #FFFFFF;
+      transition: transform .2s;
+    }
+
+    html[data-theme="dark"] .theme-switch {
+      background: #2563EB;
+    }
+
+    html[data-theme="dark"] .theme-switch::after {
+      transform: translateX(12px);
+    }
+
+    .theme-toggle:focus-visible,
+    .main-navigation a:focus-visible,
+    .menu-button:focus-visible,
+    .compat-button:focus-visible,
+    .compat-select:focus-visible,
+    .mode-tab:focus-visible,
+    .choice-button:focus-visible,
+    .match-card a:focus-visible {
+      outline: 3px solid #FBBF24;
+      outline-offset: 3px;
+    }
+
+    /* ==========================================
+       7. МОБІЛЬНЕ МЕНЮ
+       ========================================== */
+
+    .menu-button {
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.08);
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .menu-button:hover {
+      background: rgba(255,255,255,.20);
+    }
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1100;
+
+      max-height: calc(100dvh - var(--header-height,70px));
+      overflow-y: auto;
+
+      padding: 14px 20px 20px;
+
+      background: var(--surface) !important;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 12px 25px var(--shadow);
+    }
+
+    .mobile-search {
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+      height: 44px;
+      margin-bottom: 14px;
+      overflow: hidden;
+
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .mobile-search:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .mobile-search input {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      padding: 0 12px;
+
+      background: transparent !important;
+      color: var(--input-text) !important;
+      border: 0 !important;
+      outline: 0 !important;
+    }
+
+    .mobile-search button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 45px;
+      height: 100%;
+      color: var(--heading);
+      cursor: pointer;
+    }
+
+    #mobileNavigation a {
+      display: block;
+      padding: 12px 11px;
+
+      color: var(--heading) !important;
+      border-bottom: 1px solid var(--border);
+
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    #mobileNavigation a[aria-current="page"] {
+      background: var(--page-alt);
+      border-left: 4px solid var(--accent);
+      font-weight: 700;
+    }
+
+    #mobileNavigation a:hover,
+    #mobileNavigation a:focus-visible {
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+    }
+
+    /* ==========================================
+       8. АДАПТИВНІСТЬ ХЕДЕРА
+       ========================================== */
+
+    @media (max-width: 1279px) {
+      .main-navigation,
+      .header-search {
+        display: none;
+      }
+
+      .header-shell {
+        justify-content: space-between;
+      }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
+      .menu-button {
+        display: inline-flex;
+      }
+
+      .site-header .brand {
+        margin-right: 0 !important;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      #mobileNavigation {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .header-shell {
+        padding: 8px 12px;
+        min-height: 65px;
+        gap: 8px;
+      }
+
+      .brand {
+        gap: 5px;
+      }
+
+      .brand img {
+        width: 37px;
+        height: 37px;
+      }
+
+      .brand-label {
+        font-size: 13px;
+      }
+
+      .theme-toggle {
+        padding: 7px 8px;
+        min-height: 37px;
+        gap: 6px;
+        font-size: 10px;
+      }
+
+      .menu-button {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .brand-label {
+        display: none;
+      }
+    }
+
+    /* ==========================================
+       9. ОСНОВНИЙ ВМІСТ
+       ========================================== */
+
+    .compat-page {
+      padding-top: calc(var(--header-height,70px) + 35px);
+      padding-bottom: 55px;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      gap: 9px;
+      margin-bottom: 24px;
+      padding: 10px 0;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .breadcrumbs a {
+      color: var(--accent) !important;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .breadcrumbs [aria-current="page"] {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       10. ЦЕНТРАЛЬНА КАРТКА
+       ========================================== */
 
     .compat-panel {
       max-width: 830px;
       margin: 0 auto;
-      background: white;
-      border: 1px solid #E2E8F0;
-      border-radius: 18px;
       padding: 28px;
-      box-shadow: 0 5px 22px rgba(30,58,138,.06);
+
+      background: var(--surface) !important;
+      color: var(--text) !important;
+
+      border: 1.5px solid var(--border) !important;
+      border-radius: 18px;
+
+      box-shadow: 0 5px 22px var(--shadow);
+
       transition: border-color .25s, box-shadow .25s;
     }
 
     .compat-panel:hover,
     .compat-panel:focus-within {
-      border-color: #1E3A8A;
-      box-shadow: 0 9px 25px rgba(30,58,138,.12);
+      border-color: var(--accent) !important;
+      box-shadow:
+        0 0 0 2px var(--glow),
+        0 10px 25px var(--shadow) !important;
     }
 
-    /* ДВА РЕЖИМИ */
+    /* ==========================================
+       11. ДВА РЕЖИМИ РОБОТИ
+       ========================================== */
 
     .mode-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      padding: 6px;
-      background: #F1F5F9;
-      border-radius: 12px;
+
       margin: 22px 0 25px;
+      padding: 6px;
+
+      background: var(--page-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
     .mode-tab {
-      border: 0;
-      border-radius: 9px;
       padding: 13px 9px;
-      text-align: center;
+
+      border: 1px solid transparent;
+      border-radius: 9px;
+
       background: transparent;
-      color: #475569;
+      color: var(--muted);
+
+      font-family: "Inter", sans-serif;
       font-size: 13px;
       font-weight: 700;
+      text-align: center;
+
       cursor: pointer;
     }
 
-    .mode-tab[aria-pressed="true"] {
-      background: #1E3A8A;
-      color: white;
-      box-shadow: 0 3px 12px rgba(30,58,138,.18);
+    .mode-tab:hover {
+      border-color: var(--accent);
     }
 
-    /* ПОЛЯ */
+    .mode-tab[aria-pressed="true"] {
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+
+      box-shadow: 0 3px 12px var(--glow);
+    }
+
+    /* ==========================================
+       12. ПОЛЯ ВИБОРУ
+       ========================================== */
+
+    .fields-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 19px;
+    }
 
     .field-label {
       display: block;
+      margin-bottom: 8px;
+
+      color: var(--text) !important;
       font-size: 12px;
       font-weight: 700;
-      color: #334155;
-      margin-bottom: 8px;
     }
 
     .compat-select {
       display: block;
       width: 100%;
       min-width: 0;
-      border: 1px solid #CBD5E1;
-      border-radius: 9px;
       padding: 12px 13px;
-      background: #F8FAFC;
-      color: #1E3A8A;
-      font: inherit;
+
+      background: var(--input-bg) !important;
+      color: var(--input-text) !important;
+
+      border: 1.5px solid var(--border) !important;
+      border-radius: 9px;
+
+      font-family: inherit;
       font-size: 13px;
     }
 
-    .compat-select:focus-visible,
-    .mode-tab:focus-visible,
-    .compat-button:focus-visible {
-      outline: 3px solid #D97706;
-      outline-offset: 2px;
+    .compat-select:hover,
+    .compat-select:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    html[data-theme="dark"] .compat-select option {
+      background: #16263A;
+      color: #FFFFFF;
     }
 
     .field-help {
       margin-top: 8px;
-      color: #64748B;
+      color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
     }
 
-    .fields-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 19px;
-    }
+    /* ==========================================
+       13. КНОПКИ ПЕРЕВІРКИ
+       ========================================== */
 
     .compat-button {
       display: block;
       width: 100%;
       margin-top: 23px;
-      border-radius: 9px;
       padding: 13px 16px;
-      background: #1E3A8A;
-      color: white !important;
-      font-weight: 700;
+
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+
+      border: 1px solid var(--accent);
+      border-radius: 9px;
+
+      font-family: "Inter", sans-serif;
       font-size: 13px;
+      font-weight: 700;
+
       cursor: pointer;
-      transition: background .2s, box-shadow .2s;
     }
 
     .compat-button:hover {
-      background: #172554;
-      box-shadow: 0 6px 17px rgba(30,58,138,.18);
+      background: var(--accent-hover) !important;
+      box-shadow: 0 6px 17px var(--glow);
     }
 
-    /* ВИБІР НАПРЯМКУ ПОШУКУ */
+    /* ==========================================
+       14. ВИБІР НАПРЯМКУ ПОШУКУ
+       ========================================== */
 
     .choice-row {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 18px;
-      flex-wrap: wrap;
     }
 
     .choice-button {
-      border: 1px solid #CBD5E1;
       padding: 10px 14px;
+
+      border: 1.5px solid var(--border);
       border-radius: 8px;
-      color: #1E3A8A;
-      background: white;
+
+      color: var(--heading) !important;
+      background: var(--surface) !important;
+
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .choice-button[aria-pressed="true"] {
-      border-color: #1E3A8A;
-      background: #EFF6FF;
+    .choice-button:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
     }
 
-    /* РЕЗУЛЬТАТ */
+    .choice-button[aria-pressed="true"] {
+      border-color: var(--accent) !important;
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+    }
+
+    /* ==========================================
+       15. РЕЗУЛЬТАТ ПЕРЕВІРКИ
+       ========================================== */
 
     .result-panel {
       margin-top: 25px;
       padding: 19px 20px;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      background: #F8FAFC;
-    }
 
-    .result-panel[hidden],
-    .result-list[hidden],
-    #mobileNavigation[hidden],
-    .mode-content[hidden] {
-      display: none !important;
+      background: var(--page-alt) !important;
+      color: var(--text) !important;
+
+      border: 1px solid var(--border) !important;
+      border-radius: 12px;
     }
 
     .result-panel.positive {
-      background: #F0FDF4;
-      border-color: #86EFAC;
+      background: var(--positive-bg) !important;
+      border-color: var(--positive-border) !important;
     }
 
     .result-panel.negative {
-      background: #FEF2F2;
-      border-color: #FCA5A5;
+      background: var(--negative-bg) !important;
+      border-color: var(--negative-border) !important;
     }
 
     .result-heading {
-      font-family: 'Space Grotesk', sans-serif;
+      color: var(--heading) !important;
+      font-family: "Space Grotesk", sans-serif;
       font-size: 19px;
       font-weight: 700;
-      line-height: 1.35;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
     }
 
     .result-panel.positive .result-heading {
-      color: #166534 !important;
+      color: var(--positive-heading) !important;
     }
 
     .result-panel.negative .result-heading {
-      color: #991B1B !important;
+      color: var(--negative-heading) !important;
     }
 
     .result-panel p,
     .result-panel li {
+      color: var(--text) !important;
       font-size: 12px;
       line-height: 1.7;
-      color: #334155;
+    }
+
+    .result-panel.positive p,
+    .result-panel.positive li {
+      color: var(--positive-text) !important;
+    }
+
+    .result-panel.negative p,
+    .result-panel.negative li {
+      color: var(--negative-text) !important;
     }
 
     .result-panel ul {
@@ -241,11 +897,13 @@
       margin-top: 10px;
     }
 
-    /* ЗНАЙДЕНІ МОДЕЛІ */
+    /* ==========================================
+       16. КАРТКИ ЗНАЙДЕНОЇ ТЕХНІКИ
+       ========================================== */
 
     .result-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-columns: repeat(2,minmax(0,1fr));
       gap: 14px;
       margin-top: 16px;
     }
@@ -254,110 +912,110 @@
       display: flex;
       align-items: center;
       gap: 13px;
+
+      min-width: 0;
       padding: 13px;
-      background: white;
-      border: 1px solid #E2E8F0;
+
+      background: var(--surface) !important;
+      color: var(--text) !important;
+
+      border: 1.5px solid var(--border) !important;
       border-radius: 11px;
+
+      box-shadow: 0 3px 10px var(--shadow);
+
       transition: border-color .2s, box-shadow .2s;
     }
 
-    .match-card:hover {
-      border-color: #1E3A8A;
-      box-shadow: 0 7px 18px rgba(30,58,138,.09);
+    .match-card:hover,
+    .match-card:focus-within {
+      border-color: var(--accent) !important;
+      box-shadow:
+        0 0 0 2px var(--glow),
+        0 7px 18px var(--shadow) !important;
     }
 
     .match-card img {
       width: 94px;
       height: 90px;
       flex-shrink: 0;
+
       object-fit: contain;
+      padding: 5px;
+
       background: #F8FAFC;
       border-radius: 8px;
-      padding: 5px;
+    }
+
+    .match-card .match-info {
+      min-width: 0;
     }
 
     .match-card h3 {
+      color: var(--heading) !important;
       font-size: 13px;
-      line-height: 1.4;
       font-weight: 700;
+      line-height: 1.4;
       margin-bottom: 5px;
     }
 
     .match-card p {
+      color: var(--muted);
       font-size: 11px;
       line-height: 1.5;
-      color: #64748B;
     }
 
     .match-card a {
       display: inline-block;
       margin-top: 8px;
+
+      color: var(--accent) !important;
       font-size: 11px;
       font-weight: 700;
-      color: #1E3A8A;
+
       text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    /* ПОЯСНЕННЯ */
-
-    .note-box {
-      max-width: 830px;
-      margin: 23px auto 0;
-      background: #EFF6FF;
-      border: 1px solid #BFDBFE;
-      border-radius: 12px;
-      padding: 15px 18px;
-      font-size: 12px;
-      line-height: 1.7;
-      color: #475569;
+    .match-card a:hover {
+      text-decoration-thickness: 2px;
     }
 
-    /* МОБІЛЬНЕ МЕНЮ */
+    /* ==========================================
+       17. ФУТЕР
+       ========================================== */
 
-    #mobileNavigation {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      padding: 12px 20px;
-      z-index: 110;
-      box-shadow: 0 12px 25px rgba(0,0,0,.16);
+    .site-footer {
+      background: var(--footer) !important;
     }
-
-    #mobileNavigation a {
-      display: block;
-      padding: 12px;
-      color: #1E3A8A !important;
-      border-bottom: 1px solid #E2E8F0;
-    }
-
-    #mobileNavigation a:hover {
-      background: #EFF6FF;
-    }
-
-    /* ФУТЕР */
 
     .site-footer h3 {
-      color: white !important;
+      color: #FFFFFF !important;
+    }
+
+    .site-footer a {
+      color: #CBD5E1 !important;
     }
 
     .site-footer a:hover {
-      color: white !important;
+      color: #FFFFFF !important;
       text-decoration: underline;
     }
 
-    /* АДАПТИВНІСТЬ */
-
-    @media (min-width: 1024px) {
-      #mobileNavigation {
-        display: none !important;
-      }
+    .site-footer img[src*="logo.png"] {
+      width: 48px !important;
+      height: 48px !important;
+      object-fit: contain !important;
     }
+
+    /* ==========================================
+       18. МОБІЛЬНА ВЕРСІЯ
+       ========================================== */
 
     @media (max-width: 700px) {
       .compat-page {
-        padding-top: 94px;
+        padding-top: calc(var(--header-height,65px) + 24px);
+        padding-bottom: 35px;
       }
 
       .compat-panel {
@@ -373,13 +1031,38 @@
         font-size: 11px;
         padding: 11px 5px;
       }
+
+      .choice-button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .match-card {
+        align-items: flex-start;
+        gap: 9px;
+        padding: 10px;
+      }
+
+      .match-card img {
+        width: 80px;
+        height: 78px;
+      }
+
+      .result-heading {
+        font-size: 16px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto !important;
+      }
+
       .compat-panel,
       .compat-button,
       .match-card {
-        transition: none;
+        transition: none !important;
       }
     }
   </style>
@@ -387,126 +1070,221 @@
 
 <body class="min-h-screen flex flex-col">
 
-  <!-- ХЕДЕР -->
+  <!-- ==========================================
+       ХЕДЕР
+       ========================================== -->
 
-  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+  <header class="site-header">
+    <div class="header-shell">
 
-    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between gap-4">
-
-      <a href="index.html" class="flex items-center gap-3" aria-label="На головну AgroNext">
+      <!-- Логотип -->
+      <a href="index.html"
+         class="brand"
+         aria-label="AgroNext — головна">
 
         <img src="assets/icons/logo.png"
-             alt="AgroNext"
-             class="h-12 w-auto object-contain">
+             alt="Логотип AgroNext">
 
-        <span class="font-semibold text-base" style="color:white!important">
-          AgroNext
-        </span>
+        <span class="brand-label">AgroNext</span>
       </a>
 
-      <nav class="main-navigation hidden lg:flex items-center gap-5" aria-label="Основна навігація">
+      <!-- Навігація -->
+      <nav class="main-navigation"
+           aria-label="Основна навігація">
 
-        <a href="catalog.html" class="text-xs">Каталог</a>
-        <a href="selection.html" class="text-xs">Підбір техніки</a>
-        <a href="compatibility.html" class="text-xs">Сумісність</a>
-        <a href="calculator.html" class="text-xs">Компенсація 25–40%</a>
-        <a href="about.html" class="text-xs">Про компанію</a>
-
+        <a href="index.html">Головна</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="selection.html">Підбір техніки</a>
+        <a href="compatibility.html" aria-current="page">
+          Сумісність
+        </a>
+        <a href="calculator.html">Компенсація 25–40%</a>
+        <a href="about.html">Про компанію</a>
       </nav>
 
+      <!-- Пошук -->
       <form action="catalog.html"
-            method="GET"
-            role="search"
-            class="hidden sm:block">
+            method="get"
+            class="header-search"
+            role="search">
 
-        <input type="search"
+        <label for="headerSearch" class="sr-only">
+          Пошук техніки
+        </label>
+
+        <input id="headerSearch"
+               type="search"
                name="q"
-               placeholder="Пошук..."
-               class="px-3 py-1 rounded text-xs w-[145px]"
-               style="background:white;color:#1E3A8A">
+               placeholder="Пошук техніки...">
 
+        <button type="submit" aria-label="Знайти техніку">
+          <svg width="19" height="19"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+        </button>
       </form>
 
+      <!-- Перемикач теми -->
+      <button id="themeToggle"
+              type="button"
+              class="theme-toggle"
+              aria-pressed="false"
+              aria-label="Увімкнути темну тему">
+
+        <span id="themeText" class="theme-toggle-text">
+          Темна тема
+        </span>
+
+        <span class="theme-switch" aria-hidden="true"></span>
+      </button>
+
+      <!-- Гамбургер -->
       <button id="menuButton"
               type="button"
-              class="lg:hidden p-2 rounded hover:bg-white/10"
+              class="menu-button"
               aria-label="Відкрити меню"
               aria-expanded="false"
               aria-controls="mobileNavigation">
 
-        <svg id="menuIcon" width="26" height="26"
+        <svg id="menuIcon"
+             width="24" height="24"
              viewBox="0 0 24 24"
-             fill="none" stroke="white" stroke-width="2">
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             aria-hidden="true">
 
-          <path d="M4 6h16M4 12h16M4 18h16"/>
-
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
 
-    <nav id="mobileNavigation" hidden aria-label="Мобільне меню">
+    <!-- Мобільне меню -->
+    <nav id="mobileNavigation"
+         hidden
+         aria-label="Мобільна навігація">
+
+      <form action="catalog.html"
+            method="get"
+            class="mobile-search"
+            role="search">
+
+        <label for="mobileSearch" class="sr-only">
+          Пошук техніки
+        </label>
+
+        <input id="mobileSearch"
+               type="search"
+               name="q"
+               placeholder="Знайти трактор, модель...">
+
+        <button type="submit" aria-label="Знайти">
+          <svg width="19" height="19"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+        </button>
+      </form>
 
       <a href="index.html">Головна</a>
       <a href="catalog.html">Каталог</a>
       <a href="selection.html">Підбір техніки</a>
-      <a href="compatibility.html">Сумісність</a>
+      <a href="compatibility.html" aria-current="page">
+        Сумісність
+      </a>
       <a href="calculator.html">Компенсація 25–40%</a>
       <a href="about.html">Про компанію</a>
-
     </nav>
   </header>
 
-  <!-- ОСНОВНА СТОРІНКА -->
+  <!-- ==========================================
+       ОСНОВНА СТОРІНКА
+       ========================================== -->
 
   <main class="compat-page max-w-[1140px] mx-auto px-5 w-full flex-grow">
 
-    <div class="text-xs text-slate-500 mb-3">
-      <a href="index.html" class="hover:underline">Головна</a>
-      / Сумісність техніки
-    </div>
+    <!-- Хлібні крихти -->
+    <nav class="breadcrumbs" aria-label="Навігаційний шлях">
 
-    <h1 class="text-3xl font-bold mb-2">
+      <a href="index.html">Головна</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Сумісність техніки</span>
+
+    </nav>
+
+    <!-- Заголовок -->
+    <h1 class="text-3xl font-bold mb-3">
       Онлайн-перевірка сумісності техніки
     </h1>
 
-    <p class="text-sm text-slate-500 mb-8">
-      Перевірте конкретну пару або знайдіть обладнання,
-      яке підходить до вашої моделі.
+    <p class="text-sm text-slate-500 leading-relaxed mb-8">
+      Перевірте сумісність трактора з навісним обладнанням
+      або знайдіть моделі, які підходять до вашої техніки.
     </p>
 
-    <!-- ОДНЕ ЦЕНТРАЛЬНЕ ВІКНО -->
+    <!-- ======================================
+         ЦЕНТРАЛЬНИЙ БЛОК
+         ====================================== -->
 
-    <section class="compat-panel" aria-label="Інструмент сумісності">
+    <section class="compat-panel"
+             aria-labelledby="compatTitle">
 
-      <h2 class="text-lg font-bold text-center">
+      <h2 id="compatTitle"
+          class="text-lg font-bold text-center">
         Підберіть сумісну техніку
       </h2>
 
       <p class="text-xs text-slate-500 text-center mt-2">
-        Використовуються дані з таблиці AgroNext та потужність моделей.
+        Оберіть потрібний режим перевірки.
       </p>
 
-      <!-- ПЕРЕМИКАННЯ РЕЖИМІВ -->
+      <!-- ======================================
+           ПЕРЕМИКАННЯ РЕЖИМІВ
+           ====================================== -->
 
-      <div class="mode-tabs" role="group" aria-label="Режим роботи">
+      <div class="mode-tabs"
+           role="group"
+           aria-label="Режим роботи">
 
         <button id="modeCheck"
-                class="mode-tab"
                 type="button"
-                aria-pressed="true">
+                class="mode-tab"
+                aria-pressed="true"
+                aria-controls="checkMode">
+
           Перевірити сумісність
         </button>
 
         <button id="modeFind"
-                class="mode-tab"
                 type="button"
-                aria-pressed="false">
+                class="mode-tab"
+                aria-pressed="false"
+                aria-controls="findMode">
+
           Знайти сумісну техніку
         </button>
 
       </div>
 
-      <!-- РЕЖИМ 1: ПЕРЕВІРКА ПАРИ -->
+      <!-- ======================================
+           РЕЖИМ 1: ПЕРЕВІРКА ДВОХ МОДЕЛЕЙ
+           ====================================== -->
 
       <div id="checkMode" class="mode-content">
 
@@ -517,10 +1295,11 @@
               Трактор або мотоблок
             </label>
 
-            <select id="machineSelect" class="compat-select"></select>
+            <select id="machineSelect"
+                    class="compat-select"></select>
 
             <p class="field-help">
-              Модель тягового засобу з твого каталогу.
+              Оберіть модель тягового засобу з каталогу.
             </p>
           </div>
 
@@ -529,21 +1308,24 @@
               Ґрунтообробне обладнання
             </label>
 
-            <select id="equipmentSelect" class="compat-select"></select>
+            <select id="equipmentSelect"
+                    class="compat-select"></select>
 
             <p class="field-help">
-              Оберіть культиватор, фрезу, борону чи підгортальник.
+              Оберіть культиватор, фрезу, борону або підгортальник.
             </p>
           </div>
 
         </div>
 
         <button id="checkButton"
-                class="compat-button"
-                type="button">
+                type="button"
+                class="compat-button">
+
           Перевірити сумісність
         </button>
 
+        <!-- Результат перевірки -->
         <div id="checkResult"
              class="result-panel"
              role="status"
@@ -552,48 +1334,66 @@
 
       </div>
 
-      <!-- РЕЖИМ 2: ЗВОРОТНИЙ ПОШУК -->
+      <!-- ======================================
+           РЕЖИМ 2: ПОШУК СУМІСНОЇ ТЕХНІКИ
+           ====================================== -->
 
-      <div id="findMode" class="mode-content" hidden>
+      <div id="findMode"
+           class="mode-content"
+           hidden>
 
         <p class="field-label">
           Що хочете знайти?
         </p>
 
-        <div class="choice-row" role="group" aria-label="Напрямок пошуку">
+        <!-- Напрямок пошуку -->
+        <div class="choice-row"
+             role="group"
+             aria-label="Напрямок пошуку">
 
           <button id="findByMachine"
-                  class="choice-button"
                   type="button"
+                  class="choice-button"
                   aria-pressed="true">
+
             Обладнання для трактора / мотоблока
           </button>
 
           <button id="findByEquipment"
-                  class="choice-button"
                   type="button"
+                  class="choice-button"
                   aria-pressed="false">
+
             Трактори для обладнання
           </button>
 
         </div>
 
-        <label id="findLabel" for="findSelect" class="field-label">
+        <label id="findLabel"
+               for="findSelect"
+               class="field-label">
+
           Оберіть трактор або мотоблок
         </label>
 
-        <select id="findSelect" class="compat-select"></select>
+        <select id="findSelect"
+                class="compat-select"></select>
 
-        <button id="findButton" type="button" class="compat-button">
+        <button id="findButton"
+                type="button"
+                class="compat-button">
+
           Знайти сумісні моделі
         </button>
 
+        <!-- Кількість результатів -->
         <div id="findResult"
              class="result-panel"
              role="status"
              aria-live="polite"
              hidden></div>
 
+        <!-- Картки техніки -->
         <div id="findList"
              class="result-list"
              aria-label="Знайдені моделі"></div>
@@ -602,52 +1402,42 @@
 
     </section>
 
-    <!-- ПРИМІТКА -->
-
-    <div class="note-box">
-
-      <strong style="color:#1E3A8A">Важливо:</strong>
-
-      «Підходить» означає, що модель зазначена у твоїй
-      таблиці сумісності та її потужність відповідає
-      вказаному діапазону.
-
-      «Не підходить» означає, що ці критерії не виконані
-      або пара відсутня у таблиці.
-
-      Це попередня перевірка: перед покупкою додатково
-      звірте кріплення, ВВП, гідравліку й паспортні
-      вимоги виробника.
-
-    </div>
+    <!-- Блок "Важливо" тут навмисно видалений -->
 
   </main>
 
-  <!-- ФУТЕР -->
+  <!-- ==========================================
+       ФУТЕР
+       ========================================== -->
 
-  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+  <footer class="site-footer text-white pt-10 pb-5 mt-auto">
 
     <div class="max-w-[1140px] mx-auto px-5">
 
-      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row justify-between gap-10 pb-8">
 
-        <div class="w-full md:max-w-[340px]">
+        <div class="max-w-[340px]">
 
-          <a href="index.html" class="inline-flex items-center gap-3 mb-4">
+          <a href="index.html"
+             class="inline-flex items-center gap-3 mb-4">
 
             <img src="assets/icons/logo.png"
                  alt="AgroNext"
                  class="w-12 h-12 object-contain">
 
-            <span class="text-xl font-bold" style="color:white!important">
+            <span class="font-bold text-xl"
+                  style="color:#fff!important">
+
               AgroNext
             </span>
-
           </a>
 
           <p class="text-slate-300 text-sm leading-relaxed">
-            Онлайн-платформа для підбору сільськогосподарської техніки,
-            перевірки сумісності обладнання та розрахунку державної компенсації.
+
+            Онлайн-платформа для підбору
+            сільськогосподарської техніки,
+            перевірки сумісності обладнання
+            та розрахунку державної компенсації.
           </p>
 
         </div>
@@ -656,42 +1446,54 @@
 
           <div>
 
-            <h3 class="font-bold text-base mb-4" style="color:white!important">
+            <h3 class="font-bold text-base mb-4">
               Компанія
             </h3>
 
-            <ul class="space-y-3 text-sm text-slate-300">
-              <li><a href="about.html">Про нас</a></li>
-              <li><a href="index.html#lead">Центр підтримки</a></li>
-              <li><a href="catalog.html">Каталог техніки</a></li>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="about.html">Про нас</a>
+              </li>
+              <li>
+                <a href="index.html#lead">Центр підтримки</a>
+              </li>
+              <li>
+                <a href="catalog.html">Каталог техніки</a>
+              </li>
             </ul>
 
           </div>
 
           <div>
 
-            <h3 class="font-bold text-base mb-4" style="color:white!important">
+            <h3 class="font-bold text-base mb-4">
               Ми в соцмережах
             </h3>
 
-            <ul class="space-y-3 text-sm text-slate-300">
+            <ul class="space-y-3 text-sm">
 
               <li>
                 <a href="https://instagram.com"
                    target="_blank"
-                   rel="noopener noreferrer">Instagram</a>
+                   rel="noopener noreferrer">
+                  Instagram
+                </a>
               </li>
 
               <li>
                 <a href="https://tiktok.com"
                    target="_blank"
-                   rel="noopener noreferrer">TikTok</a>
+                   rel="noopener noreferrer">
+                  TikTok
+                </a>
               </li>
 
               <li>
                 <a href="https://facebook.com"
                    target="_blank"
-                   rel="noopener noreferrer">Facebook</a>
+                   rel="noopener noreferrer">
+                  Facebook
+                </a>
               </li>
 
             </ul>
@@ -699,30 +1501,146 @@
           </div>
 
         </div>
+
       </div>
 
-      <div class="border-t border-white/20 pt-5 text-center">
-        <p class="text-slate-300 text-xs">
-          © 2026 AgroNext. Всі права захищені.
-        </p>
+      <div class="border-t border-white/20 pt-5
+                  text-center text-xs text-slate-300">
+
+        © 2026 AgroNext. Всі права захищені.
+
       </div>
 
     </div>
+
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <!-- ==========================================
+       JAVASCRIPT
+       ========================================== -->
 
   <script>
     "use strict";
 
     document.addEventListener("DOMContentLoaded", function () {
 
-      /* ======================================
-         ДАНІ ТЕХНІКИ
-         ====================================== */
+      const $ = id => document.getElementById(id);
+
+      /* =====================================
+         1. ВИСОТА ХЕДЕРА
+         ===================================== */
+
+      function syncHeaderOffset() {
+        const header = document.querySelector(".site-header");
+
+        if (header) {
+          document.documentElement.style.setProperty(
+            "--header-height",
+            header.getBoundingClientRect().height + "px"
+          );
+        }
+      }
+
+      syncHeaderOffset();
+      window.addEventListener("resize", syncHeaderOffset);
+
+      /* =====================================
+         2. СВІТЛА ТА ТЕМНА ТЕМА
+         ===================================== */
+
+      function updateThemeToggle() {
+        const dark =
+          document.documentElement.dataset.theme === "dark";
+
+        $("themeText").textContent =
+          dark ? "Світла тема" : "Темна тема";
+
+        $("themeToggle").setAttribute(
+          "aria-pressed",
+          String(dark)
+        );
+
+        $("themeToggle").setAttribute(
+          "aria-label",
+          dark ? "Увімкнути світлу тему" : "Увімкнути темну тему"
+        );
+
+        $("themeToggle").title =
+          dark ? "Увімкнути світлу тему" : "Увімкнути темну тему";
+      }
+
+      updateThemeToggle();
+
+      $("themeToggle").addEventListener("click", function () {
+        const next =
+          document.documentElement.dataset.theme === "dark"
+            ? "light"
+            : "dark";
+
+        document.documentElement.dataset.theme = next;
+
+        try {
+          localStorage.setItem("agronext-theme", next);
+        } catch (error) {
+          console.warn("Не вдалося зберегти тему", error);
+        }
+
+        updateThemeToggle();
+      });
+
+      /* =====================================
+         3. МОБІЛЬНЕ МЕНЮ
+         ===================================== */
+
+      const menuButton = $("menuButton");
+      const mobileMenu = $("mobileNavigation");
+      const menuIcon = $("menuIcon");
+
+      function setMenu(open) {
+        mobileMenu.hidden = !open;
+
+        menuButton.setAttribute(
+          "aria-expanded", String(open)
+        );
+
+        menuButton.setAttribute(
+          "aria-label",
+          open ? "Закрити меню" : "Відкрити меню"
+        );
+
+        menuIcon.innerHTML = open
+          ? '<path d="M6 6L18 18M18 6L6 18"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+
+      menuButton.addEventListener("click", function () {
+        setMenu(mobileMenu.hidden);
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".site-header")) {
+          setMenu(false);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !mobileMenu.hidden) {
+          setMenu(false);
+          menuButton.focus();
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 1280) {
+          setMenu(false);
+        }
+      });
+
+      /* =====================================
+         4. ДАНІ ТРАКТОРІВ І МОТОБЛОКІВ
+         ===================================== */
 
       const machines = [
-
         {
           id: "504u",
           name: "Трактор ДТЗ 504U",
@@ -731,7 +1649,6 @@
           image: "assets/images/dtz-504u (1).jpg",
           url: "products/dtz-504u.html"
         },
-
         {
           id: "504kku",
           name: "Трактор ДТЗ 504KKU",
@@ -740,7 +1657,6 @@
           image: "assets/images/dtz-504kku (1).jpg",
           url: "products/dtz-504kku.html"
         },
-
         {
           id: "504bkku",
           name: "Трактор ДТЗ 504BKKU",
@@ -749,7 +1665,6 @@
           image: "assets/images/dtz-504bkku (1).jpg",
           url: "products/dtz-504bkku.html"
         },
-
         {
           id: "354u",
           name: "Трактор ДТЗ 354U",
@@ -758,7 +1673,6 @@
           image: "assets/images/dtz-354u (1).jpg",
           url: "products/dtz-354u.html"
         },
-
         {
           id: "1204",
           name: "Трактор ДТЗ 1204",
@@ -767,7 +1681,6 @@
           image: "assets/images/dtz-1204 (1).jpg",
           url: "products/dtz-1204.html"
         },
-
         {
           id: "1204spec",
           name: "Трактор ДТЗ 1204 (Спец)",
@@ -776,7 +1689,6 @@
           image: "assets/images/dtz-1204-spec (1).jpg",
           url: "products/dtz-1204-spec.html"
         },
-
         {
           id: "1304",
           name: "Трактор ДТЗ 1304",
@@ -785,7 +1697,6 @@
           image: "assets/images/dtz-1304 (1).jpg",
           url: "products/dtz-1304.html"
         },
-
         {
           id: "470",
           name: "Мотоблок ДТЗ 470БН-GT",
@@ -794,19 +1705,16 @@
           image: "assets/images/dtz-470bn-gt (1).jpg",
           url: "products/dtz-470bn-gt.html"
         }
-
       ];
 
-      /*
-        allowed — перелік моделей із Excel.
-        minHp / maxHp — вимоги до потужності.
+      /* =====================================
+         5. НАВІСНЕ ОБЛАДНАННЯ
+         ===================================== */
 
-        ФН-2,2К із Excel не додаємо,
-        бо її немає в поточному каталозі.
-      */
+      // Збережено зв'язки моделей і потужності
+      // з попередньої версії compatibility.html.
 
       const equipment = [
-
         {
           id: "kdu16",
           name: "Культиватор ДТЗ КДУ-1,6",
@@ -817,7 +1725,6 @@
           url: "products/kultyvator-kdu-16.html",
           spec: "Захват 1,6 м · від 24 к. с."
         },
-
         {
           id: "kdu20",
           name: "Культиватор ДТЗ КДУ-2,0",
@@ -828,7 +1735,6 @@
           url: "products/kultyvator-kdu-20.html",
           spec: "Захват 2,0 м · від 35 к. с."
         },
-
         {
           id: "borona",
           name: "Дискова борона БДН-2.1",
@@ -839,7 +1745,6 @@
           url: "products/borona-dyskova.html",
           spec: "Захват 2,1 м · потрібно 50 к. с."
         },
-
         {
           id: "fn20",
           name: "Ґрунтофреза ФН-2,0",
@@ -850,7 +1755,6 @@
           url: "products/gruntofreza-fn-20.html",
           spec: "Захват 2,0 м · 35–50 к. с."
         },
-
         {
           id: "fn20k",
           name: "Ґрунтофреза ДТЗ ФН-2,0К",
@@ -861,7 +1765,6 @@
           url: "products/gruntofreza-dtz-fn-20k.html",
           spec: "Опорні колеса · 35–50 к. с."
         },
-
         {
           id: "fn22",
           name: "Ґрунтофреза ФН-2,2",
@@ -872,7 +1775,6 @@
           url: "products/gruntofreza-fn-22.html",
           spec: "Захват 2,2 м · 45–60 к. с."
         },
-
         {
           id: "strila1",
           name: "Підгортальник Стріла-1",
@@ -883,7 +1785,6 @@
           url: "products/pidgortach-strila-1.html",
           spec: "Мотоблочний · глибина до 250 мм"
         },
-
         {
           id: "strila2",
           name: "Підгортальник Стріла-2",
@@ -894,42 +1795,34 @@
           url: "products/pidgortach-strila-2.html",
           spec: "Мотоблочний · глибина до 280 мм"
         }
-
       ];
 
-      /* ======================================
-         ЕЛЕМЕНТИ СТОРІНКИ
-         ====================================== */
+      /* =====================================
+         6. ЕЛЕМЕНТИ СТОРІНКИ
+         ===================================== */
 
-      const byId = id => document.getElementById(id);
+      const machineSelect = $("machineSelect");
+      const equipmentSelect = $("equipmentSelect");
+      const findSelect = $("findSelect");
 
-      const machineSelect = byId("machineSelect");
-      const equipmentSelect = byId("equipmentSelect");
-      const findSelect = byId("findSelect");
-
-      const checkResult = byId("checkResult");
-      const findResult = byId("findResult");
-      const findList = byId("findList");
+      const checkResult = $("checkResult");
+      const findResult = $("findResult");
+      const findList = $("findList");
 
       let findDirection = "machine";
 
-      /* ======================================
-         ЗАПОВНЕННЯ СПИСКІВ
-         ====================================== */
+      /* =====================================
+         7. ЗАПОВНЕННЯ СПИСКІВ
+         ===================================== */
 
       function fillSelect(select, items) {
-
         select.replaceChildren();
 
         items.forEach(item => {
-
           const option = document.createElement("option");
-
           option.value = item.id;
           option.textContent = item.name;
-
           select.appendChild(option);
-
         });
       }
 
@@ -937,12 +1830,11 @@
       fillSelect(equipmentSelect, equipment);
       fillSelect(findSelect, machines);
 
-      /* ======================================
-         ПЕРЕВІРКА СУМІСНОСТІ
-         ====================================== */
+      /* =====================================
+         8. ЛОГІКА СУМІСНОСТІ
+         ===================================== */
 
       function inspectPair(machine, item) {
-
         const listed = item.allowed.includes(machine.id);
 
         const powerOk =
@@ -952,39 +1844,31 @@
         const reasons = [];
 
         if (listed) {
-
           reasons.push(
-            "Модель зазначена у таблиці як сумісна з цим обладнанням."
+            "Модель зазначена в таблиці сумісності для цього обладнання."
           );
-
         } else {
-
           reasons.push(
-            "Цієї моделі немає в переліку сумісних для обраного обладнання в Excel."
+            "Обраної моделі немає в переліку сумісних для цього обладнання."
           );
         }
 
         if (item.minHp !== null) {
-
           const needed = item.maxHp === null
             ? "від " + item.minHp + " к. с."
             : item.minHp + "–" + item.maxHp + " к. с.";
 
           reasons.push(
-            "Потужність тягового засобу: " +
-            machine.hp +
-            " к. с.; вимога обладнання: " +
-            needed +
-            ". " +
+            "Потужність: " + machine.hp +
+            " к. с. Вимога: " + needed + ". " +
             (powerOk
               ? "Потужність відповідає."
               : "Потужність не відповідає.")
           );
-
         } else {
-
           reasons.push(
-            "У таблиці для цього підгортальника немає окремої вимоги до потужності; перевіряється вказана модель мотоблока."
+            "Окремого діапазону потужності не зазначено. " +
+            "Враховується перелік моделей мотоблоків."
           );
         }
 
@@ -994,14 +1878,12 @@
         };
       }
 
-      /* ======================================
-         ВІДОБРАЖЕННЯ ТАК / НІ
-         ====================================== */
+      /* =====================================
+         9. ПОКАЗ РЕЗУЛЬТАТУ ПЕРЕВІРКИ
+         ===================================== */
 
       function renderMessage(target, ok, title, subtitle, reasons) {
-
         target.hidden = false;
-
         target.className =
           "result-panel " + (ok ? "positive" : "negative");
 
@@ -1014,30 +1896,26 @@
           (ok ? "✓ Підходить" : "✕ Не підходить") +
           " — " + title;
 
-        const sub = document.createElement("p");
-        sub.className = "mt-2";
-        sub.textContent = subtitle;
+        const description = document.createElement("p");
+        description.className = "mt-2";
+        description.textContent = subtitle;
 
         const list = document.createElement("ul");
 
         reasons.forEach(reason => {
-
           const li = document.createElement("li");
           li.textContent = reason;
-
           list.appendChild(li);
-
         });
 
-        target.append(heading, sub, list);
+        target.append(heading, description, list);
       }
 
-      /* ======================================
-         РЕЖИМ 1. ПЕРЕВІРКА ПАРИ
-         ====================================== */
+      /* =====================================
+         10. ПЕРЕВІРКА КОНКРЕТНОЇ ПАРИ
+         ===================================== */
 
       function checkPair() {
-
         const machine = machines.find(
           item => item.id === machineSelect.value
         );
@@ -1046,9 +1924,7 @@
           value => value.id === equipmentSelect.value
         );
 
-        if (!machine || !item) {
-          return;
-        }
+        if (!machine || !item) return;
 
         const result = inspectPair(machine, item);
 
@@ -1058,56 +1934,50 @@
           machine.name + " + " + item.name,
 
           result.ok
-            ? "Обрана пара проходить перевірку за наявними даними."
-            : "Обрана пара не проходить перевірку за умовами твоєї таблиці.",
+            ? "Обрана пара відповідає умовам перевірки AgroNext."
+            : "Обрана пара не відповідає всім умовам перевірки.",
 
           result.reasons
         );
       }
 
-      /* ======================================
-         ПЕРЕМИКАННЯ РЕЖИМІВ
-         ====================================== */
+      /* =====================================
+         11. ПЕРЕМИКАННЯ РЕЖИМІВ
+         ===================================== */
 
       function setMode(which) {
-
         const check = which === "check";
 
-        byId("modeCheck").setAttribute(
-          "aria-pressed",
-          String(check)
+        $("modeCheck").setAttribute(
+          "aria-pressed", String(check)
         );
 
-        byId("modeFind").setAttribute(
-          "aria-pressed",
-          String(!check)
+        $("modeFind").setAttribute(
+          "aria-pressed", String(!check)
         );
 
-        byId("checkMode").hidden = !check;
-        byId("findMode").hidden = check;
+        $("checkMode").hidden = !check;
+        $("findMode").hidden = check;
       }
 
-      /* ======================================
-         РЕЖИМ 2. НАПРЯМОК ПОШУКУ
-         ====================================== */
+      /* =====================================
+         12. НАПРЯМОК ПОШУКУ
+         ===================================== */
 
       function setFindDirection(direction) {
-
         findDirection = direction;
 
         const byMachine = direction === "machine";
 
-        byId("findByMachine").setAttribute(
-          "aria-pressed",
-          String(byMachine)
+        $("findByMachine").setAttribute(
+          "aria-pressed", String(byMachine)
         );
 
-        byId("findByEquipment").setAttribute(
-          "aria-pressed",
-          String(!byMachine)
+        $("findByEquipment").setAttribute(
+          "aria-pressed", String(!byMachine)
         );
 
-        byId("findLabel").textContent = byMachine
+        $("findLabel").textContent = byMachine
           ? "Оберіть трактор або мотоблок"
           : "Оберіть ґрунтообробне обладнання";
 
@@ -1120,47 +1990,44 @@
         findList.replaceChildren();
       }
 
-      /* ======================================
-         КАРТКА ТОВАРУ В РЕЗУЛЬТАТАХ
-         ====================================== */
+      /* =====================================
+         13. КАРТКА ТОВАРУ
+         ===================================== */
 
       function createProductCard(item) {
-
         const card = document.createElement("article");
         card.className = "match-card";
 
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.name;
-        img.loading = "lazy";
+        const image = document.createElement("img");
+        image.src = item.image;
+        image.alt = item.name;
+        image.loading = "lazy";
 
         const info = document.createElement("div");
+        info.className = "match-info";
 
         const title = document.createElement("h3");
         title.textContent = item.name;
 
         const details = document.createElement("p");
-
         details.textContent =
           item.spec || (item.hp + " к. с.");
 
         const link = document.createElement("a");
-
         link.href = item.url;
         link.textContent = "Детальніше";
 
         info.append(title, details, link);
-        card.append(img, info);
+        card.append(image, info);
 
         return card;
       }
 
-      /* ======================================
-         ПОШУК УСІХ СУМІСНИХ МОДЕЛЕЙ
-         ====================================== */
+      /* =====================================
+         14. ПОШУК УСІХ СУМІСНИХ МОДЕЛЕЙ
+         ===================================== */
 
       function findMatches() {
-
         findList.replaceChildren();
 
         findResult.hidden = false;
@@ -1168,25 +2035,19 @@
         findResult.replaceChildren();
 
         const source = findDirection === "machine"
-
           ? machines.find(
               item => item.id === findSelect.value
             )
-
           : equipment.find(
               item => item.id === findSelect.value
             );
 
-        if (!source) {
-          return;
-        }
+        if (!source) return;
 
         const matches = findDirection === "machine"
-
           ? equipment.filter(
               item => inspectPair(source, item).ok
             )
-
           : machines.filter(
               machine => inspectPair(machine, source).ok
             );
@@ -1195,142 +2056,74 @@
         heading.className = "result-heading";
 
         heading.textContent = matches.length
-
-          ? "Знайдено " +
-            matches.length +
-            " відповідних моделей"
-
+          ? "Знайдено " + matches.length + " сумісних моделей"
           : "Сумісних моделей не знайдено";
 
         const description = document.createElement("p");
         description.className = "mt-2";
 
         description.textContent = matches.length
-
-          ? "Результати відповідають записам Excel і перевірці потужності."
-
-          : (
-              source.id === "borona"
-
-                ? "У таблиці для борони вказано ДТЗ 354U, але його 35 к. с. недостатньо за вимогою 50 к. с. Інших підтверджених пар немає."
-
-                : "Для цієї моделі немає пар, що одночасно проходять перевірку списку моделей і потужності."
-            );
+          ? "Оберіть потрібну модель, щоб переглянути її характеристики."
+          : source.id === "borona"
+            ? "Для ДТЗ 354U вказано 35 к. с., а бороні потрібно 50 к. с. За поточними даними підтверджених пар немає."
+            : "У поточній таблиці немає моделей, які одночасно відповідають переліку сумісності та вимогам потужності.";
 
         findResult.append(heading, description);
 
         matches.forEach(item => {
-
           findList.appendChild(
             createProductCard(item)
           );
-
         });
       }
 
-      /* ======================================
-         КНОПКИ І ПОДІЇ
-         ====================================== */
+      /* =====================================
+         15. ОБРОБНИКИ КНОПОК
+         ===================================== */
 
-      byId("modeCheck").addEventListener(
-        "click",
-        () => setMode("check")
-      );
+      $("modeCheck").addEventListener("click", function () {
+        setMode("check");
+      });
 
-      byId("modeFind").addEventListener(
-        "click",
-        () => setMode("find")
-      );
+      $("modeFind").addEventListener("click", function () {
+        setMode("find");
+      });
 
-      byId("checkButton").addEventListener(
-        "click",
-        checkPair
-      );
+      $("checkButton").addEventListener("click", checkPair);
 
-      byId("findByMachine").addEventListener(
-        "click",
-        () => setFindDirection("machine")
-      );
+      $("findByMachine").addEventListener("click", function () {
+        setFindDirection("machine");
+      });
 
-      byId("findByEquipment").addEventListener(
-        "click",
-        () => setFindDirection("equipment")
-      );
+      $("findByEquipment").addEventListener("click", function () {
+        setFindDirection("equipment");
+      });
 
-      byId("findButton").addEventListener(
-        "click",
-        findMatches
-      );
+      $("findButton").addEventListener("click", findMatches);
 
-      machineSelect.addEventListener("change", () => {
+      /* =====================================
+         16. ОЧИЩЕННЯ ПОПЕРЕДНІХ РЕЗУЛЬТАТІВ
+         ===================================== */
+
+      machineSelect.addEventListener("change", function () {
         checkResult.hidden = true;
       });
 
-      equipmentSelect.addEventListener("change", () => {
+      equipmentSelect.addEventListener("change", function () {
         checkResult.hidden = true;
       });
 
-      findSelect.addEventListener("change", () => {
+      findSelect.addEventListener("change", function () {
         findResult.hidden = true;
         findList.replaceChildren();
       });
 
-      /* ======================================
-         ГАМБУРГЕР-МЕНЮ
-         ====================================== */
+      /* =====================================
+         17. ПОЧАТКОВИЙ РЕЖИМ
+         ===================================== */
 
-      const menuButton = byId("menuButton");
-      const mobileMenu = byId("mobileNavigation");
-      const menuIcon = byId("menuIcon");
-
-      function setMenu(open) {
-
-        mobileMenu.hidden = !open;
-
-        menuButton.setAttribute(
-          "aria-expanded",
-          String(open)
-        );
-
-        menuButton.setAttribute(
-          "aria-label",
-          open ? "Закрити меню" : "Відкрити меню"
-        );
-
-        menuIcon.innerHTML = open
-
-          ? '<path d="M6 6l12 12M18 6L6 18"/>'
-
-          : '<path d="M4 6h16M4 12h16M4 18h16"/>';
-      }
-
-      menuButton.addEventListener("click", () => {
-        setMenu(mobileMenu.hidden);
-      });
-
-      document.addEventListener("click", event => {
-
-        if (!event.target.closest(".site-header")) {
-          setMenu(false);
-        }
-
-      });
-
-      document.addEventListener("keydown", event => {
-
-        if (event.key === "Escape") {
-          setMenu(false);
-        }
-
-      });
-
-      window.addEventListener("resize", () => {
-
-        if (window.innerWidth >= 1024) {
-          setMenu(false);
-        }
-
-      });
+      setMode("check");
+      setFindDirection("machine");
 
     });
   </script>

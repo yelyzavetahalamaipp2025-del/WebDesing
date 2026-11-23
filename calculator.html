@@ -1,123 +1,775 @@
 
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+        content="AgroNext — калькулятор державної компенсації 25–40% вартості сільськогосподарської техніки.">
+
+  <meta name="theme-color" content="#1E3A8A">
+
   <title>Калькулятор держкомпенсації — AgroNext</title>
 
-  <meta name="description"
-        content="Розрахунок орієнтовної компенсації 25% або 40% вартості сільськогосподарської техніки.">
+  <!-- Логотип у вкладці браузера -->
+  <link rel="icon" type="image/png" href="assets/icons/logo.png">
+  <link rel="apple-touch-icon" href="assets/icons/logo.png">
 
   <!-- Шрифти -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
-        rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Стилі сайту -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Завантаження збереженої теми -->
+  <script>
+    (function () {
+      let saved = null;
+
+      try {
+        saved = localStorage.getItem("agronext-theme");
+      } catch (error) {}
+
+      const systemDark = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      document.documentElement.dataset.theme =
+        saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+    })();
+  </script>
+
   <style>
 
-    /* ====================================
-       ЗАГАЛЬНИЙ ДИЗАЙН
-       ==================================== */
+    /* ==========================================
+       1. КОЛЬОРОВА СИСТЕМА
+       ========================================== */
+
+    :root {
+      color-scheme: light;
+
+      --page: #F8FAFC;
+      --page-alt: #F1F5F9;
+      --surface: #FFFFFF;
+
+      --text: #1E293B;
+      --heading: #1E3A8A;
+      --muted: #475569;
+
+      --border: #CBD5E1;
+
+      --accent: #1E3A8A;
+      --accent-hover: #172554;
+      --accent-text: #FFFFFF;
+
+      --header: #1E3A8A;
+      --footer: #1E3A8A;
+
+      --input-bg: #F8FAFC;
+      --input-text: #1E3A8A;
+
+      --glow: rgba(30,58,138,.20);
+      --shadow: rgba(30,58,138,.11);
+
+      --result-bg: #FFFBEB;
+      --result-border: #FDE68A;
+      --result-number: #B45309;
+
+      --highlight-bg: #EFF6FF;
+      --highlight-border: #BFDBFE;
+
+      --notice-bg: #F8FAFC;
+      --danger-bg: #FFFDFD;
+      --danger-border: #DC2626;
+      --danger-text: #B91C1C;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+
+      --page: #091321;
+      --page-alt: #0D1B2D;
+      --surface: #16263A;
+
+      --text: #EDF4FF;
+      --heading: #F2F7FF;
+      --muted: #B8C8DB;
+
+      --border: #3B5068;
+
+      --accent: #93C5FD;
+      --accent-hover: #BFDBFE;
+      --accent-text: #091321;
+
+      --header: #071629;
+      --footer: #07111F;
+
+      --input-bg: #0C1B2C;
+      --input-text: #FFFFFF;
+
+      --glow: rgba(147,197,253,.25);
+      --shadow: rgba(0,0,0,.30);
+
+      --result-bg: #352A17;
+      --result-border: #A16207;
+      --result-number: #FBBF24;
+
+      --highlight-bg: #173657;
+      --highlight-border: #416C9C;
+
+      --notice-bg: #0D2035;
+      --danger-bg: #321B29;
+      --danger-border: #FB7185;
+      --danger-text: #FDA4AF;
+    }
+
+    /* ==========================================
+       2. ЗАГАЛЬНІ СТИЛІ
+       ========================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
 
     body {
       margin: 0;
-      background: #F8FAFC;
-      color: #1E3A8A;
+      background: var(--page) !important;
+      color: var(--text);
       font-family: "Plus Jakarta Sans", sans-serif;
+
+      transition:
+        background-color .25s,
+        color .25s;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
       font-family: "Space Grotesk", sans-serif;
+      color: var(--heading) !important;
     }
+
+    html[data-theme="dark"] main .text-slate-400,
+    html[data-theme="dark"] main .text-slate-500,
+    html[data-theme="dark"] main .text-slate-600,
+    html[data-theme="dark"] main .text-slate-700 {
+      color: var(--muted) !important;
+    }
+
+    html[data-theme="dark"] main .border-slate-200 {
+      border-color: var(--border) !important;
+    }
+
+    a, button, input, select {
+      transition:
+        background-color .2s,
+        color .2s,
+        border-color .2s,
+        box-shadow .2s;
+    }
+
+    /* ==========================================
+       3. ХЕДЕР
+       ========================================== */
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      background: var(--header) !important;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 4px 14px rgba(0,0,0,.14);
+    }
+
+    .header-shell {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      gap: 12px;
+      max-width: 1380px;
+      min-height: 70px;
+
+      margin: 0 auto;
+      padding: 8px 20px;
+    }
+
+    /* Логотип */
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+
+      flex: 0 0 auto;
+      gap: 8px;
+
+      color: #FFFFFF !important;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .brand-label {
+      color: #FFFFFF !important;
+
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       4. ОСНОВНА НАВІГАЦІЯ
+       ========================================== */
+
+    .main-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      flex: 0 1 auto;
+      min-width: 0;
+
+      gap: 1px;
+      margin-left: 0;
+    }
+
+    .main-navigation a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 9px 7px;
+
+      border-radius: 7px;
+      border-bottom: 2px solid transparent;
+
+      color: #FFFFFF !important;
+
+      font-family: "Inter", sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .main-navigation a:hover {
+      background: rgba(255,255,255,.10);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    /* Підсвічений активний розділ */
+
+    .main-navigation a[aria-current="page"] {
+      background: rgba(255,255,255,.17);
+      border-bottom-color: #FBBF24;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       5. ВІДСТУП 75 PX ПІСЛЯ ЛОГОТИПА
+       ========================================== */
+
+    @media (min-width: 1280px) {
+
+      .site-header .header-shell > .brand {
+        margin-right: 75px !important;
+      }
+
+      .site-header .main-navigation {
+        margin-left: 0 !important;
+        gap: 1px;
+      }
+
+      .site-header .header-search {
+        margin-left: auto !important;
+      }
+
+    }
+
+    /* ==========================================
+       6. ПОШУК
+       ========================================== */
+
+    .header-search {
+      display: flex;
+      align-items: center;
+
+      width: 190px;
+      height: 39px;
+      flex: 0 0 190px;
+
+      margin-left: auto;
+      overflow: hidden;
+
+      background: #FFFFFF !important;
+      border: 1px solid rgba(255,255,255,.60);
+      border-radius: 9px;
+    }
+
+    .header-search:focus-within {
+      outline: 2px solid #FBBF24;
+      outline-offset: 2px;
+    }
+
+    .header-search input {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+
+      padding: 0 0 0 12px;
+
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+
+      background: #FFFFFF !important;
+      color: #1E3A8A !important;
+
+      font-size: 12px;
+    }
+
+    .header-search input::placeholder {
+      color: #64748B !important;
+    }
+
+    .header-search button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 39px;
+      height: 100%;
+
+      color: #1E3A8A;
+      cursor: pointer;
+    }
+
+    .header-search button:hover {
+      background: #E2E8F0;
+    }
+
+    /* ==========================================
+       7. ПЕРЕМИКАЧ ТЕМИ
+       ========================================== */
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 auto;
+      gap: 9px;
+      min-height: 40px;
+
+      padding: 9px 12px;
+
+      border: 1px solid rgba(255,255,255,.40);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.10);
+      color: #FFFFFF;
+
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,.20);
+      border-color: rgba(255,255,255,.75);
+    }
+
+    .theme-toggle-text {
+      color: #FFFFFF !important;
+    }
+
+    .theme-switch {
+      display: inline-flex;
+      align-items: center;
+
+      flex: 0 0 29px;
+      width: 29px;
+      height: 17px;
+
+      padding: 2px;
+
+      border: 1px solid rgba(255,255,255,.40);
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.35);
+    }
+
+    .theme-switch::after {
+      content: "";
+
+      display: block;
+      width: 11px;
+      height: 11px;
+
+      border-radius: 50%;
+      background: #FFFFFF;
+
+      transition: transform .2s;
+    }
+
+    html[data-theme="dark"] .theme-switch {
+      background: #2563EB;
+    }
+
+    html[data-theme="dark"] .theme-switch::after {
+      transform: translateX(12px);
+    }
+
+    .theme-toggle:focus-visible,
+    .main-navigation a:focus-visible,
+    .menu-button:focus-visible,
+    .calc-button:focus-visible,
+    .official-link:focus-visible {
+      outline: 3px solid #FBBF24;
+      outline-offset: 3px;
+    }
+
+    /* ==========================================
+       8. ГАМБУРГЕР-МЕНЮ
+       ========================================== */
+
+    .menu-button {
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.08);
+      color: #FFFFFF;
+
+      cursor: pointer;
+    }
+
+    .menu-button:hover {
+      background: rgba(255,255,255,.20);
+    }
+
+    #mobileNavigation {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+
+      z-index: 1100;
+
+      max-height: calc(100dvh - var(--header-height,70px));
+      overflow-y: auto;
+
+      padding: 14px 20px 20px;
+
+      background: var(--surface) !important;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 12px 25px var(--shadow);
+    }
+
+    .mobile-search {
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+      height: 44px;
+      margin-bottom: 14px;
+
+      overflow: hidden;
+
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .mobile-search:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .mobile-search input {
+      flex: 1 1 auto;
+
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+
+      padding: 0 12px;
+
+      background: transparent !important;
+      color: var(--input-text) !important;
+
+      border: 0 !important;
+      outline: 0 !important;
+    }
+
+    .mobile-search button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 45px;
+      height: 100%;
+
+      color: var(--heading);
+      cursor: pointer;
+    }
+
+    #mobileNavigation a {
+      display: block;
+      padding: 12px 11px;
+
+      color: var(--heading) !important;
+      border-bottom: 1px solid var(--border);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+    #mobileNavigation a[aria-current="page"] {
+      background: var(--page-alt);
+      border-left: 4px solid var(--accent);
+      font-weight: 700;
+    }
+
+    #mobileNavigation a:hover,
+    #mobileNavigation a:focus-visible {
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+    }
+
+    /* ==========================================
+       9. АДАПТИВНІСТЬ ХЕДЕРА
+       ========================================== */
+
+    @media (max-width: 1279px) {
+
+      .main-navigation,
+      .header-search {
+        display: none;
+      }
+
+      .header-shell {
+        justify-content: space-between;
+      }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
+      .menu-button {
+        display: inline-flex;
+      }
+
+      .site-header .brand {
+        margin-right: 0 !important;
+      }
+
+    }
+
+    @media (min-width: 1280px) {
+
+      #mobileNavigation {
+        display: none !important;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+
+      .header-shell {
+        padding: 8px 12px;
+        min-height: 65px;
+        gap: 8px;
+      }
+
+      .brand {
+        gap: 5px;
+      }
+
+      .brand img {
+        width: 37px;
+        height: 37px;
+      }
+
+      .brand-label {
+        font-size: 13px;
+      }
+
+      .theme-toggle {
+        padding: 7px 8px;
+        min-height: 37px;
+        gap: 6px;
+        font-size: 10px;
+      }
+
+      .menu-button {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+      }
+
+    }
+
+    @media (max-width: 350px) {
+
+      .brand-label {
+        display: none;
+      }
+
+    }
+
+    /* ==========================================
+       10. ОСНОВНА СТОРІНКА
+       ========================================== */
 
     .calculator-page {
-      padding-top: 110px;
+      padding-top: calc(var(--header-height,70px) + 35px);
       padding-bottom: 55px;
     }
 
     .calculator-page h1,
     .calculator-page h2 {
-      color: #1E3A8A !important;
+      color: var(--heading) !important;
     }
 
-    /* ====================================
-       ХЕДЕР
-       ==================================== */
+    /* Хлібні крихти */
 
-    .site-header {
-      background: #1E3A8A !important;
-      z-index: 100 !important;
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      gap: 9px;
+      margin-bottom: 24px;
+      padding: 10px 0;
+
+      color: var(--muted);
+      font-size: 12px;
     }
 
-    .site-header .main-navigation a {
-      color: white !important;
-      transition: color .2s ease;
+    .breadcrumbs a {
+      color: var(--accent) !important;
+      font-weight: 600;
+      text-decoration: none;
     }
 
-    .site-header .main-navigation a:hover {
-      color: #FBBF24 !important;
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
-    /* ====================================
-       КАРТКИ
-       ==================================== */
+    .breadcrumbs [aria-current="page"] {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       11. КАРТКИ КАЛЬКУЛЯТОРА
+       ========================================== */
 
     .calc-card {
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
+      background: var(--surface) !important;
+      color: var(--text) !important;
+
+      border: 1.5px solid var(--border) !important;
       border-radius: 16px;
+
       padding: 25px;
-      box-shadow: 0 4px 16px rgba(30,58,138,.06);
+
+      box-shadow: 0 4px 16px var(--shadow);
 
       transition:
         border-color .25s ease,
-        box-shadow .25s ease;
+        box-shadow .25s ease,
+        transform .25s ease;
     }
 
-    /* Параметри — синій */
+    /* Синій ефект картки параметрів */
 
     .parameters-card:hover,
     .parameters-card:focus-within {
-      border-color: #1E3A8A;
-      box-shadow: 0 8px 25px rgba(30,58,138,.16);
+      border-color: var(--accent) !important;
+
+      box-shadow:
+        0 0 0 2px var(--glow),
+        0 10px 25px var(--shadow) !important;
     }
 
-    /* Результат — помаранчевий */
+    /* Помаранчевий ефект картки результату */
 
     .result-card:hover,
     .result-card:focus-within {
-      border-color: #D97706;
-      box-shadow: 0 8px 25px rgba(217,119,6,.18);
+      border-color: #D97706 !important;
+
+      box-shadow:
+        0 0 0 2px rgba(217,119,6,.18),
+        0 10px 25px var(--shadow) !important;
     }
 
-    /* ====================================
-       ПОЛЯ ФОРМИ
-       ==================================== */
+    /* ==========================================
+       12. ПОЛЯ КАЛЬКУЛЯТОРА
+       ========================================== */
 
     .calc-label {
       display: block;
+
       margin-bottom: 8px;
+
+      color: var(--text) !important;
       font-size: 12px;
       font-weight: 700;
-      color: #334155;
     }
 
     .calc-input {
       display: block;
+
       width: 100%;
       min-width: 0;
+
       padding: 12px 14px;
-      border: 1px solid #CBD5E1;
+
+      background: var(--input-bg) !important;
+      color: var(--input-text) !important;
+
+      border: 1.5px solid var(--border) !important;
       border-radius: 9px;
-      background: #F8FAFC;
-      color: #1E3A8A;
+
       font-family: inherit;
       font-size: 13px;
 
@@ -126,91 +778,130 @@
         box-shadow .2s ease;
     }
 
-    .calc-input:focus {
-      outline: none;
-      border-color: #1E3A8A;
-      box-shadow: 0 0 0 3px rgba(30,58,138,.12);
+    .calc-input:hover:not(.is-invalid),
+    .calc-input:focus:not(.is-invalid) {
+      outline: none !important;
+
+      border-color: var(--accent) !important;
+
+      box-shadow:
+        0 0 0 3px var(--glow) !important;
     }
 
     .calc-input.is-invalid {
-      border-color: #DC2626 !important;
-      background: #FFF7F7;
+      border: 2px solid #DC2626 !important;
+      background: #FFF7F7 !important;
+      color: #1E293B !important;
+
+      box-shadow:
+        0 0 0 3px rgba(220,38,38,.16) !important;
+    }
+
+    html[data-theme="dark"] .calc-input.is-invalid {
+      background: #3B1924 !important;
+      color: #FFFFFF !important;
+      border-color: #FDA4AF !important;
+    }
+
+    html[data-theme="dark"] .calc-input option {
+      background: #16263A;
+      color: #FFFFFF;
+    }
+
+    html[data-theme="dark"] .calc-input::placeholder {
+      color: #A2B6CC;
+      opacity: 1;
     }
 
     .field-hint {
       margin-top: 7px;
-      color: #64748B;
+      color: var(--muted);
+
       font-size: 11px;
       line-height: 1.6;
     }
 
-    /* ====================================
-       КНОПКИ
-       ==================================== */
+    /* ==========================================
+       13. КНОПКА РОЗРАХУНКУ
+       ========================================== */
 
     .calc-button {
       display: block;
+
       width: 100%;
       padding: 13px;
-      border: none;
+
+      border: 1px solid var(--accent) !important;
       border-radius: 9px;
-      background: #1E3A8A;
-      color: white !important;
+
+      background: var(--accent) !important;
+      color: var(--accent-text) !important;
+
+      font-family: "Inter", sans-serif;
       font-size: 13px;
       font-weight: 700;
+
       text-align: center;
       cursor: pointer;
-
-      transition:
-        background .2s ease,
-        box-shadow .2s ease;
     }
 
     .calc-button:hover {
-      background: #172554;
-      box-shadow: 0 6px 18px rgba(30,58,138,.2);
+      background: var(--accent-hover) !important;
+
+      box-shadow:
+        0 6px 18px var(--glow);
     }
+
+    /* Офіційне посилання */
 
     .official-link {
       display: block;
+
       width: 100%;
       padding: 13px;
+
+      border: 1px solid #D97706;
       border-radius: 9px;
-      background: #D97706;
-      color: white !important;
+
+      background: #D97706 !important;
+      color: #FFFFFF !important;
+
       text-decoration: none;
       text-align: center;
+
       font-size: 13px;
       font-weight: 700;
-
-      transition:
-        background .2s ease,
-        box-shadow .2s ease;
     }
 
     .official-link:hover {
-      background: #B45309;
-      box-shadow: 0 6px 18px rgba(217,119,6,.18);
+      background: #B45309 !important;
+
+      box-shadow:
+        0 6px 18px rgba(217,119,6,.18);
     }
 
-    /* ====================================
-       РЕЗУЛЬТАТ
-       ==================================== */
+    /* ==========================================
+       14. ОСНОВНИЙ РЕЗУЛЬТАТ
+       ========================================== */
 
     .result-main {
-      background: #FFFBEB;
-      border: 1px solid #FDE68A;
-      border-radius: 13px;
-      padding: 22px;
       margin-bottom: 20px;
+      padding: 22px;
+
+      background: var(--result-bg) !important;
+
+      border: 1px solid var(--result-border) !important;
+      border-radius: 13px;
     }
 
     .result-number {
-      color: #D97706;
+      color: var(--result-number) !important;
+
       font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(26px, 4vw, 36px);
+      font-size: clamp(26px,4vw,36px);
       font-weight: 700;
       line-height: 1.3;
+
       overflow-wrap: anywhere;
     }
 
@@ -218,146 +909,160 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+
       gap: 15px;
       padding: 14px 0;
-      border-bottom: 1px solid #E2E8F0;
+
+      border-bottom: 1px solid var(--border);
+
       font-size: 13px;
     }
 
     .result-row span {
-      color: #64748B;
+      color: var(--muted);
     }
 
     .result-row strong {
-      color: #1E3A8A;
+      color: var(--heading) !important;
+
       text-align: right;
       font-weight: 700;
+
+      overflow-wrap: anywhere;
     }
+
+    /* Виділення власних витрат */
 
     .result-highlight {
       margin-top: 15px;
       padding: 16px;
+
+      background: var(--highlight-bg) !important;
+
+      border: 1px solid var(--highlight-border) !important;
       border-radius: 10px;
-      background: #EFF6FF;
-      border: 1px solid #DBEAFE;
     }
 
     .result-highlight strong {
       font-size: 17px;
     }
 
+    /* ==========================================
+       15. ІНФОРМАЦІЙНІ ПОВІДОМЛЕННЯ
+       ========================================== */
+
     .calc-notice {
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
-      border-radius: 9px;
       padding: 13px;
+
+      background: var(--notice-bg) !important;
+      color: var(--muted) !important;
+
+      border: 1px solid var(--border) !important;
+      border-radius: 9px;
+
       font-size: 11px;
       line-height: 1.7;
-      color: #475569;
     }
 
-    /* ====================================
-       ПОМИЛКИ
-       ==================================== */
+    .calc-notice strong {
+      color: var(--heading) !important;
+    }
+
+    /* ==========================================
+       16. ПОМИЛКИ ВАЛІДАЦІЇ
+       ========================================== */
 
     .calc-error {
-      background: #FEF2F2;
-      color: #991B1B;
-      border: 1px solid #FECACA;
-      border-radius: 9px;
       padding: 12px;
+
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+
+      border: 1px solid #FECACA !important;
+      border-radius: 9px;
+
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    html[data-theme="dark"] .calc-error {
+      background: #4C1D2A !important;
+      color: #FFE4E6 !important;
+
+      border-color: #FB7185 !important;
     }
 
     .calc-error[hidden] {
       display: none !important;
     }
 
-    /* ====================================
-       ВАЖЛИВО ЗНАТИ — ЧЕРВОНИЙ ЕФЕКТ
-       ==================================== */
+    /* ==========================================
+       17. БЛОК "ВАЖЛИВО ЗНАТИ"
+       ========================================== */
 
     .important-card {
-      border: 2px solid #DC2626;
-      border-left: 6px solid #DC2626;
-      background: #FFFDFD;
+      background: var(--danger-bg) !important;
+
+      border: 2px solid var(--danger-border) !important;
+      border-left: 6px solid var(--danger-border) !important;
 
       transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s;
     }
 
     .important-card h2 {
-      color: #B91C1C !important;
+      color: var(--danger-text) !important;
     }
 
     .important-card:hover,
     .important-card:focus-within {
       transform: translateY(-3px);
-      border-color: #B91C1C;
+
+      border-color: var(--danger-border) !important;
 
       box-shadow:
-        0 12px 28px rgba(185,28,28,.20);
+        0 10px 25px rgba(185,28,28,.20) !important;
     }
 
-    /* ====================================
-       МОБІЛЬНЕ МЕНЮ
-       ==================================== */
+    /* ==========================================
+       18. ФУТЕР
+       ========================================== */
 
-    #mobileNavigation[hidden] {
-      display: none !important;
+    .site-footer {
+      background: var(--footer) !important;
     }
-
-    #mobileNavigation {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      z-index: 110;
-      padding: 12px 20px;
-      background: white;
-      box-shadow: 0 12px 25px rgba(0,0,0,.15);
-    }
-
-    #mobileNavigation a {
-      display: block;
-      padding: 12px;
-      color: #1E3A8A !important;
-      border-bottom: 1px solid #E2E8F0;
-    }
-
-    #mobileNavigation a:hover {
-      background: #EFF6FF;
-    }
-
-    /* ====================================
-       ФУТЕР
-       ==================================== */
 
     .site-footer h3 {
-      color: white !important;
+      color: #FFFFFF !important;
+    }
+
+    .site-footer a {
+      color: #CBD5E1 !important;
     }
 
     .site-footer a:hover {
-      color: white !important;
+      color: #FFFFFF !important;
       text-decoration: underline;
     }
 
-    /* ====================================
-       АДАПТИВНІСТЬ
-       ==================================== */
+    .site-footer img[src*="logo.png"] {
+      width: 48px !important;
+      height: 48px !important;
 
-    @media (min-width: 768px) {
-      #mobileNavigation {
-        display: none !important;
-      }
+      object-fit: contain !important;
     }
 
-    @media (max-width: 640px) {
+    /* ==========================================
+       19. МОБІЛЬНА АДАПТИВНІСТЬ
+       ========================================== */
+
+    @media (max-width: 767px) {
+
       .calculator-page {
-        padding-top: 95px;
+        padding-top: calc(var(--header-height,65px) + 24px);
+        padding-bottom: 35px;
       }
 
       .calc-card {
@@ -367,17 +1072,33 @@
       .result-row {
         font-size: 12px;
       }
+
+      .result-highlight {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .result-highlight strong {
+        text-align: left;
+      }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto !important;
+      }
+
       .calc-card,
       .important-card {
-        transition: none;
+        transition: none !important;
       }
 
       .important-card:hover {
-        transform: none;
+        transform: none !important;
       }
+
     }
 
   </style>
@@ -385,121 +1106,232 @@
 
 <body class="min-h-screen flex flex-col">
 
-  <!-- ====================================
+  <!-- ==========================================
        ХЕДЕР
-       ==================================== -->
+       ========================================== -->
 
-  <header class="site-header fixed top-0 left-0 w-full shadow-md py-2 sm:py-3">
+  <header class="site-header">
 
-    <div class="max-w-[1140px] mx-auto px-5 flex items-center justify-between">
+    <div class="header-shell">
 
-      <a href="index.html" class="flex items-center gap-3">
+      <!-- Логотип -->
+
+      <a href="index.html"
+         class="brand"
+         aria-label="AgroNext — головна">
 
         <img src="assets/icons/logo.png"
-             alt="AgroNext"
-             class="h-12 w-auto object-contain">
+             alt="Логотип AgroNext">
 
-        <span class="font-semibold text-base"
-              style="color:white!important">
+        <span class="brand-label">
           AgroNext
         </span>
+
       </a>
 
-      <nav class="main-navigation hidden md:flex items-center gap-5"
+      <!-- Основна навігація -->
+
+      <nav class="main-navigation"
            aria-label="Основна навігація">
 
-        <a href="catalog.html" class="text-xs">Каталог</a>
+        <a href="index.html">
+          Головна
+        </a>
 
-        <a href="selection.html" class="text-xs">
+        <a href="catalog.html">
+          Каталог
+        </a>
+
+        <a href="selection.html">
           Підбір техніки
         </a>
 
-        <a href="compatibility.html" class="text-xs">
+        <a href="compatibility.html">
           Сумісність
         </a>
 
-        <a href="calculator.html" class="text-xs">
+        <a href="calculator.html" aria-current="page">
           Компенсація 25–40%
         </a>
 
-        <a href="about.html" class="text-xs">
+        <a href="about.html">
           Про компанію
         </a>
+
       </nav>
 
       <!-- Пошук -->
 
       <form action="catalog.html"
-            method="GET"
+            method="get"
             role="search"
-            class="hidden sm:block">
+            class="header-search">
 
-        <input type="search"
+        <label class="sr-only"
+               for="headerSearch">
+          Пошук техніки
+        </label>
+
+        <input id="headerSearch"
+               type="search"
                name="q"
-               placeholder="Пошук..."
-               class="px-3 py-1 rounded text-xs w-[180px]"
-               style="background:white;color:#1E3A8A">
+               placeholder="Пошук техніки...">
+
+        <button type="submit"
+                aria-label="Знайти техніку">
+
+          <svg width="19"
+               height="19"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+
+          </svg>
+
+        </button>
+
       </form>
 
-      <!-- Мобільне меню -->
+      <!-- Перемикач теми -->
+
+      <button id="themeToggle"
+              type="button"
+              class="theme-toggle"
+              aria-pressed="false"
+              aria-label="Увімкнути темну тему">
+
+        <span id="themeText"
+              class="theme-toggle-text">
+          Темна тема
+        </span>
+
+        <span class="theme-switch"
+              aria-hidden="true"></span>
+
+      </button>
+
+      <!-- Гамбургер-меню -->
 
       <button id="menuButton"
               type="button"
-              class="md:hidden p-2 rounded hover:bg-white/10"
+              class="menu-button"
               aria-label="Відкрити меню"
               aria-expanded="false"
               aria-controls="mobileNavigation">
 
         <svg id="menuIcon"
-             width="26"
-             height="26"
+             width="24"
+             height="24"
              viewBox="0 0 24 24"
              fill="none"
-             stroke="white"
-             stroke-width="2">
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             aria-hidden="true">
 
-          <path d="M4 6h16M4 12h16M4 18h16"/>
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+
         </svg>
+
       </button>
+
     </div>
+
+    <!-- Мобільне меню -->
 
     <nav id="mobileNavigation"
          hidden
-         aria-label="Мобільне меню">
+         aria-label="Мобільна навігація">
+
+      <form action="catalog.html"
+            method="get"
+            role="search"
+            class="mobile-search">
+
+        <label for="mobileSearch"
+               class="sr-only">
+          Пошук техніки
+        </label>
+
+        <input id="mobileSearch"
+               type="search"
+               name="q"
+               placeholder="Знайти трактор, модель...">
+
+        <button type="submit"
+                aria-label="Знайти">
+
+          <svg width="19"
+               height="19"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+
+          </svg>
+
+        </button>
+
+      </form>
 
       <a href="index.html">Головна</a>
       <a href="catalog.html">Каталог</a>
       <a href="selection.html">Підбір техніки</a>
       <a href="compatibility.html">Сумісність</a>
-      <a href="calculator.html">Компенсація 25–40%</a>
+      <a href="calculator.html" aria-current="page">
+        Компенсація 25–40%
+      </a>
       <a href="about.html">Про компанію</a>
 
     </nav>
+
   </header>
 
-  <!-- ====================================
+  <!-- ==========================================
        ОСНОВНА СТОРІНКА
-       ==================================== -->
+       ========================================== -->
 
   <main class="calculator-page max-w-[1140px] mx-auto px-5 w-full flex-grow">
 
-    <div class="text-xs text-slate-500 mb-3">
+    <!-- Хлібні крихти -->
 
-      <a href="index.html" class="hover:underline">
+    <nav class="breadcrumbs"
+         aria-label="Навігаційний шлях">
+
+      <a href="index.html">
         Головна
       </a>
 
-      / Калькулятор компенсації
+      <span aria-hidden="true">/</span>
 
-    </div>
+      <span aria-current="page">
+        Калькулятор компенсації
+      </span>
+
+    </nav>
+
+    <!-- Заголовок -->
 
     <h1 class="text-3xl font-bold mb-3">
       Калькулятор держкомпенсації
     </h1>
 
     <p class="text-sm text-slate-500 leading-relaxed mb-8">
-      Дізнайтеся, яку частину вартості сільськогосподарської техніки
-      потенційно може компенсувати держава.
+
+      Дізнайтеся, яку частину вартості сільськогосподарської
+      техніки потенційно може компенсувати держава.
+
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mb-7">
@@ -511,18 +1343,21 @@
       <section class="calc-card parameters-card">
 
         <h2 class="text-xl font-bold mb-5 pb-4 border-b border-slate-200">
+
           Параметри розрахунку
+
         </h2>
 
         <form id="compensationForm"
               class="space-y-5"
               novalidate>
 
-          <!-- ВИБІР МОДЕЛІ -->
+          <!-- 1. Вибір техніки -->
 
           <div>
 
-            <label class="calc-label" for="modelSelect">
+            <label class="calc-label"
+                   for="modelSelect">
               1. Оберіть техніку
             </label>
 
@@ -568,18 +1403,24 @@
             </select>
 
             <p class="field-hint">
+
               Ціни підставляються з каталогу AgroNext.
               Участь конкретної моделі в державній програмі
               необхідно перевіряти окремо.
+
             </p>
+
           </div>
 
-          <!-- ЦІНА -->
+          <!-- 2. Ціна -->
 
           <div>
 
-            <label class="calc-label" for="priceInput">
+            <label class="calc-label"
+                   for="priceInput">
+
               2. Вартість однієї одиниці, грн
+
             </label>
 
             <input id="priceInput"
@@ -592,18 +1433,23 @@
                    placeholder="Введіть вартість">
 
             <p class="field-hint">
+
               Ціну можна змінити вручну.
               Допускається кома або крапка для копійок.
+
             </p>
 
           </div>
 
-          <!-- КІЛЬКІСТЬ -->
+          <!-- 3. Кількість -->
 
           <div>
 
-            <label class="calc-label" for="quantityInput">
+            <label class="calc-label"
+                   for="quantityInput">
+
               3. Кількість одиниць
+
             </label>
 
             <input id="quantityInput"
@@ -615,17 +1461,22 @@
                    placeholder="Від 1 до 20">
 
             <p class="field-hint">
+
               Введіть ціле число від 1 до 20.
+
             </p>
 
           </div>
 
-          <!-- ПДВ -->
+          <!-- 4. ПДВ -->
 
           <div>
 
-            <label class="calc-label" for="vatSelect">
+            <label class="calc-label"
+                   for="vatSelect">
+
               4. Як указана ціна?
+
             </label>
 
             <select id="vatSelect"
@@ -642,18 +1493,23 @@
             </select>
 
             <p class="field-hint">
+
               Компенсація розраховується
               від вартості техніки без ПДВ.
+
             </p>
 
           </div>
 
-          <!-- СТАВКА -->
+          <!-- 5. Умови компенсації -->
 
           <div>
 
-            <label class="calc-label" for="rateSelect">
+            <label class="calc-label"
+                   for="rateSelect">
+
               5. Умови компенсації
+
             </label>
 
             <select id="rateSelect"
@@ -670,29 +1526,35 @@
             </select>
 
             <p class="field-hint">
+
               Підвищена ставка 40% доступна
               лише за виконання спеціальних умов програми.
+
             </p>
 
           </div>
 
-          <!-- ПОМИЛКА -->
+          <!-- Повідомлення про помилку -->
 
           <div id="formError"
                class="calc-error"
                role="alert"
-               hidden>
-          </div>
+               hidden></div>
 
-          <!-- КНОПКА -->
+          <!-- Кнопка розрахунку -->
 
-          <button type="submit" class="calc-button">
+          <button type="submit"
+                  class="calc-button">
+
             Розрахувати компенсацію
+
           </button>
 
           <p class="text-xs text-slate-500 leading-relaxed">
+
             Результат змінюється автоматично
             після редагування будь-якого параметра.
+
           </p>
 
         </form>
@@ -706,56 +1568,104 @@
       <section class="calc-card result-card flex flex-col">
 
         <h2 class="text-xl font-bold mb-5 pb-4 border-b border-slate-200">
+
           Результат розрахунку
+
         </h2>
+
+        <!-- Головна сума -->
 
         <div class="result-main">
 
           <p class="text-sm text-slate-600 mb-2">
+
             Орієнтовна сума від держави
+
           </p>
 
           <p id="compensationResult"
              class="result-number"
              aria-live="polite">
+
             —
+
           </p>
 
         </div>
 
+        <!-- Деталі розрахунку -->
+
         <div class="flex-grow">
 
           <div class="result-row">
-            <span>Повна вартість покупки</span>
-            <strong id="totalResult">—</strong>
+
+            <span>
+              Повна вартість покупки
+            </span>
+
+            <strong id="totalResult">
+              —
+            </strong>
+
           </div>
 
           <div class="result-row">
-            <span>Вартість без ПДВ</span>
-            <strong id="baseResult">—</strong>
+
+            <span>
+              Вартість без ПДВ
+            </span>
+
+            <strong id="baseResult">
+              —
+            </strong>
+
           </div>
 
           <div class="result-row">
-            <span>Ставка компенсації</span>
-            <strong id="rateResult">—</strong>
+
+            <span>
+              Ставка компенсації
+            </span>
+
+            <strong id="rateResult">
+              —
+            </strong>
+
           </div>
+
+          <!-- Власні витрати -->
 
           <div class="result-row result-highlight">
-            <span>Власні витрати після компенсації</span>
-            <strong id="ownResult">—</strong>
+
+            <span>
+              Власні витрати після компенсації
+            </span>
+
+            <strong id="ownResult">
+              —
+            </strong>
+
           </div>
+
+          <!-- Інформаційне повідомлення -->
 
           <div id="resultNotice"
                class="calc-notice mt-5"
                role="status"
                aria-live="polite">
+
             Виконується розрахунок...
+
           </div>
+
+          <!-- Пояснення -->
 
           <div class="calc-notice mt-4">
 
-            <strong class="block mb-2 text-[#1E3A8A]">
+            <strong class="block mb-2">
+
               Як отримати компенсацію?
+
             </strong>
 
             Потрібно придбати техніку з офіційного переліку,
@@ -765,6 +1675,8 @@
           </div>
 
         </div>
+
+        <!-- Офіційне посилання -->
 
         <div class="mt-6">
 
@@ -778,8 +1690,10 @@
           </a>
 
           <p class="text-xs text-slate-500 leading-relaxed text-center mt-3">
+
             Відкриється офіційна сторінка програми.
             Заявка подається через уповноважений банк.
+
           </p>
 
         </div>
@@ -788,14 +1702,16 @@
 
     </div>
 
-    <!-- ====================================
+    <!-- ==========================================
          ВАЖЛИВО ЗНАТИ
-         ==================================== -->
+         ========================================== -->
 
     <section class="calc-card important-card">
 
       <h2 class="text-xl font-bold mb-4">
+
         Важливо знати
+
       </h2>
 
       <p class="text-sm text-slate-600 leading-relaxed mb-3">
@@ -828,15 +1744,16 @@
 
   </main>
 
-  <!-- ====================================
+  <!-- ==========================================
        ФУТЕР
-       ==================================== -->
+       ========================================== -->
 
-  <footer class="site-footer bg-[#1E3A8A] text-white pt-10 pb-5 mt-auto">
+  <footer class="site-footer text-white pt-10 pb-5 mt-auto">
 
     <div class="max-w-[1140px] mx-auto px-5">
 
-      <div class="flex flex-col md:flex-row justify-between items-start gap-10 pb-8">
+      <div class="flex flex-col md:flex-row
+                  justify-between items-start gap-10 pb-8">
 
         <div class="w-full md:max-w-[340px]">
 
@@ -849,42 +1766,62 @@
 
             <span class="text-xl font-bold"
                   style="color:white!important">
+
               AgroNext
+
             </span>
 
           </a>
 
           <p class="text-slate-300 text-sm leading-relaxed">
+
             Онлайн-платформа для підбору
             сільськогосподарської техніки,
             перевірки сумісності обладнання
             та розрахунку державної компенсації.
+
           </p>
 
         </div>
 
         <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
 
+          <!-- Компанія -->
+
           <div>
 
-            <h3 class="font-bold text-base mb-4"
-                style="color:white!important">
+            <h3 class="font-bold text-base mb-4">
+
               Компанія
+
             </h3>
 
             <ul class="space-y-3 text-sm text-slate-300">
-              <li><a href="about.html">Про нас</a></li>
-              <li><a href="index.html#lead">Центр підтримки</a></li>
-              <li><a href="catalog.html">Каталог техніки</a></li>
+
+              <li>
+                <a href="about.html">Про нас</a>
+              </li>
+
+              <li>
+                <a href="index.html#lead">Центр підтримки</a>
+              </li>
+
+              <li>
+                <a href="catalog.html">Каталог техніки</a>
+              </li>
+
             </ul>
 
           </div>
 
+          <!-- Соцмережі -->
+
           <div>
 
-            <h3 class="font-bold text-base mb-4"
-                style="color:white!important">
+            <h3 class="font-bold text-base mb-4">
+
               Ми в соцмережах
+
             </h3>
 
             <ul class="space-y-3 text-sm text-slate-300">
@@ -924,7 +1861,9 @@
       <div class="border-t border-white/20 pt-5 text-center">
 
         <p class="text-slate-300 text-xs">
+
           © 2026 AgroNext. Всі права захищені.
+
         </p>
 
       </div>
@@ -933,23 +1872,105 @@
 
   </footer>
 
-  <!-- ====================================
-       JAVASCRIPT КАЛЬКУЛЯТОРА
-       ПРАЦЮЄ БЕЗ ОКРЕМОГО widget.js
-       ==================================== -->
+  <!-- ==========================================
+       JAVASCRIPT
+       ========================================== -->
 
   <script>
     "use strict";
 
     document.addEventListener("DOMContentLoaded", function () {
 
-      // ====================================
-      // 1. МОБІЛЬНЕ МЕНЮ
-      // ====================================
+      const $ = id => document.getElementById(id);
 
-      const menuButton = document.getElementById("menuButton");
-      const mobileMenu = document.getElementById("mobileNavigation");
-      const menuIcon = document.getElementById("menuIcon");
+      /* =====================================
+         1. ВИСОТА ХЕДЕРА
+         ===================================== */
+
+      function syncHeaderOffset() {
+
+        const header = document.querySelector(".site-header");
+
+        if (header) {
+
+          document.documentElement.style.setProperty(
+            "--header-height",
+            header.getBoundingClientRect().height + "px"
+          );
+
+        }
+
+      }
+
+      syncHeaderOffset();
+
+      window.addEventListener("resize", syncHeaderOffset);
+
+      /* =====================================
+         2. СВІТЛА ТА ТЕМНА ТЕМА
+         ===================================== */
+
+      function updateThemeToggle() {
+
+        const dark =
+          document.documentElement.dataset.theme === "dark";
+
+        // Напис показує тему, на яку можна перейти.
+
+        $("themeText").textContent =
+          dark ? "Світла тема" : "Темна тема";
+
+        $("themeToggle").setAttribute(
+          "aria-pressed",
+          String(dark)
+        );
+
+        $("themeToggle").setAttribute(
+          "aria-label",
+          dark
+            ? "Увімкнути світлу тему"
+            : "Увімкнути темну тему"
+        );
+
+        $("themeToggle").title =
+          dark
+            ? "Увімкнути світлу тему"
+            : "Увімкнути темну тему";
+
+      }
+
+      updateThemeToggle();
+
+      $("themeToggle").addEventListener("click", function () {
+
+        const next =
+          document.documentElement.dataset.theme === "dark"
+            ? "light"
+            : "dark";
+
+        document.documentElement.dataset.theme = next;
+
+        try {
+
+          localStorage.setItem("agronext-theme", next);
+
+        } catch (error) {
+
+          console.warn("Не вдалося зберегти тему", error);
+
+        }
+
+        updateThemeToggle();
+
+      });
+
+      /* =====================================
+         3. МОБІЛЬНЕ МЕНЮ
+         ===================================== */
+
+      const menuButton = $("menuButton");
+      const mobileMenu = $("mobileNavigation");
+      const menuIcon = $("menuIcon");
 
       function setMenu(open) {
 
@@ -966,99 +1987,119 @@
         );
 
         menuIcon.innerHTML = open
-          ? '<path d="M6 6l12 12M18 6L6 18"/>'
+          ? '<path d="M6 6L18 18M18 6L6 18"/>'
           : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+
       }
 
       menuButton.addEventListener("click", function () {
+
         setMenu(mobileMenu.hidden);
+
       });
 
       document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
+
+        if (event.key === "Escape" && !mobileMenu.hidden) {
+
           setMenu(false);
+          menuButton.focus();
+
         }
+
       });
 
       document.addEventListener("click", function (event) {
+
         if (!event.target.closest(".site-header")) {
+
           setMenu(false);
+
         }
+
       });
 
       window.addEventListener("resize", function () {
-        if (window.innerWidth >= 768) {
+
+        if (window.innerWidth >= 1280) {
+
           setMenu(false);
+
         }
+
       });
 
-      // ====================================
-      // 2. ДАНІ ТЕХНІКИ
-      // ====================================
+      /* =====================================
+         4. ДАНІ ТЕХНІКИ
+         ===================================== */
+
+      // Початкові ціни залишено з чинного калькулятора.
 
       const machinePrices = {
+
         "dtz-504u": 496480,
         "dtz-354u": 375840,
         "dtz-504kku": 626400,
         "dtz-504bkku": 784160,
+
         "dtz-1204": 1531200,
         "dtz-1204-spec": 1531200,
         "dtz-1304": 1610080,
+
         "dtz-470bn-gt": 20045
+
       };
 
-      // ====================================
-      // 3. HTML-ЕЛЕМЕНТИ
-      // ====================================
+      /* =====================================
+         5. HTML-ЕЛЕМЕНТИ
+         ===================================== */
 
-      const modelSelect = document.getElementById("modelSelect");
-      const priceInput = document.getElementById("priceInput");
-      const quantityInput = document.getElementById("quantityInput");
-      const vatSelect = document.getElementById("vatSelect");
-      const rateSelect = document.getElementById("rateSelect");
+      const modelSelect = $("modelSelect");
+      const priceInput = $("priceInput");
+      const quantityInput = $("quantityInput");
 
-      const form = document.getElementById("compensationForm");
-      const errorBox = document.getElementById("formError");
+      const vatSelect = $("vatSelect");
+      const rateSelect = $("rateSelect");
 
-      const compensationResult =
-        document.getElementById("compensationResult");
+      const form = $("compensationForm");
+      const errorBox = $("formError");
 
-      const totalResult =
-        document.getElementById("totalResult");
+      const compensationResult = $("compensationResult");
 
-      const baseResult =
-        document.getElementById("baseResult");
+      const totalResult = $("totalResult");
+      const baseResult = $("baseResult");
 
-      const rateResult =
-        document.getElementById("rateResult");
+      const rateResult = $("rateResult");
+      const ownResult = $("ownResult");
 
-      const ownResult =
-        document.getElementById("ownResult");
+      const resultNotice = $("resultNotice");
 
-      const resultNotice =
-        document.getElementById("resultNotice");
-
-      // ====================================
-      // 4. ФОРМАТУВАННЯ ГРОШЕЙ
-      // ====================================
+      /* =====================================
+         6. ФОРМАТУВАННЯ ГРОШЕЙ
+         ===================================== */
 
       const moneyFormatter = new Intl.NumberFormat("uk-UA", {
+
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
+
       });
 
       function formatMoney(value) {
 
         if (!Number.isFinite(value)) {
+
           return "—";
+
         }
 
         return moneyFormatter.format(value) + " грн";
+
       }
 
-      // ====================================
-      // 5. ПЕРЕВІРКА ЦІНИ
-      // ====================================
+      /* =====================================
+         7. ПЕРЕВІРКА ЦІНИ
+         ===================================== */
 
       function parsePrice(value) {
 
@@ -1067,11 +2108,13 @@
           .replace(/[\s\u00A0\u202F]/g, "")
           .replace(",", ".");
 
-        // Тільки число з максимум 2 знаками
+        // Допускаємо не більше двох знаків
         // після коми або крапки.
 
         if (!/^\d+(?:\.\d{1,2})?$/.test(text)) {
+
           return null;
+
         }
 
         const number = Number(text);
@@ -1081,22 +2124,27 @@
           number <= 0 ||
           number > 100000000
         ) {
+
           return null;
+
         }
 
         return number;
+
       }
 
-      // ====================================
-      // 6. ПЕРЕВІРКА КІЛЬКОСТІ
-      // ====================================
+      /* =====================================
+         8. ПЕРЕВІРКА КІЛЬКОСТІ
+         ===================================== */
 
       function parseQuantity(value) {
 
         const text = String(value).trim();
 
         if (!/^\d+$/.test(text)) {
+
           return null;
+
         }
 
         const number = Number(text);
@@ -1106,15 +2154,18 @@
           number < 1 ||
           number > 20
         ) {
+
           return null;
+
         }
 
         return number;
+
       }
 
-      // ====================================
-      // 7. ОЧИЩЕННЯ ПОМИЛОК
-      // ====================================
+      /* =====================================
+         9. ОЧИЩЕННЯ ПОМИЛОК
+         ===================================== */
 
       function clearError() {
 
@@ -1126,15 +2177,19 @@
 
         priceInput.removeAttribute("aria-invalid");
         quantityInput.removeAttribute("aria-invalid");
+
       }
 
       function clearResults() {
 
         compensationResult.textContent = "—";
         totalResult.textContent = "—";
+
         baseResult.textContent = "—";
         rateResult.textContent = "—";
+
         ownResult.textContent = "—";
+
       }
 
       function showError(message, field) {
@@ -1145,28 +2200,39 @@
         errorBox.hidden = false;
 
         if (field) {
+
           field.classList.add("is-invalid");
-          field.setAttribute("aria-invalid", "true");
+
+          field.setAttribute(
+            "aria-invalid",
+            "true"
+          );
+
         }
 
         clearResults();
 
         resultNotice.textContent =
           "Виправте введені дані для розрахунку.";
+
       }
 
-      // ====================================
-      // 8. ОСНОВНА ФУНКЦІЯ РОЗРАХУНКУ
-      // ====================================
+      /* =====================================
+         10. ОСНОВНА ФУНКЦІЯ РОЗРАХУНКУ
+         ===================================== */
 
       function calculateCompensation() {
 
         clearError();
 
         const price = parsePrice(priceInput.value);
-        const quantity = parseQuantity(quantityInput.value);
+
+        const quantity = parseQuantity(
+          quantityInput.value
+        );
 
         // Перевірка ціни
+
         if (price === null) {
 
           showError(
@@ -1175,9 +2241,11 @@
           );
 
           return;
+
         }
 
         // Перевірка кількості
+
         if (quantity === null) {
 
           showError(
@@ -1186,58 +2254,76 @@
           );
 
           return;
+
         }
 
         // Перевірка ПДВ
+
         const vatMode = vatSelect.value;
 
         if (
           vatMode !== "included" &&
           vatMode !== "excluded"
         ) {
+
           showError("Оберіть спосіб зазначення ціни.");
+
           return;
+
         }
 
-        // Перевірка ставки
+        // Перевірка ставки компенсації
+
         const rate = Number(rateSelect.value);
 
         if (rate !== 25 && rate !== 40) {
+
           showError("Оберіть ставку 25% або 40%.");
+
           return;
+
         }
 
-        // ====================================
-        // МАТЕМАТИКА
-        // ====================================
+        /* =====================================
+           МАТЕМАТИКА
+           Формули з попереднього калькулятора
+           ===================================== */
 
         // Повна вартість покупки
+
         const totalPrice = price * quantity;
 
-        // Сума без ПДВ
+        // Вартість без ПДВ
+
         const basePrice =
           vatMode === "included"
             ? totalPrice / 1.20
             : totalPrice;
 
         // Орієнтовна компенсація
+
         const rawCompensation =
           basePrice * rate / 100;
 
-        // Річне обмеження (2026)
+        // Річне обмеження з вихідного коду (2026)
+
         const compensation =
           Math.min(rawCompensation, 86000000);
 
-        // Власні витрати після компенсації
+        // Власні витрати
+
         const ownExpenses =
           totalPrice - compensation;
 
-        // Захист від NaN та Infinity
+        // Захист від некоректних результатів
+
         const numbers = [
+
           totalPrice,
           basePrice,
           compensation,
           ownExpenses
+
         ];
 
         if (!numbers.every(Number.isFinite)) {
@@ -1247,11 +2333,12 @@
           );
 
           return;
+
         }
 
-        // ====================================
-        // 9. ВИВЕДЕННЯ РЕЗУЛЬТАТІВ
-        // ====================================
+        /* =====================================
+           11. ВИВЕДЕННЯ РЕЗУЛЬТАТІВ
+           ===================================== */
 
         compensationResult.textContent =
           formatMoney(compensation);
@@ -1268,7 +2355,7 @@
         ownResult.textContent =
           formatMoney(ownExpenses);
 
-        // Інформаційне повідомлення
+        // Повідомлення щодо ставки
 
         if (rate === 40) {
 
@@ -1284,18 +2371,24 @@
             "Фактичне право на компенсацію залежить " +
             "від відповідності техніки та покупця " +
             "умовам державної програми.";
+
         }
 
+        // Інформація про застосування ліміту
+
         if (rawCompensation > 86000000) {
+
           resultNotice.textContent +=
             " Застосовано ліміт 86 млн грн на покупця " +
             "за 2026 рік. Попередні виплати не враховані.";
+
         }
+
       }
 
-      // ====================================
-      // 10. АВТОПІДСТАНОВКА ЦІНИ
-      // ====================================
+      /* =====================================
+         12. АВТОМАТИЧНЕ ПІДСТАВЛЕННЯ ЦІНИ
+         ===================================== */
 
       function updatePriceFromModel() {
 
@@ -1304,6 +2397,7 @@
         if (selectedModel === "manual") {
 
           priceInput.value = "";
+
           priceInput.focus();
 
         } else if (
@@ -1315,50 +2409,65 @@
 
           priceInput.value =
             machinePrices[selectedModel];
+
         }
 
         calculateCompensation();
+
       }
 
-      // ====================================
-      // 11. ОБРОБНИКИ ПОДІЙ
-      // ====================================
+      /* =====================================
+         13. ОБРОБНИКИ ПОДІЙ
+         ===================================== */
+
+      // Зміна моделі техніки
 
       modelSelect.addEventListener(
         "change",
         updatePriceFromModel
       );
 
+      // Зміна вартості
+
       priceInput.addEventListener(
         "input",
         calculateCompensation
       );
+
+      // Зміна кількості
 
       quantityInput.addEventListener(
         "input",
         calculateCompensation
       );
 
+      // Зміна ПДВ
+
       vatSelect.addEventListener(
         "change",
         calculateCompensation
       );
+
+      // Зміна ставки
 
       rateSelect.addEventListener(
         "change",
         calculateCompensation
       );
 
+      // Натискання кнопки розрахунку
+
       form.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
         calculateCompensation();
+
       });
 
-      // ====================================
-      // 12. ПОЧАТКОВИЙ РОЗРАХУНОК
-      // ====================================
+      /* =====================================
+         14. ПОЧАТКОВИЙ РОЗРАХУНОК
+         ===================================== */
 
       updatePriceFromModel();
 
